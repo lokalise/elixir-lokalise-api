@@ -5,8 +5,12 @@ defmodule ElixirLokaliseApi.DynamicResource do
     quote bind_quoted: [import_functions: import_functions] do
       alias ElixirLokaliseApi.Request
 
-      if :get in import_functions do
-        def get(), do: Request.get() #__MODULE__, sid, options)
+      if :find in import_functions do
+        def find(id), do: Request.get(__MODULE__, id)
+      end
+
+      if :all in import_functions do
+        def all, do: Request.get(__MODULE__)
       end
     end
   end

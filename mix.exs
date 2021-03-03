@@ -11,7 +11,11 @@ defmodule ElixirLokaliseApi.MixProject do
       source_url: "https://github.com/",
       package: package(),
       docs: docs(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        vcr: :test, "vcr.delete": :test, "vcr.check": :test, "vcr.show": :test, coveralls: :test
+      ]
     ]
   end
 
@@ -27,7 +31,9 @@ defmodule ElixirLokaliseApi.MixProject do
     [
       {:httpoison, ">= 0.9.0"},
       {:jason, "~> 1.2"},
-      {:ex_doc, "~> 0.23", only: [:dev, :test]}
+      {:ex_doc, "~> 0.23", only: [:dev, :test]},
+      {:exvcr, "~> 0.11", only: :test},
+      {:excoveralls, "~> 0.13", only: :test}
     ]
   end
 

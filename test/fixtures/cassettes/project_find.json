@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/771432525f9836bbd50459.22958598"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"771432525f9836bbd50459.22958598\",\"project_type\":\"localization_files\",\"name\":\"OnBoarding\",\"description\":\"Lokalise onboarding course\",\"created_at\":\"2020-10-27 15:03:23 (Etc\\/UTC)\",\"created_at_timestamp\":1603811003,\"created_by\":20181,\"created_by_email\":\"bodrovis@protonmail.com\",\"team_id\":176692,\"base_language_id\":640,\"base_language_iso\":\"en\",\"settings\":{\"per_platform_key_names\":false,\"reviewing\":true,\"upvoting\":true,\"auto_toggle_unverified\":true,\"offline_translation\":true,\"key_editing\":true,\"inline_machine_translations\":true,\"branching\":true,\"custom_translation_statuses\":true,\"custom_translation_statuses_allow_multiple\":true},\"statistics\":{\"progress_total\":28,\"keys_total\":16,\"team\":7,\"base_words\":53,\"qa_issues_total\":266,\"qa_issues\":{\"not_reviewed\":192,\"unverified\":68,\"spelling_grammar\":5,\"inconsistent_placeholders\":0,\"inconsistent_html\":0,\"different_number_of_urls\":0,\"different_urls\":0,\"leading_whitespace\":0,\"trailing_whitespace\":0,\"different_number_of_email_address\":0,\"different_email_address\":0,\"different_brackets\":1,\"different_numbers\":0,\"double_space\":0,\"special_placeholder\":0},\"languages\":[{\"language_id\":714,\"language_iso\":\"ar\",\"progress\":0,\"words_to_do\":53},{\"language_id\":764,\"language_iso\":\"ca\",\"progress\":15,\"words_to_do\":45},{\"language_id\":765,\"language_iso\":\"cs\",\"progress\":0,\"words_to_do\":53},{\"language_id\":10001,\"language_iso\":\"custom_que\",\"progress\":13,\"words_to_do\":46},{\"language_id\":666,\"language_iso\":\"de\",\"progress\":62,\"words_to_do\":20},{\"language_id\":672,\"language_iso\":\"de_DE\",\"progress\":11,\"words_to_do\":47},{\"language_id\":640,\"language_iso\":\"en\",\"progress\":100,\"words_to_do\":0},{\"language_id\":1055,\"language_iso\":\"en-us\",\"progress\":16,\"words_to_do\":44},{\"language_id\":10154,\"language_iso\":\"et\",\"progress\":0,\"words_to_do\":53},{\"language_id\":673,\"language_iso\":\"fr\",\"progress\":84,\"words_to_do\":8},{\"language_id\":10153,\"language_iso\":\"lv\",\"progress\":20,\"words_to_do\":42},{\"language_id\":748,\"language_iso\":\"pl\",\"progress\":0,\"words_to_do\":53},{\"language_id\":597,\"language_iso\":\"ru\",\"progress\":71,\"words_to_do\":15},{\"language_id\":601,\"language_iso\":\"zh-TW\",\"progress\":0,\"words_to_do\":53}]}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 03 Mar 2021 18:31:06 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 03 Mar 2021 18:31:06 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

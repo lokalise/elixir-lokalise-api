@@ -5,15 +5,20 @@ defmodule ElixirLokaliseApi.Request do
   alias ElixirLokaliseApi.Parser
   alias __MODULE__
 
-  def get() do
-    url = Config.base_url <> "projects?limit=1"
-    headers = [
+  def get(module, id \\ nil) do
+    url = Config.base_url <> module.path_for(id)
+
+    url
+    |> String.replace_trailing("/", "")
+    |> Request.get!(headers())
+    |> Parser.parse(module)
+  end
+
+  defp headers() do
+    [
       "X-Api-Token": Config.api_token,
       "Accept": "application/json",
       "User-Agent": "elixir-lokalise-api package/#{Config.version}"
     ]
-    url
-    |> Request.get!(headers)
-    |> Parser.parse
   end
 end
