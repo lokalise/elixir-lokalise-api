@@ -2,26 +2,31 @@ defmodule ElixirLokaliseApi.Request do
   use HTTPoison.Base
 
   alias ElixirLokaliseApi.Config
-  alias ElixirLokaliseApi.Parser
+  alias ElixirLokaliseApi.Processor
+  alias ElixirLokaliseApi.UrlGenerator
   alias __MODULE__
 
-  def get(module, id \\ nil) do
-    url = Config.base_url <> module.path_for(id)
+  @defaults [ body: nil, type: nil, id: nil, url_params: Keyword.new(), query_params: Keyword.new() ]
 
-    url
-    |> String.replace_trailing("/", "")
-    |> Request.get!(headers())
-    |> Parser.parse(module)
-  end
+  def get(module, opts \\ []), do: do_request(:get, module, opts)
 
-  def post(module, data \\ nil) do
-    url = Config.base_url <> module.path_for()
-    data = data |> Jason.encode!
+  def post(module, opts \\ []), do: do_request(:post, module, opts)
 
-    url
-    |> String.replace_trailing("/", "")
-    |> Request.post!(data, headers())
-    |> Parser.parse(module)
+  def put(module, opts \\ []), do: do_request(:put, module, opts)
+
+  def delete(module, opts \\ []), do: do_request(:delete, module, opts)
+
+  defp do_request(verb, module, opts) do
+    opts = opts |> prepare_opts()
+    # https://github.com/edgurgel/httpoison/blob/a4a7877/lib/httpoison/base.ex#L135
+    Request.request!(
+      verb,
+      UrlGenerator.generate(module, opts),
+      Processor.encode(opts[:data]),
+      headers(),
+      [ params: opts[:query_params] ]
+    )
+    |> Processor.parse(module, opts[:type])
   end
 
   defp headers() do
@@ -30,5 +35,9 @@ defmodule ElixirLokaliseApi.Request do
       "Accept": "application/json",
       "User-Agent": "elixir-lokalise-api package/#{Config.version}"
     ]
+  end
+
+  defp prepare_opts(opts) do
+    Keyword.merge @defaults, opts
   end
 end

@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "delete",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/529344536040f3e6a18957.70227936"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"529344536040f3e6a18957.70227936\",\"project_deleted\":true}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Thu, 04 Mar 2021 15:56:17 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET, PUT",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Thu, 04 Mar 2021 15:56:17 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

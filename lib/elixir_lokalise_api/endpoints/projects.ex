@@ -1,22 +1,16 @@
 defmodule ElixirLokaliseApi.Projects do
   @model ElixirLokaliseApi.Model.Project
   @collection ElixirLokaliseApi.Collection.Projects
-  @endpoint "projects/"
+  @endpoint "projects/{:project_id}/{:_postfix}"
   @data_key :projects
+  @parent_key :project_id
 
-  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create]
+  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update]
 
-  def model, do: @model
-
-  def collection, do: @collection
-
-  def data_key, do: @data_key
-
-  def path_for, do: @endpoint
-
-  def path_for(id) when is_nil(id) , do: @endpoint
-
-  def path_for(id) do
-    @endpoint <> id
+  def empty(id) do
+    Request.put(__MODULE__, [
+      url_params: [{parent_key(), id}, {:_postfix, "empty"}],
+      type: :raw
+    ])
   end
 end
