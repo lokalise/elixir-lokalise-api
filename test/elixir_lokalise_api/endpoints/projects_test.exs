@@ -10,9 +10,9 @@ defmodule ElixirLokaliseApi.ProjectsTest do
 
   test "lists all projects" do
     use_cassette "projects_all" do
-      {:ok, data} = ElixirLokaliseApi.Projects.all
-      project = data.projects |> List.first()
-      assert Enum.count(data.projects) == 40
+      {:ok, projects} = ElixirLokaliseApi.Projects.all
+      project = projects.items |> List.first()
+      assert Enum.count(projects.items) == 40
       assert project.name == "Branching"
     end
   end
@@ -35,6 +35,24 @@ defmodule ElixirLokaliseApi.ProjectsTest do
       refute project.settings["per_platform_key_names"]
       assert project.settings.reviewing
       assert project.statistics.progress_total == 28
+    end
+  end
+
+  test "creates a project" do
+    use_cassette "project_create" do
+      project_data = %{name: "Elixir SDK", description: "Created via API"}
+      {:ok, project} = ElixirLokaliseApi.Projects.create project_data
+      assert project.name == "Elixir SDK"
+      assert project.description == "Created via API"
+    end
+  end
+
+  test "handles error" do
+    use_cassette "project_create_error" do
+      project_data = %{name: "Elixir SDK", description: "Created via API"}
+      {:error, data, status} = ElixirLokaliseApi.Projects.create project_data
+      assert status == 400
+      assert data.error.message == "Invalid `X-Api-Token` header"
     end
   end
 end

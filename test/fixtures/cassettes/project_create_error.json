@@ -1,0 +1,37 @@
+[
+  {
+    "request": {
+      "body": "{\"description\":\"Created via API\",\"name\":\"Elixir SDK\"}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"error\":{\"message\":\"Invalid `X-Api-Token` header\",\"code\":400}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Thu, 04 Mar 2021 14:49:52 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Thu, 04 Mar 2021 14:49:52 GMT"
+      },
+      "status_code": 400,
+      "type": "ok"
+    }
+  }
+]

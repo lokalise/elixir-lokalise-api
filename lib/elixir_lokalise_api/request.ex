@@ -14,6 +14,16 @@ defmodule ElixirLokaliseApi.Request do
     |> Parser.parse(module)
   end
 
+  def post(module, data \\ nil) do
+    url = Config.base_url <> module.path_for()
+    data = data |> Jason.encode!
+
+    url
+    |> String.replace_trailing("/", "")
+    |> Request.post!(data, headers())
+    |> Parser.parse(module)
+  end
+
   defp headers() do
     [
       "X-Api-Token": Config.api_token,

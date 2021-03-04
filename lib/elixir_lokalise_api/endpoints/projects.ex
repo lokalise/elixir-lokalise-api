@@ -4,7 +4,7 @@ defmodule ElixirLokaliseApi.Projects do
   @endpoint "projects/"
   @data_key :projects
 
-  use ElixirLokaliseApi.DynamicResource, import: [:find, :all]
+  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create]
 
   def model, do: @model
 
@@ -12,7 +12,9 @@ defmodule ElixirLokaliseApi.Projects do
 
   def data_key, do: @data_key
 
-  def path_for(nil), do: @endpoint
+  def path_for, do: @endpoint
+
+  def path_for(id) when is_nil(id) , do: @endpoint
 
   def path_for(id) do
     @endpoint <> id

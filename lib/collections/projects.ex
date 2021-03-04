@@ -1,3 +1,3 @@
 defmodule ElixirLokaliseApi.Collection.Projects do
-  defstruct projects: []
+  defstruct items: []
 end

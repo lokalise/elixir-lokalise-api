@@ -12,6 +12,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
       if :all in import_functions do
         def all, do: Request.get(__MODULE__)
       end
+
+      if :create in import_functions do
+        def create(data), do: Request.post(__MODULE__, data)
+      end
     end
   end
 end
