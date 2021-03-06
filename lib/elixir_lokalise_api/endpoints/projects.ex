@@ -3,6 +3,7 @@ defmodule ElixirLokaliseApi.Projects do
   @collection ElixirLokaliseApi.Collection.Projects
   @endpoint "projects/{:project_id}/{:_postfix}"
   @data_key :projects
+  @singular_data_key nil
   @parent_key :project_id
 
   use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update]

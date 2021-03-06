@@ -14,7 +14,7 @@ defmodule ElixirLokaliseApi.UrlGenerator do
       case params[String.to_atom(param)] do
         nil when required == "!" -> raise("Reqired param #{param} is missing!")
         nil -> ""
-        value -> value
+        value -> to_string(value)
       end
     end)
   end

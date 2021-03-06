@@ -3,6 +3,8 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Projects
+  alias ElixirLokaliseApi.Model.Project, as: ProjectModel
+  alias ElixirLokaliseApi.Collection.Projects, as: ProjectsCollection
 
   setup_all do
     HTTPoison.start
@@ -12,7 +14,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
 
   test "lists all projects" do
     use_cassette "projects_all" do
-      {:ok, projects} = Projects.all
+      {:ok, %ProjectsCollection{} = projects} = Projects.all
       project = projects.items |> List.first()
       assert project.name == "Branching"
 
@@ -33,7 +35,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
 
   test "lists paginated projects" do
     use_cassette "projects_all_paginated" do
-      {:ok, projects} = Projects.all [page: 3, limit: 2]
+      {:ok, %ProjectsCollection{} = projects} = Projects.all page: 3, limit: 2
       project = projects.items |> List.first()
       assert project.name == "Demo"
 
@@ -55,7 +57,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "finds a project" do
     use_cassette "project_find" do
       project_id = "771432525f9836bbd50459.22958598"
-      {:ok, project} = Projects.find(project_id)
+      {:ok, %ProjectModel{} = project} = Projects.find(project_id)
 
       assert project.project_id == project_id
       assert project.project_type == "localization_files"
@@ -77,7 +79,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "creates a project" do
     use_cassette "project_create" do
       project_data = %{name: "Elixir SDK", description: "Created via API"}
-      {:ok, project} = Projects.create project_data
+      {:ok, %ProjectModel{} = project} = Projects.create project_data
       assert project.name == "Elixir SDK"
       assert project.description == "Created via API"
     end
@@ -87,7 +89,8 @@ defmodule ElixirLokaliseApi.ProjectsTest do
     use_cassette "project_update" do
       project_id = "4943030060101f3d1c6ef9.47027075"
       project_data = %{name: "Updated SDK", description: "Updated via API"}
-      {:ok, project} = Projects.update project_id, project_data
+
+      {:ok, %ProjectModel{} = project} = Projects.update project_id, project_data
       assert project.project_id == project_id
       assert project.name == "Updated SDK"
       assert project.description == "Updated via API"
@@ -97,7 +100,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "empties a project" do
     use_cassette "project_empty" do
       project_id = "4943030060101f3d1c6ef9.47027075"
-      {:ok, resp} = Projects.empty project_id
+      {:ok, %{} = resp} = Projects.empty project_id
       assert resp.keys_deleted
       assert resp.project_id == project_id
     end
@@ -106,7 +109,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "deletes a project" do
     use_cassette "project_delete" do
       project_id = "529344536040f3e6a18957.70227936"
-      {:ok, resp} = Projects.delete project_id
+      {:ok, %{} = resp} = Projects.delete project_id
       assert resp.project_deleted
       assert resp.project_id == project_id
     end
@@ -115,7 +118,8 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "handles error" do
     use_cassette "project_create_error" do
       project_data = %{name: "Elixir SDK", description: "Created via API"}
-      {:error, data, status} = Projects.create project_data
+
+      {:error, %{} = data, status} = Projects.create project_data
       assert status == 400
       assert data.error.message == "Invalid `X-Api-Token` header"
     end
