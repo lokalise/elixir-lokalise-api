@@ -9,14 +9,10 @@ defmodule ElixirLokaliseApi.Processor do
   def parse(response, module, :raw), do: do_parse(response, module, :raw)
   def parse(response, module, _), do: do_parse(response, module, nil)
 
-  defp do_parse(response, module, type) do
-    do_process(response, module, type)
-  end
-
   def encode(nil), do: ""
   def encode(data), do: Jason.encode!(data)
 
-  defp do_process(response, module, type) do
+  defp do_parse(response, module, type) do
     data_key = module.data_key
     singular_data_key = module.singular_data_key
     json = response.body |> Jason.decode!(keys: :atoms)
@@ -29,7 +25,7 @@ defmodule ElixirLokaliseApi.Processor do
       %{^data_key => items_data} when (is_list(items_data) or is_map(items_data)) and status < 400 ->
         {:ok, create_struct(:collection, module, items_data, response.headers, json)}
 
-      %{^singular_data_key => item_data} when (is_list(item_data) or is_map(item_data)) and not is_nil(singular_data_key) and status < 400 ->
+      %{^singular_data_key => item_data} when (is_list(item_data) or is_map(item_data)) and status < 400 ->
         {:ok, create_struct(:model, module, item_data)}
 
       item_data when status < 400 ->

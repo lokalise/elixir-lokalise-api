@@ -1,7 +1,7 @@
 defmodule ElixirLokaliseApi.Branches do
   @model ElixirLokaliseApi.Model.Branch
   @collection ElixirLokaliseApi.Collection.Branches
-  @endpoint "projects/{:project_id}/branches/{:branch_id}/{:_postfix}"
+  @endpoint "projects/{!:project_id}/branches/{:branch_id}/{:_postfix}"
   @data_key :branches
   @singular_data_key :branch
   @parent_key :project_id
