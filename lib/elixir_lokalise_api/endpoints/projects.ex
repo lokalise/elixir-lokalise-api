@@ -6,12 +6,12 @@ defmodule ElixirLokaliseApi.Projects do
   @singular_data_key nil
   @parent_key :project_id
 
-  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update]
+  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update2]
 
   def empty(id) do
-    Request.put(__MODULE__, [
-      url_params: [{parent_key(), id}, {:_postfix, "empty"}],
+    make_request(:put,
+      url_params: url_params(id) ++ [ {:_postfix, "empty"} ],
       type: :raw
-    ])
+    )
   end
 end

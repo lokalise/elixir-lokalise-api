@@ -8,15 +8,7 @@ defmodule ElixirLokaliseApi.Request do
 
   @defaults [ type: nil, data: "", url_params: Keyword.new(), query_params: Keyword.new() ]
 
-  def get(module, opts \\ []), do: do_request(:get, module, opts)
-
-  def post(module, opts \\ []), do: do_request(:post, module, opts)
-
-  def put(module, opts \\ []), do: do_request(:put, module, opts)
-
-  def delete(module, opts \\ []), do: do_request(:delete, module, opts)
-
-  defp do_request(verb, module, opts) do
+  def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()
     # https://github.com/edgurgel/httpoison/blob/a4a7877/lib/httpoison/base.ex#L135
     Request.request!(

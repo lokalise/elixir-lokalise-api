@@ -10,9 +10,9 @@ defmodule ElixirLokaliseApi.Branches do
   use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :find2, :all2, :create2, :delete2, :update3]
 
   def merge(project_id, item_id, data \\ %{}) do
-    Request.post(__MODULE__,
+    make_request(:post,
       data: data,
-      url_params: [{parent_key(), project_id}, {item_key(), item_id}, {:_postfix, "merge"}],
+      url_params: url_params(project_id, item_id) ++ [{:_postfix, "merge"}],
       type: :raw
     )
   end

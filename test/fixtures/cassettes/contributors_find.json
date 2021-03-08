@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/217830385f9c0fdbd589f0.91420183/contributors/72008"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"217830385f9c0fdbd589f0.91420183\",\"contributor\":{\"user_id\":72008,\"email\":\"golosizpru+ann@gmail.com\",\"fullname\":\"Ann\",\"created_at\":\"2020-07-27 14:35:45 (Etc\\/UTC)\",\"created_at_timestamp\":1595860545,\"is_admin\":false,\"is_reviewer\":true,\"languages\":[{\"lang_id\":640,\"lang_iso\":\"en\",\"lang_name\":\"English\",\"is_writable\":false},{\"lang_id\":600,\"lang_iso\":\"ru_RU\",\"lang_name\":\"Russian (Russia)\",\"is_writable\":true}],\"admin_rights\":[]}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Mon, 08 Mar 2021 17:59:04 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Mon, 08 Mar 2021 17:59:04 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
