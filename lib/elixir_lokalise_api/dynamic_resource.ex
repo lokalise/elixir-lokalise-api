@@ -21,12 +21,20 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def item_key, do: @item_key
       end
 
+      if :subitem_reader in import_functions do
+        def subitem_key, do: @subitem_key
+      end
+
       if :find in import_functions do
         def find(parent_id), do: Request.get(__MODULE__, [ url_params: [{parent_key(), parent_id}] ])
       end
 
       if :find2 in import_functions do
         def find(parent_id, item_id), do: Request.get(__MODULE__, [ url_params: [{parent_key(), parent_id}, {item_key(), item_id}] ])
+      end
+
+      if :find3 in import_functions do
+        def find(parent_id, item_id, subitem_id), do: Request.get(__MODULE__, [ url_params: [{parent_key(), parent_id}, {item_key(), item_id}, {subitem_key(), subitem_id}] ])
       end
 
       if :all in import_functions do
@@ -37,12 +45,20 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def all(parent_id, params \\ []), do: Request.get(__MODULE__, [ url_params: [{parent_key(), parent_id}], query_params: params ])
       end
 
+      if :all3 in import_functions do
+        def all(parent_id, item_id, params \\ []), do: Request.get(__MODULE__, [ url_params: [{parent_key(), parent_id}, {item_key(), item_id}], query_params: params ])
+      end
+
       if :create in import_functions do
         def create(data), do: Request.post(__MODULE__, [ data: data ])
       end
 
       if :create2 in import_functions do
         def create(parent_id, data), do: Request.post(__MODULE__, [ url_params: [{parent_key(), parent_id}], data: data ])
+      end
+
+      if :create3 in import_functions do
+        def create(parent_id, item_id, data), do: Request.post(__MODULE__, [ url_params: [{parent_key(), parent_id}, {item_key(), item_id}], data: data ])
       end
 
       if :update in import_functions do
@@ -59,6 +75,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
 
       if :delete2 in import_functions do
         def delete(parent_id, item_id), do: Request.delete(__MODULE__, url_params: [{parent_key(), parent_id}, {item_key(), item_id}], type: :raw)
+      end
+
+      if :delete3 in import_functions do
+        def delete(parent_id, item_id, subitem_id), do: Request.delete(__MODULE__, url_params: [{parent_key(), parent_id}, {item_key(), item_id}, {subitem_key(), subitem_id}], type: :raw)
       end
 
       # TODO: research further
