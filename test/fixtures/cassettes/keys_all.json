@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/572560965f984614d567a4.18006942/keys"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"572560965f984614d567a4.18006942\",\"keys\":[{\"key_id\":79039606,\"created_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"created_at_timestamp\":1614704401,\"key_name\":{\"ios\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:title\",\"android\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:title\",\"web\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:title\",\"other\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:title\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[\"Personal\",\"Post\",\"Storyblok\",\"Working with tags\"],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":3,\"char_limit\":500,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-02 17:00:02 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704402,\"translations_modified_at\":\"2021-03-02 17:01:26 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1614704486},{\"key_id\":79039607,\"created_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"created_at_timestamp\":1614704401,\"key_name\":{\"ios\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:intro\",\"android\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:intro\",\"web\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:intro\",\"other\":\"39729161:81fed744-7540-46b5-9c42-0619b743f323:intro\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[\"Personal\",\"Post\",\"Storyblok\",\"Working with tags\"],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":6,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"translations_modified_at\":\"2021-03-02 17:01:14 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1614704474},{\"key_id\":79039608,\"created_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"created_at_timestamp\":1614704401,\"key_name\":{\"ios\":\"39708857:f9257801-21d2-43e4-b63f-cdfa223eb123:title\",\"android\":\"39708857:f9257801-21d2-43e4-b63f-cdfa223eb123:title\",\"web\":\"39708857:f9257801-21d2-43e4-b63f-cdfa223eb123:title\",\"other\":\"39708857:f9257801-21d2-43e4-b63f-cdfa223eb123:title\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[\"Home\",\"Landing\",\"Personal\",\"Storyblok\"],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":0,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"translations_modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1614704401},{\"key_id\":79039609,\"created_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"created_at_timestamp\":1614704401,\"key_name\":{\"ios\":\"39708857:d84e64cd-f107-41c6-baaf-8cf690f37f8c:headline\",\"android\":\"39708857:d84e64cd-f107-41c6-baaf-8cf690f37f8c:headline\",\"web\":\"39708857:d84e64cd-f107-41c6-baaf-8cf690f37f8c:headline\",\"other\":\"39708857:d84e64cd-f107-41c6-baaf-8cf690f37f8c:headline\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[\"Home\",\"Personal\",\"Storyblok\",\"teaser\"],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":3,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"translations_modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1614704401},{\"key_id\":79039610,\"created_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"created_at_timestamp\":1614704401,\"key_name\":{\"ios\":\"39708857:92f2ce92-c3e4-406f-882c-a90b98a2aa32:button\",\"android\":\"39708857:92f2ce92-c3e4-406f-882c-a90b98a2aa32:button\",\"web\":\"39708857:92f2ce92-c3e4-406f-882c-a90b98a2aa32:button\",\"other\":\"39708857:92f2ce92-c3e4-406f-882c-a90b98a2aa32:button\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[\"call_to_action\",\"Home\",\"Personal\",\"Storyblok\"],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":3,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"translations_modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1614704401}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Tue, 09 Mar 2021 15:42:40 GMT",
+        "X-Pagination-Total-Count": "5",
+        "X-Pagination-Page-Count": "1",
+        "X-Pagination-Limit": "100",
+        "X-Pagination-Page": "1",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Tue, 09 Mar 2021 15:42:40 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

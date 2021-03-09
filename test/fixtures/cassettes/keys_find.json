@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/572560965f984614d567a4.18006942/keys/79039609"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"572560965f984614d567a4.18006942\",\"key\":{\"key_id\":79039609,\"created_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"created_at_timestamp\":1614704401,\"key_name\":{\"ios\":\"headline\",\"android\":\"headline\",\"web\":\"headline\",\"other\":\"headline\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[\"Home\",\"Personal\",\"Storyblok\",\"teaser\"],\"comments\":[],\"screenshots\":[],\"translations\":[{\"translation_id\":566314684,\"key_id\":79039609,\"language_iso\":\"en\",\"translation\":\"Join our community!\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":3,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":566314685,\"key_id\":79039609,\"language_iso\":\"de\",\"translation\":\"Tritt unserer Gemeinschaft bei!\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-09 15:45:34 (Etc\\/UTC)\",\"modified_at_timestamp\":1615304734,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":4,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":566314686,\"key_id\":79039609,\"language_iso\":\"fr\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":566314687,\"key_id\":79039609,\"language_iso\":\"lv_LV\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-02 17:00:01 (Etc\\/UTC)\",\"modified_at_timestamp\":1614704401,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null}],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":3,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-09 15:45:25 (Etc\\/UTC)\",\"modified_at_timestamp\":1615304725,\"translations_modified_at\":\"2021-03-09 15:45:34 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1615304734}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Tue, 09 Mar 2021 15:47:40 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Tue, 09 Mar 2021 15:47:40 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

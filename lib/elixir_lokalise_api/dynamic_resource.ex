@@ -39,7 +39,7 @@ defmodule ElixirLokaliseApi.DynamicResource do
       end
 
       if :find2 in import_functions do
-        def find(parent_id, item_id), do: do_get([parent_id, item_id])
+        def find(parent_id, item_id, params \\ []), do: do_get([parent_id, item_id], [query_params: params])
       end
 
       if :find3 in import_functions do

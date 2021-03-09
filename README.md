@@ -1,5 +1,8 @@
 # ElixirLokaliseApi
 
+[![Build Status](https://travis-ci.com/bodrovis/elixir-lokalise-api.svg?branch=master)](https://travis-ci.com/bodrovis/elixir-lokalise-api)
+[![Coverage Status](https://coveralls.io/repos/github/bodrovis/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/bodrovis/elixir-lokalise-api)
+
 WIP
 
 ## Installation
