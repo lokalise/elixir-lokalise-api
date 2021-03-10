@@ -123,4 +123,72 @@ defmodule ElixirLokaliseApi.KeysTest do
       assert List.first(key.translations).translation == "Hi from Elixir"
     end
   end
+
+  test "updates a key" do
+    use_cassette "keys_update" do
+      key_id = 80125772
+      data = %{
+        description: "Updated via SDK",
+        tags: ["sample"]
+      }
+
+      {:ok, %KeyModel{} = key} = Keys.update @project_id, key_id, data
+
+      assert key.key_id == key_id
+      assert key.description == "Updated via SDK"
+      assert key.tags == ["sample"]
+    end
+  end
+
+  test "updates keys in bulk" do
+    use_cassette "keys_update_bulk" do
+      key_id = 80125772
+      key_id2 = 79039609
+      data = %{keys: [
+        %{
+          key_id: key_id,
+          description: "Bulk updated via SDK",
+          tags: ["sample"]
+        },
+        %{
+          key_id: key_id2,
+          platforms: ["web", "android"]
+        }
+      ]}
+
+      {:ok, %KeysCollection{} = keys} = Keys.update_bulk @project_id, data
+
+      assert Enum.count(keys.items) == 2
+      [ key1 | [key2 | []]] = keys.items
+      assert Enum.sort(key1.platforms) == ["android", "web"]
+
+      assert key2.description == "Bulk updated via SDK"
+    end
+  end
+
+  test "deletes a key" do
+    use_cassette "keys_delete" do
+      key_id = 79039610
+
+      {:ok, %{} = resp} = Keys.delete @project_id, key_id
+
+      assert resp.key_removed
+      assert resp.project_id == @project_id
+    end
+  end
+
+  test "deletes keys in bulk" do
+    use_cassette "keys_delete_bulk" do
+      key_id = 80125772
+      key_id2 = 79039609
+      data = %{keys: [
+        key_id, key_id2
+      ]}
+
+      {:ok, %{} = resp} = Keys.delete_bulk @project_id, data
+
+      assert resp.keys_removed
+      assert resp.project_id == @project_id
+    end
+  end
 end

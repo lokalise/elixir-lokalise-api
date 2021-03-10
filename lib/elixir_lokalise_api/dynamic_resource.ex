@@ -74,6 +74,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def update(parent_id, data), do: do_update([parent_id], [data: data])
       end
 
+      if :update2_bulk in import_functions do
+        def update_bulk(parent_id, data), do: do_update([parent_id], [data: data])
+      end
+
       if :update3 in import_functions do
         def update(parent_id, item_id, data), do: do_update([parent_id, item_id], [data: data])
       end
@@ -84,6 +88,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
 
       if :delete2 in import_functions do
         def delete(parent_id, item_id), do: do_delete([parent_id, item_id])
+      end
+
+      if :delete2_bulk in import_functions do
+        def delete_bulk(parent_id, data), do: do_delete([parent_id], [data: data])
       end
 
       if :delete3 in import_functions do

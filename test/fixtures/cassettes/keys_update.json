@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "{\"description\":\"Updated via SDK\",\"tags\":[\"sample\"]}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "put",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/572560965f984614d567a4.18006942/keys/80125772"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"572560965f984614d567a4.18006942\",\"key\":{\"key_id\":80125772,\"created_at\":\"2021-03-09 15:59:32 (Etc\\/UTC)\",\"created_at_timestamp\":1615305572,\"key_name\":{\"ios\":\"elixir\",\"android\":\"elixir\",\"web\":\"elixir\",\"other\":\"elixir\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"Updated via SDK\",\"platforms\":[\"android\",\"web\"],\"tags\":[\"sample\"],\"comments\":[],\"screenshots\":[],\"translations\":[{\"translation_id\":574172550,\"key_id\":80125772,\"language_iso\":\"en\",\"translation\":\"Hi from Elixir\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-09 15:59:32 (Etc\\/UTC)\",\"modified_at_timestamp\":1615305572,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":3,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":574172548,\"key_id\":80125772,\"language_iso\":\"de\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-09 15:59:32 (Etc\\/UTC)\",\"modified_at_timestamp\":1615305572,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":574172551,\"key_id\":80125772,\"language_iso\":\"fr\",\"translation\":\"test\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-09 15:59:32 (Etc\\/UTC)\",\"modified_at_timestamp\":1615305572,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":1,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":574172549,\"key_id\":80125772,\"language_iso\":\"lv_LV\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-09 15:59:32 (Etc\\/UTC)\",\"modified_at_timestamp\":1615305572,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null}],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":3,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-10 13:04:53 (Etc\\/UTC)\",\"modified_at_timestamp\":1615381493,\"translations_modified_at\":\"2021-03-09 15:59:32 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1615305572}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 10 Mar 2021 13:04:53 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 10 Mar 2021 13:04:54 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
