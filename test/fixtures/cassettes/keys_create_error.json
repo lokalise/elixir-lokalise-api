@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "{\"keys\":[{\"key_name\":{\"android\":\"elixir\",\"ios\":\"elixir_ios\",\"other\":\"el_other\",\"web\":\"elixir\"},\"platforms\":[\"web\",\"android\"],\"translations\":[{\"language_iso\":\"en\",\"translation\":\"Hi from Elixir\"}]},{\"key_name\":{\"android\":\"existing\",\"ios\":\"existing\",\"other\":\"existing\",\"web\":\"existing\"},\"platforms\":[\"web\"],\"translations\":[{\"language_iso\":\"en\",\"translation\":\"test\"}]}]}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/572560965f984614d567a4.18006942/keys"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"572560965f984614d567a4.18006942\",\"keys\":[{\"key_id\":80888147,\"created_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"created_at_timestamp\":1615832527,\"key_name\":{\"ios\":\"elixir\",\"android\":\"elixir\",\"web\":\"elixir\",\"other\":\"elixir\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"android\",\"web\"],\"tags\":[],\"comments\":[],\"screenshots\":[],\"translations\":[{\"translation_id\":579440322,\"key_id\":80888147,\"language_iso\":\"en\",\"translation\":\"Hi from Elixir\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":3,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":579440319,\"key_id\":80888147,\"language_iso\":\"de\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":579440320,\"key_id\":80888147,\"language_iso\":\"fr\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":579440321,\"key_id\":80888147,\"language_iso\":\"lv_LV\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":579440318,\"key_id\":80888147,\"language_iso\":\"aa\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null},{\"translation_id\":579440317,\"key_id\":80888147,\"language_iso\":\"samp\",\"translation\":\"\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":0,\"custom_translation_statuses\":[],\"task_id\":null}],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":3,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"modified_at_timestamp\":1615832527,\"translations_modified_at\":\"2021-03-15 18:22:07 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1615832527}],\"errors\":[{\"message\":\"This key name is already taken\",\"code\":400,\"key_name\":{\"ios\":\"existing\",\"android\":\"existing\",\"web\":\"existing\",\"other\":\"existing\"}}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Mon, 15 Mar 2021 18:22:07 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Mon, 15 Mar 2021 18:22:07 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

@@ -4,5 +4,6 @@ defmodule ElixirLokaliseApi.Collection.Languages do
             page_count: nil,
             per_page_limit: nil,
             current_page: nil,
-            project_id: nil
+            project_id: nil,
+            errors: []
 end

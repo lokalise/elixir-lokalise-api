@@ -124,6 +124,50 @@ defmodule ElixirLokaliseApi.KeysTest do
     end
   end
 
+  test "creates a key with error" do
+    use_cassette "keys_create_error" do
+      data = %{
+        keys: [%{
+          key_name: %{
+            web: "elixir",
+            android: "elixir",
+            ios: "elixir_ios",
+            other: "el_other"
+          },
+          platforms: ["web", "android"],
+          translations: [
+            %{
+                language_iso: "en",
+                translation: "Hi from Elixir"
+            }
+          ]
+        },
+        %{
+          key_name: %{
+            web: "existing",
+            android: "existing",
+            ios: "existing",
+            other: "existing"
+          },
+          platforms: ["web"],
+          translations: [
+            %{
+                language_iso: "en",
+                translation: "test"
+            }
+          ]
+        }]
+      }
+      {:ok, %KeysCollection{} = keys} = Keys.create @project_id, data
+
+      key = keys.items |> List.first
+      assert key.key_name.android == "elixir"
+      assert List.first(key.translations).translation == "Hi from Elixir"
+
+      assert hd(keys.errors).message == "This key name is already taken"
+    end
+  end
+
   test "updates a key" do
     use_cassette "keys_update" do
       key_id = 80125772

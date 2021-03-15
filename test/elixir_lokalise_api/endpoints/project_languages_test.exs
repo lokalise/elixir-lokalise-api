@@ -81,6 +81,26 @@ defmodule ElixirLokaliseApi.ProjectLanguagesTest do
     end
   end
 
+  test "creates project languages with errors" do
+    use_cassette "project_languages_create_errors" do
+      data = %{languages: [
+        %{
+          lang_iso: "ru"
+        },
+        %{
+          lang_iso: "nl"
+        }
+      ]}
+
+      {:ok, %LanguagesCollection{} = languages} = ProjectLanguages.create @project_id, data
+
+      lang = hd languages.items
+      assert lang.lang_iso == "nl"
+
+      assert hd(languages.errors).message == "Language is already added to the project"
+    end
+  end
+
   test "updates a project language" do
     use_cassette "project_language_update" do
       lang_id = 894
