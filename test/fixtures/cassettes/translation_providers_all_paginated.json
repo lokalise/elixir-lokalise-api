@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/teams/176692/translation_providers?page=2&limit=1"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"translation_providers\":[{\"provider_id\":3,\"name\":\"Google\",\"slug\":\"google\",\"price_pair_min\":\"0.00\",\"website_url\":\"https:\\/\\/translate.google.com\",\"description\":\"Google Translate with neural machine translation support. NMT is not available for all language pairs yet.\"}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Mon, 15 Mar 2021 16:46:50 GMT",
+        "X-Pagination-Total-Count": "2",
+        "X-Pagination-Page-Count": "2",
+        "X-Pagination-Limit": "1",
+        "X-Pagination-Page": "2",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Mon, 15 Mar 2021 16:46:50 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

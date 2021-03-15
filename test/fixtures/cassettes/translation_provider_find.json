@@ -1,0 +1,38 @@
+[{
+  "request": {
+    "body": "\"\"",
+    "headers": {
+      "X-Api-Token": "***",
+      "Accept": "application/json",
+      "User-Agent": "elixir-lokalise-api package/0.1.0"
+    },
+    "method": "get",
+    "options": [],
+    "request_body": "",
+    "url": "https://api.lokalise.com/api2/teams/176692/translation_providers/3"
+  },
+  "response": {
+    "binary": false,
+    "body": "{\"provider_id\":3,\"name\":\"Google\",\"slug\":\"google\",\"price_pair_min\":\"0.00\",\"website_url\":\"https:\\/\\/translate.google.com\",\"description\":\"Google Translate with neural machine translation support. NMT is not available for all language pairs yet.\",\"tiers\":[{\"tier_id\":1,\"title\":\"Machine translation\"}],\"pairs\":[{\"tier_id\":1,\"price_per_word\":\"0.001\",\"from_lang_iso\":\"ru\",\"from_lang_name\":\"Russian\",\"to_lang_iso\":\"zh_TW\",\"to_lang_name\":\"Chinese Traditional\"}]}",
+    "headers": {
+      "Server": "nginx",
+      "Content-Type": "application/json",
+      "Transfer-Encoding": "chunked",
+      "Connection": "keep-alive",
+      "Vary": "Accept-Encoding",
+      "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date": "Mon, 15 Mar 2021 16:51:04 GMT",
+      "Pragma": "no-cache",
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "deny",
+      "X-XSS-Protection": "1; mode=block",
+      "Strict-Transport-Security": "max-age=31536000",
+      "Referrer-Policy": "origin",
+      "Expires": "Mon, 15 Mar 2021 16:51:05 GMT",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "Content-Type"
+    },
+    "status_code": 200,
+    "type": "ok"
+  }
+}]

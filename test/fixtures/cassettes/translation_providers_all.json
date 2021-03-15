@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/teams/176692/translation_providers"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"translation_providers\":[{\"provider_id\":1,\"name\":\"Gengo\",\"slug\":\"gengo\",\"price_pair_min\":\"0.00\",\"website_url\":\"https:\\/\\/gengo.com\",\"description\":\"At Gengo, our mission is to provide language services to everyone and connect a global community. Our network of over 18,000 translators are tested and qualified to meet stringent project standards. Translators are based around the world and in every timezone, which enables us to support over 35 languages and work towards the Gengo mission.\"},{\"provider_id\":3,\"name\":\"Google\",\"slug\":\"google\",\"price_pair_min\":\"0.00\",\"website_url\":\"https:\\/\\/translate.google.com\",\"description\":\"Google Translate with neural machine translation support. NMT is not available for all language pairs yet.\"},{\"provider_id\":4,\"name\":\"Lokalise\",\"slug\":\"lokalise\",\"price_pair_min\":\"10.00\",\"website_url\":\"https:\\/\\/lokalise.com\",\"description\":\"Our native professional translators are experts in mobile app, software, e-learning, website, multimedia and game localization. Translations in over 90 languages are available.<br><br>Reach out for our translation managers in our in-web support chat. They will guide you through.<br><br><strong>Lifetime quality guarantee<\\/strong> applies.<br><br>Lokalise will not translate unlawful, abusive, pornographic, discriminatory or gambling-related content.<br>As soon as such content is found in the order for translation placed with Lokalise, the order is stopped, and the untranslated part is refunded. Please see more details in Section 7 \\\"Prohibited Content\\\" of <a href=\\\"https:\\/\\/lokalise.com\\/terms\\\" target=\\\"_blank\\\">Lokalise Terms<\\/a>.\"},{\"provider_id\":5,\"name\":\"DeepL\",\"slug\":\"deepl\",\"price_pair_min\":\"0.00\",\"website_url\":\"https:\\/\\/deepl.com\",\"description\":\"DeepL Pro neural machine translation.\"}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Mon, 15 Mar 2021 16:38:27 GMT",
+        "X-Pagination-Total-Count": "2",
+        "X-Pagination-Page-Count": "1",
+        "X-Pagination-Limit": "100",
+        "X-Pagination-Page": "1",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Mon, 15 Mar 2021 16:38:27 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

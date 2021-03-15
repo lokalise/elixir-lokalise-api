@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/teams"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"teams\":[{\"team_id\":218347,\"name\":\"Webinar\",\"plan\":\"Trial\",\"created_at\":\"2020-09-08 14:03:19 (Etc\\/UTC)\",\"created_at_timestamp\":1599573799,\"quota_usage\":{\"users\":2,\"keys\":101,\"projects\":16,\"mau\":0},\"quota_allowed\":{\"users\":999999999,\"keys\":999999999,\"projects\":999999999,\"mau\":999999999}},{\"team_id\":199048,\"name\":\"Sample\",\"plan\":\"Trial\",\"created_at\":\"2019-12-25 13:50:00 (Etc\\/UTC)\",\"created_at_timestamp\":1577281800,\"quota_usage\":{\"users\":1,\"keys\":0,\"projects\":0,\"mau\":0},\"quota_allowed\":{\"users\":999999999,\"keys\":999999999,\"projects\":999999999,\"mau\":999999999}},{\"team_id\":186612,\"name\":\"NikaNika\",\"plan\":\"Trial\",\"created_at\":\"2019-04-11 11:12:49 (Etc\\/UTC)\",\"created_at_timestamp\":1554981169,\"quota_usage\":{\"users\":2,\"keys\":715,\"projects\":4,\"mau\":0},\"quota_allowed\":{\"users\":999999999,\"keys\":999999999,\"projects\":999999999,\"mau\":999999999}},{\"team_id\":176692,\"name\":\"Ilya's Team\",\"plan\":\"Trial\",\"created_at\":\"2018-08-21 15:35:25 (Etc\\/UTC)\",\"created_at_timestamp\":1534865725,\"quota_usage\":{\"users\":20,\"keys\":183,\"projects\":21,\"mau\":0},\"quota_allowed\":{\"users\":999999999,\"keys\":999999999,\"projects\":999999999,\"mau\":999999999}},{\"team_id\":170312,\"name\":\"Lokalise\",\"plan\":\"Trial\",\"created_at\":\"2017-10-17 09:10:00 (Etc\\/UTC)\",\"created_at_timestamp\":1508231400,\"quota_usage\":{\"users\":55,\"keys\":6958,\"projects\":23,\"mau\":0},\"quota_allowed\":{\"users\":999999999,\"keys\":999999999,\"projects\":999999999,\"mau\":999999999}}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Mon, 15 Mar 2021 16:01:08 GMT",
+        "X-Pagination-Total-Count": "5",
+        "X-Pagination-Page-Count": "1",
+        "X-Pagination-Limit": "100",
+        "X-Pagination-Page": "1",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Mon, 15 Mar 2021 16:01:08 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
