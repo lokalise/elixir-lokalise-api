@@ -7,14 +7,14 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   alias ElixirLokaliseApi.Collection.Projects, as: ProjectsCollection
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   doctest Projects
 
   test "lists all projects" do
     use_cassette "projects_all" do
-      {:ok, %ProjectsCollection{} = projects} = Projects.all
+      {:ok, %ProjectsCollection{} = projects} = Projects.all()
       project = projects.items |> List.first()
       assert project.name == "Branching"
 
@@ -24,18 +24,18 @@ defmodule ElixirLokaliseApi.ProjectsTest do
       assert projects.per_page_limit == 100
       assert projects.current_page == 1
 
-      assert projects |> Pagination.first_page?
-      assert projects |> Pagination.last_page?
-      refute projects |> Pagination.next_page?
-      refute projects |> Pagination.prev_page?
-      refute projects |> Pagination.next_page
-      refute projects |> Pagination.prev_page
+      assert projects |> Pagination.first_page?()
+      assert projects |> Pagination.last_page?()
+      refute projects |> Pagination.next_page?()
+      refute projects |> Pagination.prev_page?()
+      refute projects |> Pagination.next_page()
+      refute projects |> Pagination.prev_page()
     end
   end
 
   test "lists paginated projects" do
     use_cassette "projects_all_paginated" do
-      {:ok, %ProjectsCollection{} = projects} = Projects.all page: 3, limit: 2
+      {:ok, %ProjectsCollection{} = projects} = Projects.all(page: 3, limit: 2)
       project = projects.items |> List.first()
       assert project.name == "Demo"
 
@@ -45,12 +45,12 @@ defmodule ElixirLokaliseApi.ProjectsTest do
       assert projects.per_page_limit == 2
       assert projects.current_page == 3
 
-      refute projects |> Pagination.first_page?
-      refute projects |> Pagination.last_page?
-      assert projects |> Pagination.next_page?
-      assert projects |> Pagination.prev_page?
-      assert (projects |> Pagination.next_page) == 4
-      assert (projects |> Pagination.prev_page) == 2
+      refute projects |> Pagination.first_page?()
+      refute projects |> Pagination.last_page?()
+      assert projects |> Pagination.next_page?()
+      assert projects |> Pagination.prev_page?()
+      assert projects |> Pagination.next_page() == 4
+      assert projects |> Pagination.prev_page() == 2
     end
   end
 
@@ -64,10 +64,10 @@ defmodule ElixirLokaliseApi.ProjectsTest do
       assert project.name == "OnBoarding"
       assert project.description == "Lokalise onboarding course"
       assert project.created_at == "2020-10-27 15:03:23 (Etc/UTC)"
-      assert project.created_at_timestamp == 1603811003
+      assert project.created_at_timestamp == 1_603_811_003
       assert project.created_by == 20181
       assert project.created_by_email == "bodrovis@protonmail.com"
-      assert project.team_id == 176692
+      assert project.team_id == 176_692
       assert project.base_language_id == 640
       assert project.base_language_iso == "en"
       refute project.settings["per_platform_key_names"]
@@ -79,7 +79,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "creates a project" do
     use_cassette "project_create" do
       project_data = %{name: "Elixir SDK", description: "Created via API"}
-      {:ok, %ProjectModel{} = project} = Projects.create project_data
+      {:ok, %ProjectModel{} = project} = Projects.create(project_data)
       assert project.name == "Elixir SDK"
       assert project.description == "Created via API"
     end
@@ -90,7 +90,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
       project_id = "4943030060101f3d1c6ef9.47027075"
       project_data = %{name: "Updated SDK", description: "Updated via API"}
 
-      {:ok, %ProjectModel{} = project} = Projects.update project_id, project_data
+      {:ok, %ProjectModel{} = project} = Projects.update(project_id, project_data)
       assert project.project_id == project_id
       assert project.name == "Updated SDK"
       assert project.description == "Updated via API"
@@ -100,7 +100,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "empties a project" do
     use_cassette "project_empty" do
       project_id = "4943030060101f3d1c6ef9.47027075"
-      {:ok, %{} = resp} = Projects.empty project_id
+      {:ok, %{} = resp} = Projects.empty(project_id)
       assert resp.keys_deleted
       assert resp.project_id == project_id
     end
@@ -109,7 +109,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "deletes a project" do
     use_cassette "project_delete" do
       project_id = "529344536040f3e6a18957.70227936"
-      {:ok, %{} = resp} = Projects.delete project_id
+      {:ok, %{} = resp} = Projects.delete(project_id)
       assert resp.project_deleted
       assert resp.project_id == project_id
     end
@@ -119,7 +119,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
     use_cassette "project_create_error" do
       project_data = %{name: "Elixir SDK", description: "Created via API"}
 
-      {:error, %{} = data, status} = Projects.create project_data
+      {:error, %{} = data, status} = Projects.create(project_data)
       assert status == 400
       assert data.error.message == "Invalid `X-Api-Token` header"
     end

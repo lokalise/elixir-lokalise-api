@@ -10,7 +10,7 @@ defmodule ElixirLokaliseApi.Projects do
 
   def empty(id) do
     make_request(:put,
-      url_params: url_params(id) ++ [ {:_postfix, "empty"} ],
+      url_params: url_params(id) ++ [{:_postfix, "empty"}],
       type: :raw
     )
   end

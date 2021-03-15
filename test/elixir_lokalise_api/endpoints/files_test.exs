@@ -6,7 +6,7 @@ defmodule ElixirLokaliseApi.FilesTest do
   alias ElixirLokaliseApi.Collection.Files, as: FilesCollection
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   doctest Files
@@ -15,7 +15,7 @@ defmodule ElixirLokaliseApi.FilesTest do
 
   test "lists all files" do
     use_cassette "files_all" do
-      {:ok, %FilesCollection{} = files} = Files.all @project_id
+      {:ok, %FilesCollection{} = files} = Files.all(@project_id)
 
       assert Enum.count(files.items) == 5
       assert files.total_count == 5
@@ -33,7 +33,7 @@ defmodule ElixirLokaliseApi.FilesTest do
 
   test "lists paginated files" do
     use_cassette "files_all_paginated" do
-      {:ok, %FilesCollection{} = files} = Files.all @project_id, page: 2, limit: 3
+      {:ok, %FilesCollection{} = files} = Files.all(@project_id, page: 2, limit: 3)
 
       assert Enum.count(files.items) == 2
       assert files.total_count == 5
@@ -42,10 +42,10 @@ defmodule ElixirLokaliseApi.FilesTest do
       assert files.current_page == 2
       assert files.project_id == @project_id
 
-      refute files |> Pagination.first_page?
-      assert files |> Pagination.last_page?
-      refute files |> Pagination.next_page?
-      assert files |> Pagination.prev_page?
+      refute files |> Pagination.first_page?()
+      assert files |> Pagination.last_page?()
+      refute files |> Pagination.next_page?()
+      assert files |> Pagination.prev_page?()
 
       file = files.items |> List.first()
       assert file.filename == "test_async.json"
@@ -58,7 +58,8 @@ defmodule ElixirLokaliseApi.FilesTest do
         format: "json",
         original_filenames: true
       }
-      {:ok, %{} = resp} = Files.download @project_id, data
+
+      {:ok, %{} = resp} = Files.download(@project_id, data)
 
       assert String.contains?(resp.bundle_url, "Demo_Phoenix")
       assert resp.project_id == @project_id

@@ -7,17 +7,17 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
   alias ElixirLokaliseApi.Model.Comment, as: CommentModel
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   doctest KeyComments
 
   @project_id "217830385f9c0fdbd589f0.91420183"
-  @key_id 63087986
+  @key_id 63_087_986
 
   test "lists all key comments" do
     use_cassette "key_comments_all" do
-      {:ok, %CommentCollection{} = comments} = KeyComments.all @project_id, @key_id
+      {:ok, %CommentCollection{} = comments} = KeyComments.all(@project_id, @key_id)
 
       assert Enum.count(comments.items) == 3
       assert comments.total_count == 3
@@ -33,7 +33,8 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
 
   test "lists paginated all key comments" do
     use_cassette "key_comments_all_paginated" do
-      {:ok, %CommentCollection{} = comments} = KeyComments.all @project_id, @key_id, limit: 1, page: 2
+      {:ok, %CommentCollection{} = comments} =
+        KeyComments.all(@project_id, @key_id, limit: 1, page: 2)
 
       assert Enum.count(comments.items) == 1
       assert comments.total_count == 3
@@ -42,10 +43,10 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
       assert comments.current_page == 2
       assert comments.project_id == @project_id
 
-      refute comments |> Pagination.first_page?
-      refute comments |> Pagination.last_page?
-      assert comments |> Pagination.next_page?
-      assert comments |> Pagination.prev_page?
+      refute comments |> Pagination.first_page?()
+      refute comments |> Pagination.last_page?()
+      assert comments |> Pagination.next_page?()
+      assert comments |> Pagination.prev_page?()
 
       comment = comments.items |> List.first()
       assert comment.comment == "Image file key"
@@ -54,8 +55,8 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
 
   test "finds a key comment" do
     use_cassette "key_comment_find" do
-      comment_id = 8674087
-      {:ok, %CommentModel{} = comment} = KeyComments.find @project_id, @key_id, comment_id
+      comment_id = 8_674_087
+      {:ok, %CommentModel{} = comment} = KeyComments.find(@project_id, @key_id, comment_id)
 
       assert comment.comment == "Image file key"
       assert comment.comment_id == comment_id
@@ -63,16 +64,19 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
       assert comment.added_by == 20181
       assert comment.added_by_email == "bodrovis@protonmail.com"
       assert comment.added_at == "2021-03-08 15:09:46 (Etc/UTC)"
-      assert comment.added_at_timestamp == 1615216186
+      assert comment.added_at_timestamp == 1_615_216_186
     end
   end
 
   test "creates a key comment" do
     use_cassette "key_comment_create" do
-      data = %{comments: [
-        %{ comment: "Elixir comment" }
-      ]}
-      {:ok, %CommentCollection{} = comments} = KeyComments.create @project_id, @key_id, data
+      data = %{
+        comments: [
+          %{comment: "Elixir comment"}
+        ]
+      }
+
+      {:ok, %CommentCollection{} = comments} = KeyComments.create(@project_id, @key_id, data)
 
       assert Enum.count(comments.items) == 1
       assert comments.project_id == @project_id
@@ -85,7 +89,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
 
   test "deletes a key comment" do
     use_cassette "key_comment_delete" do
-      {:ok, %{} = resp} = KeyComments.delete @project_id, @key_id, 8674101
+      {:ok, %{} = resp} = KeyComments.delete(@project_id, @key_id, 8_674_101)
 
       assert resp.project_id == @project_id
       assert resp.comment_deleted

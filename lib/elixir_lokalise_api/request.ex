@@ -6,7 +6,7 @@ defmodule ElixirLokaliseApi.Request do
   alias ElixirLokaliseApi.UrlGenerator
   alias __MODULE__
 
-  @defaults [ type: nil, data: "", url_params: Keyword.new(), query_params: Keyword.new() ]
+  @defaults [type: nil, data: "", url_params: Keyword.new(), query_params: Keyword.new()]
 
   def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()
@@ -16,20 +16,20 @@ defmodule ElixirLokaliseApi.Request do
       UrlGenerator.generate(module, opts),
       Processor.encode(opts[:data]),
       headers(),
-      [ params: opts[:query_params] ]
+      params: opts[:query_params]
     )
     |> Processor.parse(module, opts[:type])
   end
 
   defp headers() do
     [
-      "X-Api-Token": Config.api_token,
-      "Accept": "application/json",
-      "User-Agent": "elixir-lokalise-api package/#{Config.version}"
+      "X-Api-Token": Config.api_token(),
+      Accept: "application/json",
+      "User-Agent": "elixir-lokalise-api package/#{Config.version()}"
     ]
   end
 
   defp prepare_opts(opts) do
-    Keyword.merge @defaults, opts
+    Keyword.merge(@defaults, opts)
   end
 end

@@ -5,7 +5,7 @@ defmodule ElixirLokaliseApi.Config do
   values from environment variables at runtime.
   """
 
-  def app_config, do: Mix.Project.config
+  def app_config, do: Mix.Project.config()
 
   @doc """
   Returns Lokalise APIv2 token. Set it inside your `mix.exs`:

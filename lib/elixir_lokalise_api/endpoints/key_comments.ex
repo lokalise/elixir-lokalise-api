@@ -8,5 +8,6 @@ defmodule ElixirLokaliseApi.KeyComments do
   @item_key :key_id
   @subitem_key :comment_id
 
-  use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :subitem_reader, :find3, :all3, :create3, :delete3]
+  use ElixirLokaliseApi.DynamicResource,
+    import: [:item_reader, :subitem_reader, :find3, :all3, :create3, :delete3]
 end

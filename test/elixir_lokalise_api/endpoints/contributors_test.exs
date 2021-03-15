@@ -7,7 +7,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
   alias ElixirLokaliseApi.Collection.Contributors, as: ContributorsCollection
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   doctest Contributors
@@ -16,7 +16,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
   test "lists all contributors" do
     use_cassette "contributors_all" do
-      {:ok, %ContributorsCollection{} = contributors} = Contributors.all @project_id
+      {:ok, %ContributorsCollection{} = contributors} = Contributors.all(@project_id)
 
       assert Enum.count(contributors.items) == 3
       assert contributors.project_id == @project_id
@@ -28,7 +28,8 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
   test "lists paginated contributors" do
     use_cassette "contributors_all_paginated" do
-      {:ok, %ContributorsCollection{} = contributors} = Contributors.all @project_id, page: 2, limit: 1
+      {:ok, %ContributorsCollection{} = contributors} =
+        Contributors.all(@project_id, page: 2, limit: 1)
 
       assert Enum.count(contributors.items) == 1
       assert contributors.project_id == @project_id
@@ -37,10 +38,10 @@ defmodule ElixirLokaliseApi.ContributorsTest do
       assert contributors.per_page_limit == 1
       assert contributors.current_page == 2
 
-      refute contributors |> Pagination.first_page?
-      refute contributors |> Pagination.last_page?
-      assert contributors |> Pagination.next_page?
-      assert contributors |> Pagination.prev_page?
+      refute contributors |> Pagination.first_page?()
+      refute contributors |> Pagination.last_page?()
+      assert contributors |> Pagination.next_page?()
+      assert contributors |> Pagination.prev_page?()
 
       contributor = contributors.items |> List.first()
       assert contributor.user_id == 25261
@@ -49,13 +50,13 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
   test "finds a contributor" do
     use_cassette "contributors_find" do
-      {:ok, %ContributorModel{} = contributor} = Contributors.find @project_id, 72008
+      {:ok, %ContributorModel{} = contributor} = Contributors.find(@project_id, 72008)
 
       assert contributor.user_id == 72008
       assert contributor.email == "golosizpru+ann@gmail.com"
       assert contributor.fullname == "Ann"
       assert contributor.created_at == "2020-07-27 14:35:45 (Etc/UTC)"
-      assert contributor.created_at_timestamp == 1595860545
+      assert contributor.created_at_timestamp == 1_595_860_545
       refute contributor.is_admin
       assert contributor.is_reviewer
       refute List.first(contributor.languages).is_writable
@@ -65,22 +66,26 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
   test "creates a contributor" do
     use_cassette "contributors_create" do
-      data = %{contributors: [
-        %{
-          email: "elixir_test@example.com",
-          fullname: "Elixir Rocks",
-          languages: [%{
-            lang_iso: "en",
-            is_writable: false
-          }]
-        }
-      ]}
+      data = %{
+        contributors: [
+          %{
+            email: "elixir_test@example.com",
+            fullname: "Elixir Rocks",
+            languages: [
+              %{
+                lang_iso: "en",
+                is_writable: false
+              }
+            ]
+          }
+        ]
+      }
 
-      {:ok, %ContributorsCollection{} = contributors} = Contributors.create @project_id, data
+      {:ok, %ContributorsCollection{} = contributors} = Contributors.create(@project_id, data)
 
       assert contributors.project_id == @project_id
 
-      contributor = contributors.items |> List.first
+      contributor = contributors.items |> List.first()
 
       assert contributor.email == "elixir_test@example.com"
       assert contributor.fullname == "Elixir Rocks"
@@ -94,7 +99,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
         is_reviewer: true
       }
 
-      {:ok, %ContributorModel{} = contributor} = Contributors.update @project_id, 97280, data
+      {:ok, %ContributorModel{} = contributor} = Contributors.update(@project_id, 97280, data)
 
       assert contributor.user_id == 97280
       assert contributor.is_reviewer
@@ -103,7 +108,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
   test "deletes a contributor" do
     use_cassette "contributors_delete" do
-      {:ok, %{} = resp} = Contributors.delete @project_id, 97280
+      {:ok, %{} = resp} = Contributors.delete(@project_id, 97280)
 
       assert resp.contributor_deleted
       assert resp.project_id == @project_id

@@ -6,15 +6,15 @@ defmodule ElixirLokaliseApi.SystemLanguagesTest do
   alias ElixirLokaliseApi.Collection.Languages, as: LanguagesCollection
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   doctest SystemLanguages
 
   test "lists all system languages" do
     use_cassette "system_languages_all" do
-      {:ok, %LanguagesCollection{} = languages} = SystemLanguages.all
-      language = hd languages.items
+      {:ok, %LanguagesCollection{} = languages} = SystemLanguages.all()
+      language = hd(languages.items)
 
       assert language.lang_iso == "ab"
       assert Enum.count(languages.items) == 100
@@ -23,8 +23,8 @@ defmodule ElixirLokaliseApi.SystemLanguagesTest do
 
   test "lists paginated system languages" do
     use_cassette "system_languages_all_paginated" do
-      {:ok, %LanguagesCollection{} = languages} = SystemLanguages.all page: 3, limit: 2
-      language = hd languages.items
+      {:ok, %LanguagesCollection{} = languages} = SystemLanguages.all(page: 3, limit: 2)
+      language = hd(languages.items)
 
       assert language.lang_iso == "af_ZA"
       assert Enum.count(languages.items) == 2
@@ -33,10 +33,10 @@ defmodule ElixirLokaliseApi.SystemLanguagesTest do
       assert languages.per_page_limit == 2
       assert languages.current_page == 3
 
-      refute languages |> Pagination.first_page?
-      refute languages |> Pagination.last_page?
-      assert languages |> Pagination.next_page?
-      assert languages |> Pagination.prev_page?
+      refute languages |> Pagination.first_page?()
+      refute languages |> Pagination.last_page?()
+      assert languages |> Pagination.next_page?()
+      assert languages |> Pagination.prev_page?()
     end
   end
 end

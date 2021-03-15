@@ -17,10 +17,11 @@ defmodule ElixirLokaliseApi.DynamicResource do
 
       def endpoint, do: @endpoint
 
-      defp make_params(main, other \\ []), do: [ url_params: apply(__MODULE__, :url_params, main) ] ++ other
+      defp make_params(main, other \\ []),
+        do: [url_params: apply(__MODULE__, :url_params, main)] ++ other
 
       def url_params, do: []
-      def url_params(p_id), do: [ {parent_key(), p_id} ]
+      def url_params(p_id), do: [{parent_key(), p_id}]
 
       if :item_reader in import_functions do
         def item_key, do: @item_key
@@ -39,7 +40,8 @@ defmodule ElixirLokaliseApi.DynamicResource do
       end
 
       if :find2 in import_functions do
-        def find(parent_id, item_id, params \\ []), do: do_get([parent_id, item_id], [query_params: params])
+        def find(parent_id, item_id, params \\ []),
+          do: do_get([parent_id, item_id], query_params: params)
       end
 
       if :find3 in import_functions do
@@ -47,39 +49,40 @@ defmodule ElixirLokaliseApi.DynamicResource do
       end
 
       if :all in import_functions do
-        def all(params \\ []), do: do_get([], [query_params: params])
+        def all(params \\ []), do: do_get([], query_params: params)
       end
 
       if :all2 in import_functions do
-        def all(parent_id, params \\ []), do: do_get([parent_id], [query_params: params])
+        def all(parent_id, params \\ []), do: do_get([parent_id], query_params: params)
       end
 
       if :all3 in import_functions do
-        def all(parent_id, item_id, params \\ []), do: do_get([parent_id, item_id], [query_params: params])
+        def all(parent_id, item_id, params \\ []),
+          do: do_get([parent_id, item_id], query_params: params)
       end
 
       if :create in import_functions do
-        def create(data), do: do_create([], [data: data])
+        def create(data), do: do_create([], data: data)
       end
 
       if :create2 in import_functions do
-        def create(parent_id, data), do: do_create([parent_id], [data: data])
+        def create(parent_id, data), do: do_create([parent_id], data: data)
       end
 
       if :create3 in import_functions do
-        def create(parent_id, item_id, data), do: do_create([parent_id, item_id], [data: data])
+        def create(parent_id, item_id, data), do: do_create([parent_id, item_id], data: data)
       end
 
       if :update2 in import_functions do
-        def update(parent_id, data), do: do_update([parent_id], [data: data])
+        def update(parent_id, data), do: do_update([parent_id], data: data)
       end
 
       if :update2_bulk in import_functions do
-        def update_bulk(parent_id, data), do: do_update([parent_id], [data: data])
+        def update_bulk(parent_id, data), do: do_update([parent_id], data: data)
       end
 
       if :update3 in import_functions do
-        def update(parent_id, item_id, data), do: do_update([parent_id, item_id], [data: data])
+        def update(parent_id, item_id, data), do: do_update([parent_id, item_id], data: data)
       end
 
       if :delete in import_functions do
@@ -91,16 +94,17 @@ defmodule ElixirLokaliseApi.DynamicResource do
       end
 
       if :delete2_bulk in import_functions do
-        def delete_bulk(parent_id, data), do: do_delete([parent_id], [data: data])
+        def delete_bulk(parent_id, data), do: do_delete([parent_id], data: data)
       end
 
       if :delete3 in import_functions do
-        def delete(parent_id, item_id, subitem_id), do: do_delete([parent_id, item_id, subitem_id])
+        def delete(parent_id, item_id, subitem_id),
+          do: do_delete([parent_id, item_id, subitem_id])
       end
 
       # TODO: research further
       def sample(%collection{project_id: project_id}) do
-        project_id |> IO.inspect
+        project_id |> IO.inspect()
       end
 
       defp do_get(params, other_params \\ []), do: make_request(:get, params, other_params)
@@ -109,10 +113,13 @@ defmodule ElixirLokaliseApi.DynamicResource do
 
       defp do_update(params, other_params \\ []), do: make_request(:put, params, other_params)
 
-      defp do_delete(params, other_params \\ []), do: make_request(:delete, params, other_params ++ [type: :raw])
+      defp do_delete(params, other_params \\ []),
+        do: make_request(:delete, params, other_params ++ [type: :raw])
 
       defp make_request(verb, params), do: Request.do_request(verb, __MODULE__, params)
-      defp make_request(verb, params, other_params), do: Request.do_request(verb, __MODULE__, make_params(params, other_params))
+
+      defp make_request(verb, params, other_params),
+        do: Request.do_request(verb, __MODULE__, make_params(params, other_params))
     end
   end
 end

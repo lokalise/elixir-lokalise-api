@@ -7,7 +7,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
   alias ElixirLokaliseApi.Collection.Branches, as: BranchesCollection
 
   setup_all do
-    HTTPoison.start
+    HTTPoison.start()
   end
 
   doctest Branches
@@ -15,7 +15,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
   test "lists all branches" do
     use_cassette "branches_all" do
       project_id = "771432525f9836bbd50459.22958598"
-      {:ok, %BranchesCollection{} = branches} = Branches.all project_id
+      {:ok, %BranchesCollection{} = branches} = Branches.all(project_id)
 
       assert Enum.count(branches.items) == 3
       assert branches.total_count == 2
@@ -32,17 +32,17 @@ defmodule ElixirLokaliseApi.BranchesTest do
   test "lists paginated branches" do
     use_cassette "branches_all_paginated" do
       project_id = "771432525f9836bbd50459.22958598"
-      {:ok, %BranchesCollection{} = branches} = Branches.all project_id, page: 2, limit: 1
+      {:ok, %BranchesCollection{} = branches} = Branches.all(project_id, page: 2, limit: 1)
 
       assert branches.total_count == 2
       assert branches.page_count == 2
       assert branches.per_page_limit == 1
       assert branches.current_page == 2
 
-      refute branches |> Pagination.first_page?
-      assert branches |> Pagination.last_page?
-      refute branches |> Pagination.next_page?
-      assert branches |> Pagination.prev_page?
+      refute branches |> Pagination.first_page?()
+      assert branches |> Pagination.last_page?()
+      refute branches |> Pagination.next_page?()
+      assert branches |> Pagination.prev_page?()
 
       branch = branches.items |> List.first()
       assert branch.name == "master"
@@ -52,14 +52,14 @@ defmodule ElixirLokaliseApi.BranchesTest do
   test "finds a branch" do
     use_cassette "branch_find" do
       project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 110704
+      branch_id = 110_704
 
-      {:ok, %BranchModel{} = branch} = Branches.find project_id, branch_id
+      {:ok, %BranchModel{} = branch} = Branches.find(project_id, branch_id)
 
       assert branch.branch_id == branch_id
       assert branch.name == "develop"
       assert branch.created_at == "2021-03-06 17:03:20 (Etc/UTC)"
-      assert branch.created_at_timestamp == 1615050200
+      assert branch.created_at_timestamp == 1_615_050_200
       assert branch.created_by == 20181
       assert branch.created_by_email == "bodrovis@protonmail.com"
     end
@@ -70,7 +70,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
       project_id = "771432525f9836bbd50459.22958598"
       data = %{name: "Elixir"}
 
-      {:ok, %BranchModel{} = branch} = Branches.create project_id, data
+      {:ok, %BranchModel{} = branch} = Branches.create(project_id, data)
 
       assert branch.name == "Elixir"
     end
@@ -79,10 +79,10 @@ defmodule ElixirLokaliseApi.BranchesTest do
   test "updates a branch" do
     use_cassette "branch_update" do
       project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 110712
+      branch_id = 110_712
       data = %{name: "Elixir-update"}
 
-      {:ok, %BranchModel{} = branch} = Branches.update project_id, branch_id, data
+      {:ok, %BranchModel{} = branch} = Branches.update(project_id, branch_id, data)
 
       assert branch.name == "Elixir-update"
       assert branch.branch_id == branch_id
@@ -92,9 +92,9 @@ defmodule ElixirLokaliseApi.BranchesTest do
   test "merges a branch with master" do
     use_cassette "branch_merge_default" do
       project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 110712
+      branch_id = 110_712
 
-      {:ok, %{} = resp} = Branches.merge project_id, branch_id
+      {:ok, %{} = resp} = Branches.merge(project_id, branch_id)
 
       assert resp.branch_merged
 
@@ -107,10 +107,10 @@ defmodule ElixirLokaliseApi.BranchesTest do
     use_cassette "branch_merge_target" do
       project_id = "771432525f9836bbd50459.22958598"
       branch_id = 86328
-      target_branch_id = 110704
+      target_branch_id = 110_704
       data = %{force_conflict_resolve_using: "target", target_branch_id: target_branch_id}
 
-      {:ok, %{} = resp} = Branches.merge project_id, branch_id, data
+      {:ok, %{} = resp} = Branches.merge(project_id, branch_id, data)
 
       assert resp.branch_merged
 
@@ -124,7 +124,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
       project_id = "771432525f9836bbd50459.22958598"
       branch_id = 86328
 
-      {:ok, %{} = resp} = Branches.delete project_id, branch_id
+      {:ok, %{} = resp} = Branches.delete(project_id, branch_id)
 
       assert resp.branch_deleted
       assert resp.project_id == project_id
