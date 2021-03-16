@@ -29,6 +29,12 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def url_params(p_id, i_id), do: url_params(p_id) ++ [{item_key(), i_id}]
       end
 
+      if :foreign_model in import_functions do
+        def foreign_model, do: @foreign_model
+
+        def foreign_data_key, do: @foreign_data_key
+      end
+
       if :subitem_reader in import_functions do
         def subitem_key, do: @subitem_key
 

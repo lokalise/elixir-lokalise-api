@@ -3,7 +3,9 @@ defmodule ElixirLokaliseApi.FilesTest do
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Files
+  alias ElixirLokaliseApi.QueuedProcesses
   alias ElixirLokaliseApi.Collection.Files, as: FilesCollection
+  alias ElixirLokaliseApi.Model.QueuedProcess, as: ProcessModel
 
   setup_all do
     HTTPoison.start()
@@ -63,6 +65,27 @@ defmodule ElixirLokaliseApi.FilesTest do
 
       assert String.contains?(resp.bundle_url, "Demo_Phoenix")
       assert resp.project_id == @project_id
+    end
+  end
+
+  test "uploads files" do
+    use_cassette "files_upload" do
+      data = %{
+        data: "ZnI6DQogIHRlc3Q6IHRyYW5zbGF0aW9u",
+        filename: "sample.yml",
+        lang_iso: "ru"
+      }
+
+      {:ok, %ProcessModel{} = process} = Files.upload(@project_id, data)
+      assert process.type == "file-import"
+      assert process.status == "queued"
+    end
+
+    use_cassette "files_upload_check" do
+      process_id = "edcdae47fd37b45778aaceee41e5f3b75b1d8964"
+      {:ok, %ProcessModel{} = process} = QueuedProcesses.find(@project_id, process_id)
+      assert process.type == "file-import"
+      assert process.status == "finished"
     end
   end
 end

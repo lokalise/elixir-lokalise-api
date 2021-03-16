@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/processes/edcdae47fd37b45778aaceee41e5f3b75b1d8964"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"branch\":\"master\",\"process\":{\"process_id\":\"edcdae47fd37b45778aaceee41e5f3b75b1d8964\",\"type\":\"file-import\",\"status\":\"finished\",\"message\":\"\",\"created_by\":20181,\"created_by_email\":\"bodrovis@protonmail.com\",\"created_at\":\"2021-03-16 17:26:43 (Etc\\/UTC)\",\"created_at_timestamp\":1615915603,\"details\":{\"files\":[{\"status\":\"finished\",\"message\":\"\",\"name_original\":\"sample.yml\",\"name_custom\":null,\"word_count_total\":1,\"key_count_total\":1,\"key_count_inserted\":0,\"key_count_updated\":0,\"key_count_skipped\":1}]}}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Tue, 16 Mar 2021 17:42:31 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Tue, 16 Mar 2021 17:42:31 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

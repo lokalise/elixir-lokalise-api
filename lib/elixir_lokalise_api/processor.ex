@@ -6,8 +6,7 @@ defmodule ElixirLokaliseApi.Processor do
     "x-pagination-page" => :current_page
   }
 
-  def parse(response, module, :raw), do: do_parse(response, module, :raw)
-  def parse(response, module, _), do: do_parse(response, module, nil)
+  def parse(response, module, type), do: do_parse(response, module, type)
 
   def encode(nil), do: ""
   def encode(data), do: Jason.encode!(data)
@@ -21,6 +20,9 @@ defmodule ElixirLokaliseApi.Processor do
     case json do
       raw_data when type == :raw and status < 400 ->
         {:ok, raw_data}
+
+      data when type == :foreign_model and status < 400 ->
+        {:ok, create_struct(:foreign_model, module, data)}
 
       %{^data_key => items_data}
       when (is_list(items_data) or is_map(items_data)) and status < 400 ->
@@ -36,6 +38,12 @@ defmodule ElixirLokaliseApi.Processor do
       raw_data ->
         {:error, raw_data, status}
     end
+  end
+
+  defp create_struct(:foreign_model, module, raw_data) do
+    foreign_model = module.foreign_model
+    foreign_data_key = module.foreign_data_key
+    foreign_model |> struct(raw_data[foreign_data_key])
   end
 
   defp create_struct(:model, module, item_data), do: struct(module.model, item_data)
