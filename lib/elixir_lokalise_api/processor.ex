@@ -42,8 +42,14 @@ defmodule ElixirLokaliseApi.Processor do
 
   defp create_struct(:foreign_model, module, raw_data) do
     foreign_model = module.foreign_model
-    foreign_data_key = module.foreign_data_key
-    foreign_model |> struct(raw_data[foreign_data_key])
+
+    case module.foreign_data_key do
+      nil ->
+        foreign_model |> struct(raw_data)
+
+      key ->
+        foreign_model |> struct(raw_data[key])
+    end
   end
 
   defp create_struct(:model, module, item_data), do: struct(module.model, item_data)

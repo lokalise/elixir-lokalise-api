@@ -7,39 +7,53 @@ defmodule ElixirLokaliseApi.DynamicResource do
     quote bind_quoted: [import_functions: import_functions] do
       alias ElixirLokaliseApi.Request
 
+      @doc false
       def model, do: @model
 
+      @doc false
       def parent_key, do: @parent_key
 
+      @doc false
       def collection, do: @collection
 
+      @doc false
       def data_key, do: @data_key
 
+      @doc false
       def singular_data_key, do: @singular_data_key
 
+      @doc false
       def endpoint, do: @endpoint
 
       defp make_params(main, other \\ []),
         do: [url_params: apply(__MODULE__, :url_params, main)] ++ other
 
+      @doc false
       def url_params, do: []
+      @doc false
       def url_params(p_id), do: [{parent_key(), p_id}]
 
       if :item_reader in import_functions do
+        @doc false
         def item_key, do: @item_key
 
+        @doc false
         def url_params(p_id, i_id), do: url_params(p_id) ++ [{item_key(), i_id}]
       end
 
       if :foreign_model in import_functions do
+        @doc false
         def foreign_model, do: @foreign_model
 
+        @doc false
         def foreign_data_key, do: @foreign_data_key
       end
 
       if :subitem_reader in import_functions do
+        @doc false
         def subitem_key, do: @subitem_key
 
+        @doc false
         def url_params(p_id, i_id, s_id), do: url_params(p_id, i_id) ++ [{subitem_key(), s_id}]
       end
 

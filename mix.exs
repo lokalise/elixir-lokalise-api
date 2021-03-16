@@ -7,7 +7,7 @@ defmodule ElixirLokaliseApi.MixProject do
       version: "0.1.0",
       elixir: "~> 1.2",
       name: "ElixirLokaliseApi",
-      description: "",
+      description: "Lokalise APIv2 interface for Elixir.",
       source_url: "https://github.com/bodrovis/elixir-lokalise-api",
       package: package(),
       docs: docs(),
@@ -54,9 +54,9 @@ defmodule ElixirLokaliseApi.MixProject do
   defp package do
     [
       maintainers: ["Ilya Bodrov-Krukowski"],
-      licenses: [""],
+      licenses: ["BSD-3-Clause"],
       links: %{
-        "Github" => "https://github.com/"
+        "Github" => "https://github.com/bodrovis/elixir-lokalise-api"
       }
     ]
   end

@@ -84,6 +84,9 @@ defmodule ElixirLokaliseApi.ScreenshotsTest do
       }
 
       {:ok, %ScreenshotsCollection{} = screenshots} = Screenshots.create(@project_id, data)
+      assert screenshots.project_id == @project_id
+      assert screenshots.errors == []
+
       screenshot = hd(screenshots.items)
 
       assert screenshot.title == "Elixir screen"

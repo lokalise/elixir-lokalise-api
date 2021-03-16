@@ -5,5 +5,6 @@ defmodule ElixirLokaliseApi.Collection.Screenshots do
             page_count: nil,
             per_page_limit: nil,
             current_page: nil,
-            branch: nil
+            branch: nil,
+            errors: []
 end

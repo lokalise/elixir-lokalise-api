@@ -1,4 +1,16 @@
 defmodule ElixirLokaliseApi.Branches do
+  @moduledoc """
+  Branches endpoint.
+
+  Learn more at https://app.lokalise.com/api2docs/curl/#resource-branches.
+
+  ## Examples
+
+  Find all branches:
+
+      {:ok, %{} = branches} = ElixirLokaliseApi.Branches.all(project_id, page: 2, limit: 1)
+  """
+
   @model ElixirLokaliseApi.Model.Branch
   @collection ElixirLokaliseApi.Collection.Branches
   @endpoint "projects/{!:project_id}/branches/{:branch_id}/{:_postfix}"
