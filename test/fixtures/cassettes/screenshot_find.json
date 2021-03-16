@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/screenshots/757672"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"branch\":\"master\",\"screenshot\":{\"screenshot_id\":757672,\"title\":\"1\",\"description\":\"\",\"screenshot_tags\":[],\"url\":\"https:\\/\\/s3-eu-west-1.amazonaws.com\\/lokalise-assets\\/files\\/screenshots\\/803826145ba90b42d5d860.46800099\\/72ee77fea4b0739cccd83ea268b3a333f18fde2f.jpg\",\"key_ids\":[],\"width\":307,\"height\":97,\"created_at\":\"2021-03-16 17:55:00 (Etc\\/UTC)\",\"created_at_timestamp\":1615917300}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Tue, 16 Mar 2021 19:11:53 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Tue, 16 Mar 2021 19:11:53 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

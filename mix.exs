@@ -8,7 +8,7 @@ defmodule ElixirLokaliseApi.MixProject do
       elixir: "~> 1.2",
       name: "ElixirLokaliseApi",
       description: "",
-      source_url: "https://github.com/",
+      source_url: "https://github.com/bodrovis/elixir-lokalise-api",
       package: package(),
       docs: docs(),
       deps: deps(),

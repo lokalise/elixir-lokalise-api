@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "{\"description\":\"Mix test\",\"title\":\"Elixir updated\"}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "put",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/screenshots/757683"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"branch\":\"master\",\"screenshot\":{\"screenshot_id\":757683,\"title\":\"Elixir updated\",\"description\":\"Mix test\",\"screenshot_tags\":[],\"url\":\"https:\\/\\/s3-eu-west-1.amazonaws.com\\/lokalise-assets\\/files\\/screenshots\\/803826145ba90b42d5d860.46800099\\/fa0f248dbd96dd0dca9b6e389ccc0844e5904cd7.jpg\",\"key_ids\":[],\"width\":125,\"height\":32,\"created_at\":\"2021-03-16 19:22:24 (Etc\\/UTC)\",\"created_at_timestamp\":1615922544}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Tue, 16 Mar 2021 19:26:56 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Tue, 16 Mar 2021 19:26:56 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

@@ -1,6 +1,8 @@
 defmodule ElixirLokaliseApi.DynamicResource do
   defmacro __using__(options) do
+    # coveralls-ignore-start
     import_functions = options[:import] || []
+    # coveralls-ignore-stop
 
     quote bind_quoted: [import_functions: import_functions] do
       alias ElixirLokaliseApi.Request

@@ -21,14 +21,15 @@ defmodule ElixirLokaliseApi.QueuedProcessesTest do
       assert Enum.count(processes.items) == 3
       assert processes.project_id == @project_id
 
-      process = hd processes.items
+      process = hd(processes.items)
       assert process.type == "file-import"
     end
   end
 
   test "lists paginated processes" do
     use_cassette "processes_all_paginated" do
-      {:ok, %QueuedProcessesCollection{} = processes} = QueuedProcesses.all(@project_id, page: 2, limit: 1)
+      {:ok, %QueuedProcessesCollection{} = processes} =
+        QueuedProcesses.all(@project_id, page: 2, limit: 1)
 
       assert Enum.count(processes.items) == 1
       assert processes.project_id == @project_id
@@ -42,7 +43,7 @@ defmodule ElixirLokaliseApi.QueuedProcessesTest do
       assert processes |> Pagination.next_page?()
       assert processes |> Pagination.prev_page?()
 
-      process = hd processes.items
+      process = hd(processes.items)
       assert process.type == "file-import"
     end
   end
@@ -59,7 +60,7 @@ defmodule ElixirLokaliseApi.QueuedProcessesTest do
       assert process.created_by == 20181
       assert process.created_by_email == "bodrovis@protonmail.com"
       assert process.created_at == "2021-03-15 18:53:41 (Etc/UTC)"
-      assert process.created_at_timestamp == 1615834421
+      assert process.created_at_timestamp == 1_615_834_421
     end
   end
 end
