@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "{\"is_admin\":false,\"is_reviewer\":true,\"languages\":{\"contributable\":[640],\"reference\":[]},\"name\":\"ExGroup\"}",
+      "body": "{\"is_admin\":false,\"is_reviewer\":true,\"name\":\"ExGroup\"}",
       "headers": {
         "X-Api-Token": "***",
         "Accept": "application/json",
@@ -14,27 +14,23 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"team_id\":176692,\"group\":{\"group_id\":3991,\"name\":\"ExGroup\",\"permissions\":{\"is_admin\":false,\"is_reviewer\":true,\"admin_rights\":[],\"languages\":[{\"lang_id\":640,\"lang_iso\":\"en\",\"lang_name\":\"English\",\"is_writable\":true}]},\"created_at\":\"2021-03-17 18:50:24 (Etc\\/UTC)\",\"created_at_timestamp\":1616007024,\"team_id\":176692,\"projects\":[],\"members\":[]}}",
+      "body": "{\"error\":{\"message\":\"Invalid `languages`.`reference` parameter\",\"code\":400}}",
       "headers": {
         "Server": "nginx",
         "Content-Type": "application/json",
         "Transfer-Encoding": "chunked",
         "Connection": "keep-alive",
-        "Vary": "Accept-Encoding",
         "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
-        "Date": "Wed, 17 Mar 2021 18:50:24 GMT",
+        "Date": "Wed, 17 Mar 2021 18:49:50 GMT",
         "Pragma": "no-cache",
-        "Allow": "GET",
         "X-Content-Type-Options": "nosniff",
         "X-Frame-Options": "deny",
         "X-XSS-Protection": "1; mode=block",
         "Strict-Transport-Security": "max-age=31536000",
         "Referrer-Policy": "origin",
-        "Expires": "Wed, 17 Mar 2021 18:50:24 GMT",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Headers": "Content-Type"
+        "Expires": "Wed, 17 Mar 2021 18:49:50 GMT"
       },
-      "status_code": 200,
+      "status_code": 400,
       "type": "ok"
     }
   }
