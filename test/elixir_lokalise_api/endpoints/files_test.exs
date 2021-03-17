@@ -19,8 +19,8 @@ defmodule ElixirLokaliseApi.FilesTest do
     use_cassette "files_all" do
       {:ok, %FilesCollection{} = files} = Files.all(@project_id)
 
-      assert Enum.count(files.items) == 5
-      assert files.total_count == 5
+      assert Enum.count(files.items) == 6
+      assert files.total_count == 6
       assert files.page_count == 1
       assert files.per_page_limit == 100
       assert files.current_page == 1

@@ -1,7 +1,7 @@
 [
   {
     "request": {
-      "body": "\"\"",
+      "body": "",
       "headers": {
         "X-Api-Token": "***",
         "Accept": "application/json",

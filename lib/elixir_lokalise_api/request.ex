@@ -6,7 +6,7 @@ defmodule ElixirLokaliseApi.Request do
   alias ElixirLokaliseApi.UrlGenerator
   alias __MODULE__
 
-  @defaults [type: nil, data: "", url_params: Keyword.new(), query_params: Keyword.new()]
+  @defaults [type: nil, data: nil, url_params: Keyword.new(), query_params: Keyword.new()]
 
   def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()

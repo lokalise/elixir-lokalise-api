@@ -11,6 +11,7 @@ defmodule ElixirLokaliseApi.TranslationStatuses do
 
   def available_colors(project_id) do
     make_request(:get,
+      data: nil,
       url_params: url_params(project_id) ++ [{:_postfix, "colors"}],
       type: :raw
     )

@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/webhooks"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"webhooks\":[{\"webhook_id\":\"795565582e5ab15a59bb68156c7e2e9eaa1e8d1a\",\"url\":\"https:\\/\\/serios.webhook\",\"branch\":null,\"secret\":\"8c91d28b46a8874c7ef0064494587b83944675ab\",\"events\":[\"project.imported\",\"project.key.added\",\"project.keys.deleted\",\"project.translation.updated\"],\"event_lang_map\":[{\"event\":\"project.translation.updated\",\"lang_iso_codes\":[\"nl\"]}]},{\"webhook_id\":\"c7eb7e6e3c2fb2b26d0b64d0de083a5a71675b3d\",\"url\":\"https:\\/\\/canihaz.hook\",\"branch\":null,\"secret\":\"a62450cd9eeca8dfc84f3c0cf9b7a6a370267d6f\",\"events\":[\"project.snapshot\",\"project.imported\",\"project.exported\",\"project.languages.added\",\"project.language.removed\",\"project.language.settings_changed\",\"project.translation.updated\"],\"event_lang_map\":[{\"event\":\"project.translation.updated\",\"lang_iso_codes\":[\"sq\",\"ar_001\",\"bm\",\"ca\",\"custom_1\",\"nl\",\"en-us\",\"en\",\"f_over\",\"ru\",\"es\"]}]},{\"webhook_id\":\"b1a98c63f7e8a03b1c7aadc0a8171d637b7a9e02\",\"url\":\"http:\\/\\/node.hook\",\"branch\":null,\"secret\":\"bd21b9b2983f3d7d2c2297294c90bb742f6cccae\",\"events\":[\"project.exported\"],\"event_lang_map\":[]}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 16:01:38 GMT",
+        "X-Pagination-Total-Count": "3",
+        "X-Pagination-Page-Count": "1",
+        "X-Pagination-Limit": "100",
+        "X-Pagination-Page": "1",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 16:01:38 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
