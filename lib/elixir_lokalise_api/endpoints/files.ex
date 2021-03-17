@@ -1,4 +1,8 @@
 defmodule ElixirLokaliseApi.Files do
+  @moduledoc """
+  Files endpoint.
+  """
+
   @model ElixirLokaliseApi.Model.File
   @collection ElixirLokaliseApi.Collection.Files
   @endpoint "projects/{!:project_id}/files/{:_postfix}"
@@ -10,6 +14,9 @@ defmodule ElixirLokaliseApi.Files do
 
   use ElixirLokaliseApi.DynamicResource, import: [:foreign_model, :all2]
 
+  @doc """
+  Downloads a translation bundle from the project.
+  """
   def download(project_id, data) do
     make_request(:post,
       data: data,
@@ -18,6 +25,9 @@ defmodule ElixirLokaliseApi.Files do
     )
   end
 
+  @doc """
+  Uploads base64-encoded translations to the project.
+  """
   def upload(project_id, data) do
     make_request(:post,
       data: data,

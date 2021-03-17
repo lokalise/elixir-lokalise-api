@@ -1,4 +1,17 @@
 defmodule ElixirLokaliseApi.DynamicResource do
+  @moduledoc """
+  Dynamically adds API methods to the endpoints.
+
+  Usage example:
+
+      use ElixirLokaliseApi.DynamicResource,
+        import: [:find2, :all2, :create2, :delete2, :update3]
+
+  The above code equips the target module with multiple API methods that can be conveniently called:
+
+      {:ok, contributor} = ElixirLokaliseApi.Contributors.find(project_id, contributor_id)
+  """
+
   defmacro __using__(options) do
     # coveralls-ignore-start
     import_functions = options[:import] || []
@@ -122,11 +135,6 @@ defmodule ElixirLokaliseApi.DynamicResource do
       if :delete3 in import_functions do
         def delete(parent_id, item_id, subitem_id),
           do: do_delete([parent_id, item_id, subitem_id])
-      end
-
-      # TODO: research further
-      def sample(%collection{project_id: project_id}) do
-        project_id |> IO.inspect()
       end
 
       defp do_get(params, other_params \\ []), do: make_request(:get, params, other_params)

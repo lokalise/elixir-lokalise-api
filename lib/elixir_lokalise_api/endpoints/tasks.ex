@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Tasks do
+  @moduledoc """
+  Tasks endpoint.
+  """
   @model ElixirLokaliseApi.Model.Task
   @collection ElixirLokaliseApi.Collection.Tasks
   @endpoint "projects/{!:project_id}/tasks/{:task_id}"

@@ -5,6 +5,9 @@ defmodule ElixirLokaliseApi.Config do
   values from environment variables at runtime.
   """
 
+  @doc """
+  Returns package configuration defined inside the `mix.exs` file
+  """
   def app_config, do: Mix.Project.config()
 
   @doc """
@@ -13,10 +16,13 @@ defmodule ElixirLokaliseApi.Config do
   """
   def api_token, do: from_env(app_config()[:app], :api_token)
 
+  @doc """
+  Returns package version
+  """
   def version, do: app_config()[:version]
 
   @doc """
-  Return the base URL of the Lokalise APIv2
+  Returns the base URL of the Lokalise APIv2
   """
   def base_url, do: "https://api.lokalise.com/api2/"
 

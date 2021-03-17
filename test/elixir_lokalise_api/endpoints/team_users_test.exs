@@ -56,7 +56,7 @@ defmodule ElixirLokaliseApi.TeamUsersTest do
       assert user.email == "bodrovis@protonmail.com"
       assert user.fullname == "Ilya B"
       assert user.created_at == "2018-08-21 15:35:25 (Etc/UTC)"
-      assert user.created_at_timestamp == 1534865725
+      assert user.created_at_timestamp == 1_534_865_725
       assert user.role == "owner"
     end
   end
@@ -64,9 +64,11 @@ defmodule ElixirLokaliseApi.TeamUsersTest do
   test "updates a team user" do
     use_cassette "team_user_update" do
       user_id = 72008
+
       data = %{
         role: "admin"
       }
+
       {:ok, %TeamUserModel{} = user} = TeamUsers.update(@team_id, user_id, data)
 
       assert user.user_id == user_id

@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Teams do
+  @moduledoc """
+  Teams endpoint.
+  """
   @model ElixirLokaliseApi.Model.Team
   @collection ElixirLokaliseApi.Collection.Teams
   @endpoint "teams/"

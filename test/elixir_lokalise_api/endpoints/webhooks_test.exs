@@ -65,6 +65,7 @@ defmodule ElixirLokaliseApi.WebhooksTest do
         url: "http://bodrovis.tech/lokalise",
         events: ["project.imported"]
       }
+
       {:ok, %WebhookModel{} = webhook} = Webhooks.create(@project_id, data)
 
       assert webhook.url == "http://bodrovis.tech/lokalise"
@@ -75,9 +76,11 @@ defmodule ElixirLokaliseApi.WebhooksTest do
   test "updates a webhook" do
     use_cassette "webhook_updates" do
       webhook_id = "836f910af4130a788600978fb21680b8ca349fa8"
+
       data = %{
         events: ["project.exported"]
       }
+
       {:ok, %WebhookModel{} = webhook} = Webhooks.update(@project_id, webhook_id, data)
 
       assert webhook.webhook_id == webhook_id

@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Screenshots do
+  @moduledoc """
+  Screenshots endpoint.
+  """
   @model ElixirLokaliseApi.Model.Screenshot
   @collection ElixirLokaliseApi.Collection.Screenshots
   @endpoint "projects/{!:project_id}/screenshots/{:screenshot_id}"

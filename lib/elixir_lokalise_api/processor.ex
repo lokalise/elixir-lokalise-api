@@ -1,4 +1,8 @@
 defmodule ElixirLokaliseApi.Processor do
+  @moduledoc """
+  Performs processing of user-supplied data and data returned by the API.
+  """
+
   @pagination_headers %{
     "x-pagination-total-count" => :total_count,
     "x-pagination-page-count" => :page_count,
@@ -6,12 +10,25 @@ defmodule ElixirLokaliseApi.Processor do
     "x-pagination-page" => :current_page
   }
 
-  def parse(response, module, type), do: do_parse(response, module, type)
-
+  @doc """
+  Encodes user-supplied data sent to the API.
+  """
   def encode(nil), do: ""
   def encode(data), do: Jason.encode!(data)
 
-  defp do_parse(response, module, type) do
+  @doc """
+  Parses data returned by the API. It can return a model, a collection,
+  and a raw response. All returned values are represented as tuples with two elements
+  (`:ok` and the actual data):
+
+      {:ok, data} = ElixirLokaliseApi.Projects.find(project_id)
+
+  If an error is raised by the API, the returned tuple contains an `:error` atom, the error details,
+  and the HTTP status code:
+
+      {:error, error, status} = ElixirLokaliseApi.Projects.find(nil)
+  """
+  def parse(response, module, type) do
     data_key = module.data_key
     singular_data_key = module.singular_data_key
     json = response.body |> Jason.decode!(keys: :atoms)
@@ -74,7 +91,7 @@ defmodule ElixirLokaliseApi.Processor do
     end)
   end
 
-  def pagination_for(struct_data, resp_headers) do
+  defp pagination_for(struct_data, resp_headers) do
     Enum.reduce(@pagination_headers, struct_data, fn {raw_header, formatted_header}, acc ->
       case get_header(resp_headers, raw_header) do
         [] ->

@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.TranslationStatuses do
+  @moduledoc """
+  Custom translation statuses endpoint.
+  """
   @model ElixirLokaliseApi.Model.TranslationStatus
   @collection ElixirLokaliseApi.Collection.TranslationStatuses
   @endpoint "projects/{!:project_id}/custom_translation_statuses/{:status_id}/{:_postfix}"
@@ -7,7 +10,8 @@ defmodule ElixirLokaliseApi.TranslationStatuses do
   @parent_key :project_id
   @item_key :status_id
 
-  use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :find2, :all2, :create2, :update3, :delete2]
+  use ElixirLokaliseApi.DynamicResource,
+    import: [:item_reader, :find2, :all2, :create2, :update3, :delete2]
 
   def available_colors(project_id) do
     make_request(:get,

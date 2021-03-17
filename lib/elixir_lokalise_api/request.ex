@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Request do
+  @moduledoc """
+  Sends HTTP requests to the Lokalise APIv2
+  """
   use HTTPoison.Base
 
   alias ElixirLokaliseApi.Config
@@ -8,9 +11,11 @@ defmodule ElixirLokaliseApi.Request do
 
   @defaults [type: nil, data: nil, url_params: Keyword.new(), query_params: Keyword.new()]
 
+  @doc """
+  Prepares and sends an HTTP request with the provided verb and options
+  """
   def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()
-    # https://github.com/edgurgel/httpoison/blob/a4a7877/lib/httpoison/base.ex#L135
     Request.request!(
       verb,
       UrlGenerator.generate(module, opts),

@@ -21,13 +21,14 @@ defmodule ElixirLokaliseApi.TranslationsTest do
       assert Enum.count(translations.items) == 6
 
       translation = hd(translations.items)
-      assert translation.translation_id == 580728816
+      assert translation.translation_id == 580_728_816
     end
   end
 
   test "lists paginated translations" do
     use_cassette "translations_all_paginated" do
-      {:ok, %TranslationsCollection{} = translations} = Translations.all(@project_id, filter_is_reviewed: 0, page: 2, limit: 1)
+      {:ok, %TranslationsCollection{} = translations} =
+        Translations.all(@project_id, filter_is_reviewed: 0, page: 2, limit: 1)
 
       assert Enum.count(translations.items) == 1
       assert translations.total_count == 6
@@ -41,20 +42,20 @@ defmodule ElixirLokaliseApi.TranslationsTest do
       assert translations |> Pagination.prev_page?()
 
       translation = hd(translations.items)
-      assert translation.translation_id == 580728817
+      assert translation.translation_id == 580_728_817
     end
   end
 
   test "finds a translation" do
     use_cassette "translation_find" do
-      translation_id = 580728816
+      translation_id = 580_728_816
       {:ok, %TranslationModel{} = translation} = Translations.find(@project_id, translation_id)
 
       assert translation.translation_id == translation_id
-      assert translation.key_id == 81096689
+      assert translation.key_id == 81_096_689
       assert translation.language_iso == "ru"
       assert translation.modified_at == "2021-03-16 16:25:40 (Etc/UTC)"
-      assert translation.modified_at_timestamp == 1615911940
+      assert translation.modified_at_timestamp == 1_615_911_940
       assert translation.modified_by == 20181
       assert translation.modified_by_email == "bodrovis@protonmail.com"
       assert String.ends_with?(translation.translation, "e-mail")
@@ -69,22 +70,27 @@ defmodule ElixirLokaliseApi.TranslationsTest do
 
   test "finds a translation with params" do
     use_cassette "translation_find_params" do
-      translation_id = 580728816
-      {:ok, %TranslationModel{} = translation} = Translations.find(@project_id, translation_id, disable_references: 1)
+      translation_id = 580_728_816
+
+      {:ok, %TranslationModel{} = translation} =
+        Translations.find(@project_id, translation_id, disable_references: 1)
 
       assert translation.translation_id == translation_id
-      assert translation.key_id == 81096689
+      assert translation.key_id == 81_096_689
     end
   end
 
   test "updates a translation" do
     use_cassette "translation_update" do
-      translation_id = 580728816
+      translation_id = 580_728_816
+
       data = %{
         translation: "Updated!",
         is_reviewed: true
       }
-      {:ok, %TranslationModel{} = translation} = Translations.update(@project_id, translation_id, data)
+
+      {:ok, %TranslationModel{} = translation} =
+        Translations.update(@project_id, translation_id, data)
 
       assert translation.translation_id == translation_id
       assert translation.translation == "Updated!"

@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.ProjectComments do
+  @moduledoc """
+  Project comments endpoint.
+  """
   @model ElixirLokaliseApi.Model.Comment
   @collection ElixirLokaliseApi.Collection.Comments
   @endpoint "projects/{!:project_id}/comments"

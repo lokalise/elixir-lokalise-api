@@ -27,7 +27,8 @@ defmodule ElixirLokaliseApi.TranslationStatusesTest do
 
   test "lists paginated translation statuses" do
     use_cassette "translation_statuses_paginated" do
-      {:ok, %TranslationStatusesCollection{} = statuses} = TranslationStatuses.all(@project_id, page: 2, limit: 1)
+      {:ok, %TranslationStatusesCollection{} = statuses} =
+        TranslationStatuses.all(@project_id, page: 2, limit: 1)
 
       assert Enum.count(statuses.items) == 1
       assert statuses.total_count == 3
@@ -62,6 +63,7 @@ defmodule ElixirLokaliseApi.TranslationStatusesTest do
         title: "elixir",
         color: "#344563"
       }
+
       {:ok, %TranslationStatusModel{} = status} = TranslationStatuses.create(@project_id, data)
 
       assert status.title == "elixir"
@@ -72,10 +74,13 @@ defmodule ElixirLokaliseApi.TranslationStatusesTest do
   test "updates a translation status" do
     use_cassette "translation_status_update" do
       status_id = 2968
+
       data = %{
         title: "elixir-upd"
       }
-      {:ok, %TranslationStatusModel{} = status} = TranslationStatuses.update(@project_id, status_id, data)
+
+      {:ok, %TranslationStatusModel{} = status} =
+        TranslationStatuses.update(@project_id, status_id, data)
 
       assert status.title == "elixir-upd"
       assert status.status_id == status_id

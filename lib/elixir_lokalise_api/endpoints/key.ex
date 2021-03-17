@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Keys do
+  @moduledoc """
+  Keys endpoint.
+  """
   @model ElixirLokaliseApi.Model.Key
   @collection ElixirLokaliseApi.Collection.Keys
   @endpoint "projects/{!:project_id}/keys/{:key_id}"

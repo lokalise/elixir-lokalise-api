@@ -1,7 +1,8 @@
 use Mix.Config
 
 config :elixir_lokalise_api,
-  api_token: {:system, "LOKALISE_API_TOKEN"}
+  api_token: {:system, "LOKALISE_API_TOKEN"},
+  timeout: 3000
 
 config :logger, level: :info
 

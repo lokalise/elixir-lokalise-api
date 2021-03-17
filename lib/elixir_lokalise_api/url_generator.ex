@@ -1,6 +1,12 @@
 defmodule ElixirLokaliseApi.UrlGenerator do
+  @moduledoc """
+  Generates full URLs for the API endpoints
+  """
   alias ElixirLokaliseApi.Config
 
+  @doc """
+  Returns full URL based on the endpoint path template
+  """
   def generate(module, opts) do
     module.endpoint()
     |> format(opts[:url_params])

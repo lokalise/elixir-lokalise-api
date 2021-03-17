@@ -1,14 +1,6 @@
 defmodule ElixirLokaliseApi.Branches do
   @moduledoc """
   Branches endpoint.
-
-  Learn more at https://app.lokalise.com/api2docs/curl/#resource-branches.
-
-  ## Examples
-
-  Find all branches:
-
-      {:ok, %{} = branches} = ElixirLokaliseApi.Branches.all(project_id, page: 2, limit: 1)
   """
 
   @model ElixirLokaliseApi.Model.Branch
@@ -22,6 +14,9 @@ defmodule ElixirLokaliseApi.Branches do
   use ElixirLokaliseApi.DynamicResource,
     import: [:item_reader, :find2, :all2, :create2, :delete2, :update3]
 
+  @doc """
+  Merges two branches inside the given project.
+  """
   def merge(project_id, item_id, data \\ %{}) do
     make_request(:post,
       data: data,

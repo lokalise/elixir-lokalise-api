@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.PaymentCards do
+  @moduledoc """
+  Payment cards endpoint.
+  """
   @model ElixirLokaliseApi.Model.PaymentCard
   @collection ElixirLokaliseApi.Collection.PaymentCards
   @endpoint "payment_cards/{:card_id}"

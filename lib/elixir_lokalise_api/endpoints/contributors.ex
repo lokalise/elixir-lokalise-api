@@ -1,4 +1,8 @@
 defmodule ElixirLokaliseApi.Contributors do
+  @moduledoc """
+  Contributors endpoint.
+  """
+
   @model ElixirLokaliseApi.Model.Contributor
   @collection ElixirLokaliseApi.Collection.Contributors
   @endpoint "projects/{!:project_id}/contributors/{:contributor_id}"

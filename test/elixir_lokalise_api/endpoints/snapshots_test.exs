@@ -26,7 +26,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
       assert snapshot.snapshot_id == 27882
       assert snapshot.title == "test rspec"
       assert snapshot.created_at == "2018-12-10 17:02:04 (Etc/UTC)"
-      assert snapshot.created_at_timestamp == 1544461324
+      assert snapshot.created_at_timestamp == 1_544_461_324
       assert snapshot.created_by == 20181
       assert snapshot.created_by_email == "bodrovis@protonmail.com"
     end
@@ -49,7 +49,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
       assert snapshots |> Pagination.prev_page?()
 
       snapshot = hd(snapshots.items)
-      assert snapshot.snapshot_id == 243330
+      assert snapshot.snapshot_id == 243_330
     end
   end
 
@@ -58,6 +58,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
       data = %{
         title: "Elixir snap"
       }
+
       {:ok, %SnapshotModel{} = snapshot} = Snapshots.create(@project_id, data)
 
       assert snapshot.title == "Elixir snap"
@@ -66,7 +67,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
 
   test "restore a snapshot" do
     use_cassette "snapshot_restore" do
-      {:ok, %ProjectModel{} = project} = Snapshots.restore(@project_id, 243330)
+      {:ok, %ProjectModel{} = project} = Snapshots.restore(@project_id, 243_330)
 
       refute project.project_id == @project_id
       assert project.name == "Demo Phoenix copy"
@@ -75,7 +76,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
 
   test "delete a snapshot" do
     use_cassette "snapshot_delete" do
-      {:ok, %{} = resp} = Snapshots.delete(@project_id, 516515)
+      {:ok, %{} = resp} = Snapshots.delete(@project_id, 516_515)
 
       assert resp.project_id == @project_id
       assert resp.snapshot_deleted

@@ -28,7 +28,8 @@ defmodule ElixirLokaliseApi.TasksTest do
 
   test "lists paginated tasks" do
     use_cassette "tasks_all_paginated" do
-      {:ok, %TasksCollection{} = tasks} = Tasks.all(@project_id, page: 2, limit: 1, filter_statuses: "completed")
+      {:ok, %TasksCollection{} = tasks} =
+        Tasks.all(@project_id, page: 2, limit: 1, filter_statuses: "completed")
 
       assert Enum.count(tasks.items) == 1
       assert tasks.project_id == @project_id
@@ -62,7 +63,7 @@ defmodule ElixirLokaliseApi.TasksTest do
       assert task.keys_count == 19
       assert task.words_count == 145
       assert task.created_at == "2019-07-11 15:56:27 (Etc/UTC)"
-      assert task.created_at_timestamp == 1562860587
+      assert task.created_at_timestamp == 1_562_860_587
       assert task.created_by == 20181
       assert task.created_by_email == "bodrovis@protonmail.com"
       refute task.can_be_parent
@@ -76,7 +77,7 @@ defmodule ElixirLokaliseApi.TasksTest do
       assert task.auto_close_task
       assert task.auto_close_items
       assert task.completed_at == "2019-10-01 11:09:09 (Etc/UTC)"
-      assert task.completed_at_timestamp == 1569928149
+      assert task.completed_at_timestamp == 1_569_928_149
       assert task.completed_by == 20181
       assert task.completed_by_email == "bodrovis@protonmail.com"
       assert task.custom_translation_status_ids == []
@@ -87,12 +88,15 @@ defmodule ElixirLokaliseApi.TasksTest do
     use_cassette "task_create" do
       data = %{
         title: "Elixir",
-        keys: [74189435, 74187003],
-        languages: [%{
-          language_iso: "sq",
-          users: [20181]
-        }]
+        keys: [74_189_435, 74_187_003],
+        languages: [
+          %{
+            language_iso: "sq",
+            users: [20181]
+          }
+        ]
       }
+
       {:ok, %TaskModel{} = task} = Tasks.create(@project_id, data)
 
       assert task.title == "Elixir"
@@ -106,7 +110,8 @@ defmodule ElixirLokaliseApi.TasksTest do
         title: "Elixir updated",
         description: "sample"
       }
-      task_id = 272547
+
+      task_id = 272_547
       {:ok, %TaskModel{} = task} = Tasks.update(@project_id, task_id, data)
 
       assert task.task_id == task_id

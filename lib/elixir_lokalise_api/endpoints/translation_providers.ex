@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.TranslationProviders do
+  @moduledoc """
+  Translation providers endpoint.
+  """
   @model ElixirLokaliseApi.Model.TranslationProvider
   @collection ElixirLokaliseApi.Collection.TranslationProviders
   @endpoint "teams/{!:team_id}/translation_providers/{:translation_provider_id}"

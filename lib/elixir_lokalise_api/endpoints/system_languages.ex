@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.SystemLanguages do
+  @moduledoc """
+  System languages endpoint.
+  """
   @model ElixirLokaliseApi.Model.Language
   @collection ElixirLokaliseApi.Collection.Languages
   @endpoint "system/languages"

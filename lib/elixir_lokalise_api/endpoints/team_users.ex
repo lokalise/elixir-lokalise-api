@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.TeamUsers do
+  @moduledoc """
+  Team users endpoint.
+  """
   @model ElixirLokaliseApi.Model.TeamUser
   @collection ElixirLokaliseApi.Collection.TeamUsers
   @endpoint "teams/{!:team_id}/users/{:user_id}"

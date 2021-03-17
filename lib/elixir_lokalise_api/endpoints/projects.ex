@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Projects do
+  @moduledoc """
+  Projects endpoint.
+  """
   @model ElixirLokaliseApi.Model.Project
   @collection ElixirLokaliseApi.Collection.Projects
   @endpoint "projects/{:project_id}/{:_postfix}"
@@ -8,6 +11,9 @@ defmodule ElixirLokaliseApi.Projects do
 
   use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update2]
 
+  @doc """
+  Empties a given project by removing all translation keys and values.
+  """
   def empty(id) do
     make_request(:put,
       url_params: url_params(id) ++ [{:_postfix, "empty"}],

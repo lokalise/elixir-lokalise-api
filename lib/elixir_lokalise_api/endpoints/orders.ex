@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.Orders do
+  @moduledoc """
+  Orders endpoint.
+  """
   @model ElixirLokaliseApi.Model.Order
   @collection ElixirLokaliseApi.Collection.Orders
   @endpoint "teams/{!:team_id}/orders/{:order_id}"

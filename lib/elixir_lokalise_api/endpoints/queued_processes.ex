@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.QueuedProcesses do
+  @moduledoc """
+  Queued processes endpoint.
+  """
   @model ElixirLokaliseApi.Model.QueuedProcess
   @collection ElixirLokaliseApi.Collection.QueuedProcesses
   @endpoint "projects/{!:project_id}/processes/{:process_id}"

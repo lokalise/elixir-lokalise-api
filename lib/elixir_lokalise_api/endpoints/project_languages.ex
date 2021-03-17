@@ -1,4 +1,7 @@
 defmodule ElixirLokaliseApi.ProjectLanguages do
+  @moduledoc """
+  Project languages endpoint.
+  """
   @model ElixirLokaliseApi.Model.Language
   @collection ElixirLokaliseApi.Collection.Languages
   @endpoint "projects/{!:project_id}/languages/{:lang_id}"

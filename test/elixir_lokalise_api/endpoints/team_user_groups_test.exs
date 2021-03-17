@@ -12,7 +12,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
 
   doctest TeamUserGroups
 
-  @team_id 176692
+  @team_id 176_692
   @group_id 3991
   @project_id "803826145ba90b42d5d860.46800099"
 
@@ -29,7 +29,9 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
 
   test "lists paginated team user groups" do
     use_cassette "team_user_groups_all_paginated" do
-      {:ok, %TeamUserGroupsCollection{} = groups} = TeamUserGroups.all(@team_id, page: 3, limit: 2)
+      {:ok, %TeamUserGroupsCollection{} = groups} =
+        TeamUserGroups.all(@team_id, page: 3, limit: 2)
+
       assert groups.team_id == @team_id
 
       assert Enum.count(groups.items) == 2
@@ -57,7 +59,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
       assert group.name == "Russian contributors"
       refute group.permissions.is_admin
       assert group.created_at == "2020-11-04 16:29:16 (Etc/UTC)"
-      assert group.created_at_timestamp == 1604507356
+      assert group.created_at_timestamp == 1_604_507_356
       assert group.team_id == @team_id
       assert group.projects == []
       assert group.members == [35554]
@@ -75,6 +77,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
           contributable: [640]
         }
       }
+
       {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.create(@team_id, data)
 
       assert group.name == "ExGroup"
@@ -94,6 +97,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
           contributable: [640]
         }
       }
+
       {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.update(@team_id, @group_id, data)
 
       assert group.name == "ExGroup Updated"
@@ -117,7 +121,9 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
       data = %{
         projects: [@project_id]
       }
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.add_projects(@team_id, @group_id, data)
+
+      {:ok, %TeamUserGroupModel{} = group} =
+        TeamUserGroups.add_projects(@team_id, @group_id, data)
 
       assert group.group_id == @group_id
       assert group.projects == [@project_id]
@@ -129,7 +135,9 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
       data = %{
         projects: [@project_id]
       }
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.remove_projects(@team_id, @group_id, data)
+
+      {:ok, %TeamUserGroupModel{} = group} =
+        TeamUserGroups.remove_projects(@team_id, @group_id, data)
 
       assert group.group_id == @group_id
       assert group.projects == []
@@ -139,9 +147,11 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
   test "adds members to a team user group" do
     use_cassette "team_user_group_add_members" do
       user_id = 20181
+
       data = %{
         users: [user_id]
       }
+
       {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.add_members(@team_id, @group_id, data)
 
       assert group.group_id == @group_id
@@ -152,10 +162,13 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
   test "removes members to a team user group" do
     use_cassette "team_user_group_remove_members" do
       user_id = 20181
+
       data = %{
         users: [user_id]
       }
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.remove_members(@team_id, @group_id, data)
+
+      {:ok, %TeamUserGroupModel{} = group} =
+        TeamUserGroups.remove_members(@team_id, @group_id, data)
 
       assert group.group_id == @group_id
       assert group.members == []
