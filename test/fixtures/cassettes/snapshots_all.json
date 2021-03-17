@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/snapshots"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"branch\":\"master\",\"snapshots\":[{\"snapshot_id\":27882,\"title\":\"test rspec\",\"created_by\":20181,\"created_by_email\":\"bodrovis@protonmail.com\",\"created_at\":\"2018-12-10 17:02:04 (Etc\\/UTC)\",\"created_at_timestamp\":1544461324},{\"snapshot_id\":243330,\"title\":\"chained rspec snap\",\"created_by\":20181,\"created_by_email\":\"bodrovis@protonmail.com\",\"created_at\":\"2020-05-11 13:29:12 (Etc\\/UTC)\",\"created_at_timestamp\":1589203752}]}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 14:09:30 GMT",
+        "X-Pagination-Total-Count": "2",
+        "X-Pagination-Page-Count": "1",
+        "X-Pagination-Limit": "100",
+        "X-Pagination-Page": "1",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 14:09:30 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
