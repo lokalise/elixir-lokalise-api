@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "{\"title\":\"elixir-upd\"}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "put",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/287061316050d93a27ada8.24068671/custom_translation_statuses/2968"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"287061316050d93a27ada8.24068671\",\"custom_translation_status\":{\"status_id\":2968,\"title\":\"elixir-upd\",\"color\":\"#344563\"}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 15:52:32 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 15:52:32 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

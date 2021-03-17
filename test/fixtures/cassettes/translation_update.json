@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "{\"is_reviewed\":true,\"translation\":\"Updated!\"}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "put",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/287061316050d93a27ada8.24068671/translations/580728816"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"287061316050d93a27ada8.24068671\",\"translation\":{\"translation_id\":580728816,\"key_id\":81096689,\"language_iso\":\"ru\",\"translation\":\"Updated!\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-03-17 15:27:25 (Etc\\/UTC)\",\"modified_at_timestamp\":1615994845,\"is_reviewed\":true,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":1,\"custom_translation_statuses\":[],\"task_id\":null}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 15:27:25 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 15:27:25 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
