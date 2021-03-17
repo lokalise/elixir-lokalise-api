@@ -16,6 +16,7 @@ defmodule ElixirLokaliseApi.Request do
   """
   def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()
+
     Request.request!(
       verb,
       UrlGenerator.generate(module, opts),
