@@ -3,19 +3,54 @@
 [![Build Status](https://travis-ci.com/bodrovis/elixir-lokalise-api.svg?branch=master)](https://travis-ci.com/bodrovis/elixir-lokalise-api)
 [![Coverage Status](https://coveralls.io/repos/github/bodrovis/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/bodrovis/elixir-lokalise-api)
 
-WIP
+Official Elixir interface for Lokalise APIv2.
 
-## Installation
+## Quickstart
+
+Add a new depedency to `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:elixir_lokalise_api, "~> 0.1.0"}
+    {:elixir_lokalise_api}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/elixir_lokalise_api](https://hexdocs.pm/elixir_lokalise_api).
+Put your Lokalise API token into `config.exs`:
 
+```elixir
+config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
+```
+
+If you are using ENV variables, use the following approach:
+
+```elixir
+config :elixir_lokalise_api, api_token: {:system, "LOKALISE_API_TOKEN"}
+```
+
+Now you can perform API calls:
+
+```elixir
+project_data = %{name: "Elixir", description: "Created via API"}
+{:ok, project} = ElixirLokaliseApi.Projects.create(project_data)
+
+project.name |> IO.puts # => "Elixir"
+
+translation_data = %{
+  data: "ZnI6...",
+  filename: "sample.yml",
+  lang_iso: "en"
+}
+{:ok, process} = ElixirLokaliseApi.Files.upload(project.project_id, data)
+
+{:ok, process} = QueuedProcesses.find(project.project_id, process.process_id)
+
+process.status |> IO.puts # => "finished"
+```
+
+## License
+
+Licensed under the [BSD 3 Clause license](https://github.com/bodrovis/elixir-lokalise-api/blob/master/LICENSE).
+
+Copyright (c) Lokalise team, [Ilya Bodrov](http://bodrovis.tech)

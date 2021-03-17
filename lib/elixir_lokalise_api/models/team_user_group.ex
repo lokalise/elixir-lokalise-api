@@ -1,0 +1,10 @@
+defmodule ElixirLokaliseApi.Model.TeamUserGroup do
+  defstruct group_id: nil,
+            name: nil,
+            permissions: %{},
+            created_at: nil,
+            created_at_timestamp: nil,
+            team_id: nil,
+            projects: [],
+            members: []
+end
