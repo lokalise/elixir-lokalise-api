@@ -45,6 +45,56 @@ defmodule ElixirLokaliseApi.WebhooksTest do
     end
   end
 
+  test "finds a webhook" do
+    use_cassette "webhook_find" do
+      webhook_id = "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a"
+      {:ok, %WebhookModel{} = webhook} = Webhooks.find(@project_id, webhook_id)
+
+      assert webhook.webhook_id == webhook_id
+      assert webhook.url == "https://serios.webhook"
+      refute webhook.branch
+      assert webhook.secret == "53209c0033c5371d2935f3fc8f91fdfd9aa61419"
+      assert hd(webhook.events) == "project.imported"
+      assert hd(webhook.event_lang_map).event == "project.translation.updated"
+    end
+  end
+
+  test "creates a webhook" do
+    use_cassette "webhook_create" do
+      data = %{
+        url: "http://bodrovis.tech/lokalise",
+        events: ["project.imported"]
+      }
+      {:ok, %WebhookModel{} = webhook} = Webhooks.create(@project_id, data)
+
+      assert webhook.url == "http://bodrovis.tech/lokalise"
+      assert webhook.events == ["project.imported"]
+    end
+  end
+
+  test "updates a webhook" do
+    use_cassette "webhook_updates" do
+      webhook_id = "836f910af4130a788600978fb21680b8ca349fa8"
+      data = %{
+        events: ["project.exported"]
+      }
+      {:ok, %WebhookModel{} = webhook} = Webhooks.update(@project_id, webhook_id, data)
+
+      assert webhook.webhook_id == webhook_id
+      assert webhook.events == ["project.exported"]
+    end
+  end
+
+  test "deletes a webhook" do
+    use_cassette "webhook_delete" do
+      webhook_id = "836f910af4130a788600978fb21680b8ca349fa8"
+      {:ok, %{} = resp} = Webhooks.delete(@project_id, webhook_id)
+
+      assert resp.project_id == @project_id
+      assert resp.webhook_deleted
+    end
+  end
+
   test "regenerates webhook secret" do
     use_cassette "webhook_regenerate_secret" do
       webhook_id = "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a"

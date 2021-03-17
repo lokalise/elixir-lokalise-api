@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/webhooks/795565582e5ab15a59bb68156c7e2e9eaa1e8d1a"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"webhook\":{\"webhook_id\":\"795565582e5ab15a59bb68156c7e2e9eaa1e8d1a\",\"url\":\"https:\\/\\/serios.webhook\",\"branch\":null,\"secret\":\"53209c0033c5371d2935f3fc8f91fdfd9aa61419\",\"events\":[\"project.imported\",\"project.key.added\",\"project.keys.deleted\",\"project.translation.updated\"],\"event_lang_map\":[{\"event\":\"project.translation.updated\",\"lang_iso_codes\":[\"nl\"]}]}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 16:16:44 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 16:16:44 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
