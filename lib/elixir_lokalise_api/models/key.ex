@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Key do
+  @moduledoc false
   defstruct key_id: nil,
             created_at: nil,
             created_at_timestamp: nil,

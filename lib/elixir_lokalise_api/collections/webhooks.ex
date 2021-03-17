@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Collection.Webhooks do
+  @moduledoc false
   defstruct items: [],
             project_id: nil,
             total_count: nil,

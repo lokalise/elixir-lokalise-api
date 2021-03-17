@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Order do
+  @moduledoc false
   defstruct order_id: nil,
             project_id: nil,
             branch: nil,

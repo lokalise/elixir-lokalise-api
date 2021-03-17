@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Collection.Languages do
+  @moduledoc false
   defstruct items: [],
             total_count: nil,
             page_count: nil,

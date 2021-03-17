@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Translation do
+  @moduledoc false
   defstruct translation_id: nil,
             key_id: nil,
             language_iso: nil,

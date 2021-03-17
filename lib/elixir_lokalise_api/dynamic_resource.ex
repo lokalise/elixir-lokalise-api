@@ -71,68 +71,116 @@ defmodule ElixirLokaliseApi.DynamicResource do
       end
 
       if :find in import_functions do
+        @doc """
+        Finds an item under the given endpoint.
+        """
         def find(parent_id), do: do_get([parent_id])
       end
 
       if :find2 in import_functions do
+        @doc """
+        Finds an item under the given endpoint.
+        """
         def find(parent_id, item_id, params \\ []),
           do: do_get([parent_id, item_id], query_params: params)
       end
 
       if :find3 in import_functions do
+        @doc """
+        Finds an item under the given endpoint.
+        """
         def find(parent_id, item_id, subitem_id), do: do_get([parent_id, item_id, subitem_id])
       end
 
       if :all in import_functions do
+        @doc """
+        Finds a collection of items under the given endpoint.
+        """
         def all(params \\ []), do: do_get([], query_params: params)
       end
 
       if :all2 in import_functions do
+        @doc """
+        Finds a collection of items under the given endpoint.
+        """
         def all(parent_id, params \\ []), do: do_get([parent_id], query_params: params)
       end
 
       if :all3 in import_functions do
+        @doc """
+        Finds a collection of items under the given endpoint.
+        """
         def all(parent_id, item_id, params \\ []),
           do: do_get([parent_id, item_id], query_params: params)
       end
 
       if :create in import_functions do
+        @doc """
+        Creates an item under the given endpoint.
+        """
         def create(data), do: do_create([], data: data)
       end
 
       if :create2 in import_functions do
+        @doc """
+        Creates an item under the given endpoint.
+        """
         def create(parent_id, data), do: do_create([parent_id], data: data)
       end
 
       if :create3 in import_functions do
+        @doc """
+        Creates an item under the given endpoint.
+        """
         def create(parent_id, item_id, data), do: do_create([parent_id, item_id], data: data)
       end
 
       if :update2 in import_functions do
+        @doc """
+        Updates an item under the given endpoint.
+        """
         def update(parent_id, data), do: do_update([parent_id], data: data)
       end
 
       if :update2_bulk in import_functions do
+        @doc """
+        Updates multiple items under the given endpoint.
+        """
         def update_bulk(parent_id, data), do: do_update([parent_id], data: data)
       end
 
       if :update3 in import_functions do
+        @doc """
+        Updates an item under the given endpoint.
+        """
         def update(parent_id, item_id, data), do: do_update([parent_id, item_id], data: data)
       end
 
       if :delete in import_functions do
+        @doc """
+        Deletes an item under the given endpoint.
+        """
         def delete(parent_id), do: do_delete([parent_id])
       end
 
       if :delete2 in import_functions do
+        @doc """
+        Deletes an item under the given endpoint.
+        """
         def delete(parent_id, item_id), do: do_delete([parent_id, item_id])
       end
 
       if :delete2_bulk in import_functions do
+        @doc """
+        Deletes multiple items under the given endpoint.
+        """
         def delete_bulk(parent_id, data), do: do_delete([parent_id], data: data)
       end
 
       if :delete3 in import_functions do
+        @doc """
+        Deletes an item under the given endpoint.
+        """
         def delete(parent_id, item_id, subitem_id),
           do: do_delete([parent_id, item_id, subitem_id])
       end

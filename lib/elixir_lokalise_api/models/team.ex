@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Team do
+  @moduledoc false
   defstruct team_id: nil,
             name: nil,
             created_at: nil,

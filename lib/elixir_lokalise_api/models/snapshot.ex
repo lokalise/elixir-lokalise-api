@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Snapshot do
+  @moduledoc false
   defstruct snapshot_id: nil,
             title: nil,
             created_at: nil,

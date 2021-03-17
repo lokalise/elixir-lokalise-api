@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Screenshot do
+  @moduledoc false
   defstruct screenshot_id: nil,
             key_ids: [],
             url: nil,

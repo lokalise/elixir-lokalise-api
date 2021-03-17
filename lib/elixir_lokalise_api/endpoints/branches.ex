@@ -17,10 +17,10 @@ defmodule ElixirLokaliseApi.Branches do
   @doc """
   Merges two branches inside the given project.
   """
-  def merge(project_id, item_id, data \\ %{}) do
+  def merge(project_id, branch_id, data \\ %{}) do
     make_request(:post,
       data: data,
-      url_params: url_params(project_id, item_id) ++ [{:_postfix, "merge"}],
+      url_params: url_params(project_id, branch_id) ++ [{:_postfix, "merge"}],
       type: :raw
     )
   end

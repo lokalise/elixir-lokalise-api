@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Contributor do
+  @moduledoc false
   defstruct user_id: nil,
             email: nil,
             fullname: nil,

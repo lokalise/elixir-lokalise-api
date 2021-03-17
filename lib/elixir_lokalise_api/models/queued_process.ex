@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.QueuedProcess do
+  @moduledoc false
   defstruct process_id: nil,
             type: nil,
             status: nil,

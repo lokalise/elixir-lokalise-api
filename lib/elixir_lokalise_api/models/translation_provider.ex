@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.TranslationProvider do
+  @moduledoc false
   defstruct provider_id: nil,
             name: nil,
             slug: nil,

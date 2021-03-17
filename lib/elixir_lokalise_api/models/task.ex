@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Task do
+  @moduledoc false
   defstruct task_id: nil,
             title: nil,
             description: nil,

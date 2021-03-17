@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Comment do
+  @moduledoc false
   defstruct comment_id: nil,
             key_id: nil,
             comment: nil,

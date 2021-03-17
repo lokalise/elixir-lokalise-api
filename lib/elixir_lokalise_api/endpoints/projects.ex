@@ -14,9 +14,9 @@ defmodule ElixirLokaliseApi.Projects do
   @doc """
   Empties a given project by removing all translation keys and values.
   """
-  def empty(id) do
+  def empty(project_id) do
     make_request(:put,
-      url_params: url_params(id) ++ [{:_postfix, "empty"}],
+      url_params: url_params(project_id) ++ [{:_postfix, "empty"}],
       type: :raw
     )
   end

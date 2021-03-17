@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Collection.Tasks do
+  @moduledoc false
   defstruct items: [],
             project_id: nil,
             branch: nil,

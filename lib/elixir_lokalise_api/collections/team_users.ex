@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Collection.TeamUsers do
+  @moduledoc false
   defstruct items: [],
             team_id: nil,
             total_count: nil,

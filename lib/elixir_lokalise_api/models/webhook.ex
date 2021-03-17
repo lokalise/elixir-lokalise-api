@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Webhook do
+  @moduledoc false
   defstruct webhook_id: nil,
             url: nil,
             branch: nil,

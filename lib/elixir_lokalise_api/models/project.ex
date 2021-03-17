@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Project do
+  @moduledoc false
   defstruct project_id: nil,
             project_type: nil,
             name: nil,

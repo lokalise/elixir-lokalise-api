@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.Branch do
+  @moduledoc false
   defstruct branch_id: nil,
             name: nil,
             created_at: nil,

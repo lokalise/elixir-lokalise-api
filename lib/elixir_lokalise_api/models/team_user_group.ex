@@ -1,4 +1,5 @@
 defmodule ElixirLokaliseApi.Model.TeamUserGroup do
+  @moduledoc false
   defstruct group_id: nil,
             name: nil,
             permissions: %{},
