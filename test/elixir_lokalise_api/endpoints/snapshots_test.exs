@@ -78,6 +78,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
       {:ok, %{} = resp} = Snapshots.delete(@project_id, 516515)
 
       assert resp.project_id == @project_id
+      assert resp.snapshot_deleted
     end
   end
 end

@@ -33,8 +33,6 @@ defmodule ElixirLokaliseApi.ScreenshotsTest do
 
       assert Enum.count(screenshots.items) == 1
       assert screenshots.project_id == @project_id
-
-      assert screenshots.project_id == @project_id
       assert screenshots.total_count == 3
       assert screenshots.page_count == 3
       assert screenshots.per_page_limit == 1

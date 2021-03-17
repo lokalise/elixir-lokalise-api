@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "body": "{\"keys\":[74189435,74187003],\"languages\":[{\"language_iso\":\"sq\",\"users\":[20181]}],\"title\":\"Elixir\"}",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "post",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/tasks"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"branch\":\"master\",\"task\":{\"task_id\":272547,\"title\":\"Elixir\",\"can_be_parent\":true,\"task_type\":\"translation\",\"parent_task_id\":null,\"closing_tags\":[],\"description\":\"\",\"status\":\"created\",\"progress\":0,\"due_date\":null,\"due_date_timestamp\":null,\"keys_count\":2,\"words_count\":4,\"created_at\":\"2021-03-17 14:43:34 (Etc\\/UTC)\",\"created_at_timestamp\":1615992214,\"created_by\":20181,\"created_by_email\":\"bodrovis@protonmail.com\",\"source_language_iso\":\"en\",\"languages\":[{\"language_iso\":\"sq\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[74187003,74189435],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":2,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null}],\"auto_close_items\":true,\"auto_close_languages\":true,\"auto_close_task\":true,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null,\"do_lock_translations\":false,\"custom_translation_status_ids\":[]}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 14:43:34 GMT",
+        "Pragma": "no-cache",
+        "Allow": "GET",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 14:43:34 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "request": {
+      "body": "\"\"",
+      "headers": {
+        "X-Api-Token": "***",
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/0.1.0"
+      },
+      "method": "get",
+      "options": [],
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/803826145ba90b42d5d860.46800099/tasks/18493"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"803826145ba90b42d5d860.46800099\",\"branch\":\"master\",\"task\":{\"task_id\":18493,\"title\":\"test\",\"can_be_parent\":false,\"task_type\":\"translation\",\"parent_task_id\":null,\"closing_tags\":[],\"description\":\"\",\"status\":\"completed\",\"progress\":0,\"due_date\":null,\"due_date_timestamp\":null,\"keys_count\":19,\"words_count\":145,\"created_at\":\"2019-07-11 15:56:27 (Etc\\/UTC)\",\"created_at_timestamp\":1562860587,\"created_by\":20181,\"created_by_email\":\"bodrovis@protonmail.com\",\"source_language_iso\":\"en\",\"languages\":[{\"language_iso\":\"sq\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"},{\"user_id\":34052,\"email\":\"translator@example.com\",\"fullname\":\"Translator Demo\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"ar_001\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"},{\"user_id\":33599,\"email\":\"twilight_church@list.ru\",\"fullname\":\"Joe\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"bm\",\"users\":[{\"user_id\":34052,\"email\":\"translator@example.com\",\"fullname\":\"Translator Demo\"},{\"user_id\":33599,\"email\":\"twilight_church@list.ru\",\"fullname\":\"Joe\"},{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"ca\",\"users\":[{\"user_id\":34052,\"email\":\"translator@example.com\",\"fullname\":\"Translator Demo\"},{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"},{\"user_id\":33599,\"email\":\"twilight_church@list.ru\",\"fullname\":\"Joe\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":null,\"users\":[{\"user_id\":35554,\"email\":\"golosizpru@ya.ru\",\"fullname\":\"Joanne\"},{\"user_id\":35555,\"email\":\"john@example.com\",\"fullname\":\"John\"},{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"custom_1\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":19,\"words_count\":37,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"nl\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":19,\"words_count\":37,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"en-us\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":null,\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":19,\"words_count\":37,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"ru\",\"users\":[{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"},{\"user_id\":33599,\"email\":\"twilight_church@list.ru\",\"fullname\":\"Joe\"},{\"user_id\":35554,\"email\":\"golosizpru@ya.ru\",\"fullname\":\"Joanne\"},{\"user_id\":31113,\"email\":\"translator@mycompany.com\",\"fullname\":\"Mr. Translator\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":4,\"words_count\":2,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"es\",\"users\":[{\"user_id\":35554,\"email\":\"golosizpru@ya.ru\",\"fullname\":\"Joanne\"},{\"user_id\":33599,\"email\":\"twilight_church@list.ru\",\"fullname\":\"Joe\"},{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null},{\"language_iso\":\"f_over\",\"users\":[{\"user_id\":33599,\"email\":\"twilight_church@list.ru\",\"fullname\":\"Joe\"},{\"user_id\":20181,\"email\":\"bodrovis@protonmail.com\",\"fullname\":\"Ilya B\"}],\"groups\":[],\"keys\":[],\"status\":\"created\",\"progress\":0,\"initial_tm_leverage\":{\"0%+\":0,\"60%+\":0,\"75%+\":0,\"95%+\":0,\"100%\":0},\"keys_count\":5,\"words_count\":4,\"completed_at\":null,\"completed_at_timestamp\":null,\"completed_by\":null,\"completed_by_email\":null}],\"auto_close_items\":true,\"auto_close_languages\":true,\"auto_close_task\":true,\"completed_at\":\"2019-10-01 11:09:09 (Etc\\/UTC)\",\"completed_at_timestamp\":1569928149,\"completed_by\":20181,\"completed_by_email\":\"bodrovis@protonmail.com\",\"do_lock_translations\":false,\"custom_translation_status_ids\":[]}}",
+      "headers": {
+        "Server": "nginx",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "Date": "Wed, 17 Mar 2021 14:34:22 GMT",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Wed, 17 Mar 2021 14:34:22 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
