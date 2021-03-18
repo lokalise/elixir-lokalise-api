@@ -51,7 +51,9 @@ process.status |> IO.puts # => "finished"
 
 ## Documentation
 
-All documentation and usage examples can be found at [bodrovis.github.io/elixir-lokalise-api](https://bodrovis.github.io/elixir-lokalise-api/)
+All documentation and usage examples can be found at [bodrovis.github.io/elixir-lokalise-api](https://bodrovis.github.io/elixir-lokalise-api/).
+
+Brief API reference is also available at [hexdocs.pm](https://hexdocs.pm/elixir_lokalise_api/).
 
 ## License
 
