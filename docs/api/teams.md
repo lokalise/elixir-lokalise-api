@@ -4,7 +4,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#resource-teams)
 
-```ruby
+```elixir
 @client.teams(params = {})  # Input:
                             ## params (hash)
                             ### :page and :limit

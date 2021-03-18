@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-providers-get)
 
-```ruby
+```elixir
 @client.translation_providers(team_id, params = {})   # Input:
                                                       ## team_id (string, required)
                                                       ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-provider-get)
 
-```ruby
+```elixir
 @client.translation_provider(team_id, provider_id)  # Input:
                                                     ## team_id (string, required)
                                                     ## provider_id (string, required)

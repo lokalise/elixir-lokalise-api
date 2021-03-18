@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-comments-get)
 
-```ruby
+```elixir
 @client.project_comments(project_id, params = {})   # Input:
                                                     ## project_id (string, required)
                                                     ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-key-comments-get)
 
-```ruby
+```elixir
 @client.comments(project_id, key_id, params = {})   # Input:
                                                     ## project_id (string, required)
                                                     ## key_id (string, required)
@@ -33,7 +33,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-comments-post)
 
-```ruby
+```elixir
 @client.create_comments(project_id, key_id, params)   # Input:
                                                       ## project_id (string, required)
                                                       ## key_id (string, required)
@@ -47,7 +47,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-comment-get)
 
-```ruby
+```elixir
 @client.comment(project_id, key_id, comment_id)   # Input:
                                                   ## project_id (string, required)
                                                   ## key_id (string, required)
@@ -60,7 +60,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-comment-delete)
 
-```ruby
+```elixir
 @client.destroy_comment(project_id, key_id, comment_id)   # Input:
                                                           ## project_id (string, required)
                                                           ## key_id (string, required)
@@ -71,7 +71,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 comment = @client.comment('project_id', 'comment_id')
 comment.destroy
 ```

@@ -8,7 +8,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-custom-translation-statuses-get)
 
-```ruby
+```elixir
 @client.translation_statuses(project_id, params = {}) # Input:
                                                       ## project_id (string, required)
                                                       ## params (hash)
@@ -21,7 +21,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-custom-translation-status-get)
 
-```ruby
+```elixir
 @client.translation_status(project_id, status_id) # Input:
                                                   ## project_id (string, required)
                                                   ## status_id (string or integer, required)
@@ -33,7 +33,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-custom-translation-status-post)
 
-```ruby
+```elixir
 @client.create_translation_status(project_id, params) # Input:
                                                       ## project_id (string, required)
                                                       ## params (hash, required)
@@ -47,7 +47,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-custom-translation-status-put)
 
-```ruby
+```elixir
 @client.update_translation_status(project_id, status_id, params)  # Input:
                                                                   ## project_id (string, required)
                                                                   ## status_id (string or integer, required)
@@ -60,7 +60,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 status = @client.translation_status(project_id, status_id)
 status.update(params)
 ```
@@ -69,7 +69,7 @@ status.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-custom-translation-status-delete)
 
-```ruby
+```elixir
 @client.destroy_translation_status(project_id, status_id) # Input:
                                                           ## project_id (string, required)
                                                           ## status_id (string or integer, required)
@@ -79,7 +79,7 @@ status.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 status = @client.translation_status(project_id, status_id)
 status.destroy
 ```
@@ -90,7 +90,7 @@ status.destroy
 
 As long as Lokalise supports only very limited array of color hexadecimal codes for custom translation statuses, this method can be used to fetch all permitted values.
 
-```ruby
+```elixir
 @client.translation_status_colors(project_id) # Input:
                                               ## project_id (string, required)
                                               # Output:

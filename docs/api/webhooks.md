@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-webhooks-get)
 
-```ruby
+```elixir
 @client.webhooks(project_id, params = {}) # Input:
                                           ## project_id (string, required)
                                           ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-webhook-get)
 
-```ruby
+```elixir
 @client.webhook(project_id, webhook_id)   # Input:
                                           ## project_id (string, required)
                                           ## webhook_id (string, required)
@@ -31,7 +31,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-webhook-post)
 
-```ruby
+```elixir
 @client.create_webhook(project_id, params)    # Input:
                                               ## project_id (string, required)
                                               ## params (hash, required)
@@ -46,7 +46,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-webhook-put)
 
-```ruby
+```elixir
 @client.update_webhook(project_id, webhook_id, params)    # Input:
                                                           ## project_id (string, required)
                                                           ## webhook_id (string, required)
@@ -60,7 +60,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 webhook = @client.webhook(project_id, webhook_id)
 webhook.update(params)
 ```
@@ -69,7 +69,7 @@ webhook.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-webhook-delete)
 
-```ruby
+```elixir
 @client.destroy_webhook(project_id, webhook_id)   # Input:
                                                   ## project_id (string, required)
                                                   ## webhook_id (string, required)
@@ -79,7 +79,7 @@ webhook.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 webhook = @client.webhook(project_id, webhook_id)
 webhook.destroy
 ```
@@ -88,7 +88,7 @@ webhook.destroy
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch)
 
-```ruby
+```elixir
 @client.regenerate_webhook_secret(project_id, webhook_id) # Input:
                                                           ## project_id (string, required)
                                                           ## webhook_id (string, required)
@@ -98,7 +98,7 @@ webhook.destroy
 
 Alternatively:
 
-```ruby
+```elixir
 webhook = @client.webhook(project_id, webhook_id)
 webhook.regenerate_secret
 ```

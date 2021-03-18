@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-system-languages-get)
 
-```ruby
+```elixir
 @client.system_languages(params = {})   # Input:
                                         ## params (hash)
                                         ### :page and :limit
@@ -18,7 +18,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-languages-get)
 
-```ruby
+```elixir
 @client.project_languages(project_id, params = {})    # Input:
                                                       ## project_id (string, required)
                                                       ## params (hash)
@@ -31,7 +31,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-language-get)
 
-```ruby
+```elixir
 @client.language(project_id, language_id)     # Input:
                                               ## project_id (string, required)
                                               ## language_id (string, required)
@@ -43,7 +43,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-languages-post)
 
-```ruby
+```elixir
 @client.create_languages(project_id, params)    # Input:
                                                 ## project_id (string, required)
                                                 ## params (array of hashes or hash, required) - contains parameter of newly created languages. Pass array of hashes to create multiple languages, or a hash to create a single language
@@ -59,7 +59,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-language-put)
 
-```ruby
+```elixir
 @client.update_language(project_id, language_id, params)    # Input:
                                                             ## project_id (string, required)
                                                             ## language_id (string, required)
@@ -73,7 +73,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 language = @client.language('project_id', 'lang_id')
 language.update(params)
 ```
@@ -82,7 +82,7 @@ language.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-language-delete)
 
-```ruby
+```elixir
 @client.destroy_language(project_id, language_id)    # Input:
                                                      ## project_id (string, required)
                                                      ## language_id (string, required)
@@ -92,7 +92,7 @@ language.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 language = @client.language('project_id', 'lang_id')
 language.destroy
 ```

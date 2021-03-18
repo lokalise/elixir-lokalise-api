@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-files-get)
 
-```ruby
+```elixir
 @client.files(project_id, params = {})  # Input:
                                         ## project_id (string, required)
                                         ## params (hash)
@@ -21,7 +21,7 @@
 
 Exports project files as a `.zip` bundle and makes them available to download (the link is valid for 12 months).
 
-```ruby
+```elixir
 @client.download_files(project_id, params)  # Input:
                                         ## project_id (string, required)
                                         ## params (hash, required)
@@ -37,7 +37,7 @@ Exports project files as a `.zip` bundle and makes them available to download (t
 
 Starting from July 2020, **background uploading is the only method of importing translation files**.
 
-```ruby
+```elixir
 @client.upload_file(project_id, params) # Input:
                                         ## project_id (string, required)
                                         ## params (hash, required)
@@ -51,7 +51,7 @@ Starting from July 2020, **background uploading is the only method of importing 
 
 A `QueuedProcess` resource will be returned. This resource contains a status of the import job, process ID to manually check the status, and some other attributes:
 
-```ruby
+```elixir
 queued_process = @client.upload_file project_id,
                                      data: 'Base-64 encoded data... ZnI6DQogI...',
                                      filename: 'my_file.yml',
@@ -63,20 +63,20 @@ queued_process.process_id # => 'ff1876382b7ba81f2bb465da8f030196ec401fa6'
 
 Your job is to periodically reload data for the queued process and check the `status` attribute:
 
-```ruby
+```elixir
 reloaded_process = queued_process.reload_data # loads new data from the API
 reloaded_process.status # => 'finished'
 ```
 
 Alternatively, you may use the `queued_process` method:
 
-```ruby
+```elixir
 reloaded_process = @client.queued_process project_id, queued_process.process_id
 ```
 
 It is up to you to decide how to poll API for changes (remember that larger files will take more time to be imported), but here's a simple example:
 
-```ruby
+```elixir
 def uploaded?(process)
   5.times do # try to check the status 5 times
     queued_process = queued_process.reload_data # load new data

@@ -4,7 +4,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-contributors-get)
 
-```ruby
+```elixir
 @client.contributors(project_id, params = {})   # Input:
                                                 ## project_id (string, required)
                                                 ## params (hash)
@@ -17,7 +17,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-contributor-get)
 
-```ruby
+```elixir
 @client.contributor(project_id, contributor_id)   # Input:
                                                   ## project_id (string, required)
                                                   ## contributor_id (string, required) - named as "user_id" in the response
@@ -29,7 +29,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-contributors-post)
 
-```ruby
+```elixir
 @client.create_contributors(project_id, params)  # Input:
                                                  ## project_id (string, required)
                                                  ## params (array of hashes or hash, required) - parameters for the newly created contributors. Pass array of hashes to create multiple contributors, or a hash to create a single contributor
@@ -49,7 +49,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-contributor-put)
 
-```ruby
+```elixir
 @client.update_contributor(project_id, contributor_id, params)   # Input:
                                                                  ## project_id (string, required)
                                                                  ## contributor_id (string, required)
@@ -66,7 +66,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 contributor = @client.contributor('project_id', 'contributor_id')
 contributor.update(params)
 ```
@@ -75,7 +75,7 @@ contributor.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-contributor-delete)
 
-```ruby
+```elixir
 @client.destroy_contributor(project_id, contributor_id)    # Input:
                                                            ## project_id (string, required)
                                                            ## contributor_id (string, required)
@@ -85,7 +85,7 @@ contributor.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 contributor = @client.contributor('project_id', 'id')
 contributor.destroy
 ```

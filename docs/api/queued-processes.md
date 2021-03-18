@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-processes-get)
 
-```ruby
+```elixir
 @client.queued_processes(project_id) # Input:
                                      ## project_id (string, required)
                                      # Output:
@@ -17,7 +17,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-process-get)
 
-```ruby
+```elixir
 @client.queued_process(project_id, process_id) # Input:
                                                ## project_id (string, required)
                                                ## process_id (string, required)

@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-team-users-get)
 
-```ruby
+```elixir
 @client.team_users(team_id, params = {})  # Input:
                                           ## team_id (string, required)
                                           ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-team-user-get)
 
-```ruby
+```elixir
 @client.team_user(team_id, user_id) # Input:
                                     ## team_id (string, required)
                                     ## user_id (string, required)
@@ -31,7 +31,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-team-user-put)
 
-```ruby
+```elixir
 @client.update_team_user(team_id, user_id, params)  # Input:
                                                     ## team_id (string, required)
                                                     ## user_id (string, required)
@@ -43,7 +43,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 user = @client.team_user('team_id', 'user_id')
 user.update(params)
 ```
@@ -52,7 +52,7 @@ user.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-team-user-delete)
 
-```ruby
+```elixir
 @client.destroy_team_user(team_id, user_id) # Input:
                                             ## team_id (string, required)
                                             ## user_id (string, required)
@@ -62,7 +62,7 @@ user.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 user = @client.team_user('team_id', 'user_id')
 user.destroy
 ```

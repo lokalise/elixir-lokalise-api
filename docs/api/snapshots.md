@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-snapshots-get)
 
-```ruby
+```elixir
 @client.snapshots(project_id, params = {})  # Input:
                                             ## project_id (string, required)
                                             ## params (hash)
@@ -20,7 +20,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-snapshot-post)
 
-```ruby
+```elixir
 @client.create_snapshot(project_id, params = {})  # Input:
                                                   ## project_id (string, required)
                                                   ## params (hash)
@@ -33,7 +33,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-restore-a-snapshot-post)
 
-```ruby
+```elixir
 @client.restore_snapshot(project_id, snapshot_id)   # Input:
                                                     ## project_id (string, required)
                                                     ## snapshot_id (string, required)
@@ -43,7 +43,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 snapshot = @client.snapshots('project_id').first # you can't fetch a single snapshot
 snapshot.restore
 ```
@@ -52,7 +52,7 @@ snapshot.restore
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-snapshot-delete)
 
-```ruby
+```elixir
 @client.destroy_snapshot(project_id, snapshot_id)   # Input:
                                                     ## project_id (string, required)
                                                     ## snapshot_id (string, required)
@@ -62,7 +62,7 @@ snapshot.restore
 
 Alternatively:
 
-```ruby
+```elixir
 snapshot = @client.snapshots('project_id').first # you can't fetch a single snapshot
 snapshot.destroy
 ```

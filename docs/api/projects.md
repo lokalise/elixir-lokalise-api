@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-projects-get)
 
-```ruby
+```elixir
 @client.projects(params = {})   # Input:
                                 ## params (hash)
                                 ### :filter_team_id (string) - load projects only for the given team
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-project-get)
 
-```ruby
+```elixir
 @client.project(project_id)     # Input:
                                 ## project_id (string, required)
                                 # Output:
@@ -30,7 +30,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-project-post)
 
-```ruby
+```elixir
 @client.create_project(params)  # Input:
                                 ## params (hash, required)
                                 ### name (string, required)
@@ -45,7 +45,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-project-put)
 
-```ruby
+```elixir
 @client.update_project(project_id, params)  # Input:
                                             ## project_id (string, required)
                                             ## params (hash, required)
@@ -57,7 +57,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 project = @client.project('project_id')
 project.update(params)
 ```
@@ -68,7 +68,7 @@ project.update(params)
 
 Deletes *all* keys and translations from the project.
 
-```ruby
+```elixir
 @client.empty_project(project_id)   # Input:
                                     ## project_id (string, required)
                                     # Output:
@@ -77,7 +77,7 @@ Deletes *all* keys and translations from the project.
 
 Alternatively:
 
-```ruby
+```elixir
 project = @client.project('project_id')
 project.empty
 ```
@@ -86,7 +86,7 @@ project.empty
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-project-delete)
 
-```ruby
+```elixir
 @client.destroy_project(project_id)   # Input:
                                       ## project_id (string, required)
                                       # Output:
@@ -95,7 +95,7 @@ project.empty
 
 Alternatively:
 
-```ruby
+```elixir
 project = @client.project('project_id')
 project.destroy
 ```

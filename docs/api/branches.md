@@ -6,96 +6,66 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-branches-get)
 
-```ruby
-@client.branches(project_id, params = {})   # Input:
-                                            ## project_id (string, required)
-                                            ## params (hash)
-                                            ### :page and :limit
-                                            # Output:
-                                            ## Collection of comments available in the branches project
+```elixir
+{:ok, branches} = ElixirLokaliseApi.Branches.all(project_id, page: 2, limit: 1)
+
+branch = hd branches.items
+branch.name
 ```
 
 ## Fetch branch
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-branch-get)
 
-```ruby
-@client.branch(project_id, branch_id)   # Input:
-                                        ## project_id (string, required)
-                                        ## branch_id (string or integer, required)
-                                        # Output:
-                                        ## Branch inside the given project
+```elixir
+{:ok, branch} = ElixirLokaliseApi.Branches.find(project_id, branch_id)
+
+branch.branch_id
+branch.name
 ```
 
 ## Create branch
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-branch-get)
 
-```ruby
-@client.create_branch(project_id, params)   # Input:
-                                            ## project_id (string, required)
-                                            ## params (hash, required):
-                                            ### :name (string) - name of the branch
-                                            # Output:
-                                            ## Created branch
+```elixir
+data = %{name: "Elixir"}
+
+{:ok, branch} = ElixirLokaliseApi.Branches.create(project_id, data)
+
+branch.name
 ```
 
 ## Update branch
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-branch-put)
 
-```ruby
-@client.update_branch(project_id, branch_id, params)    # Input:
-                                                        ## project_id (string, required)
-                                                        ## branch_id (string or integer, required)
-                                                        ## params (hash, required):
-                                                        ### :name (string) - name of the branch
-                                                        # Output:
-                                                        ## Updated branch
-```
+```elixir
+data = %{name: "Elixir-update"}
 
-Alternatively:
+{:ok, branch} = ElixirLokaliseApi.Branches.update(project_id, branch_id, data)
 
-```ruby
-branch = @client.branch('project_id', 'branch_id')
-branch.update params
+branch.name
 ```
 
 ## Delete branch
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-branch-delete)
 
-```ruby
-@client.destroy_branch(project_id, branch_id)   # Input:
-                                                ## project_id (string, required)
-                                                ## branch_id (string or integer, required)
-                                                # Output:
-                                                ## Hash with the project's id and "branch_deleted"=>true
-```
+```elixir
+{:ok, resp} = ElixirLokaliseApi.Branches.delete(project_id, branch_id)
 
-Alternatively:
-
-```ruby
-branch = @client.branch('project_id', 'branch_id')
-branch.destroy
+resp.branch_deleted
 ```
 
 ## Merge branch
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-merge-a-branch-post)
 
-```ruby
-@client.merge_branch(project_id, branch_id, params) # Input:
-                                                    ## project_id (string, required)
-                                                    ## branch_id (string or integer, required)
-                                                    ## params (hash)
-                                                    # Output:
-                                                    ## Hash with the project's id, "branch_merged"=>true, and branch attributes
-```
+```elixir
+data = %{force_conflict_resolve_using: "target", target_branch_id: target_branch_id}
 
-Alternatively:
+{:ok, resp} = ElixirLokaliseApi.Branches.merge(project_id, branch_id, data)
 
-```ruby
-branch = @client.branch('project_id', 'branch_id')
-branch.merge params
+resp.branch_merged
 ```

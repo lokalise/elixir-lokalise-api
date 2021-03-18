@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
 
-```ruby
+```elixir
 @client.tasks(project_id, params = {})  # Input:
                                         ## project_id (string, required)
                                         ## params (hash)
@@ -20,7 +20,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
 
-```ruby
+```elixir
 @client.task(project_id, task_id, params = {})  # Input:
                                                 ## project_id (string, required)
                                                 ## task_id (string, required)
@@ -32,7 +32,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
 
-```ruby
+```elixir
 @client.create_task(project_id, params)  # Input:
                                          ## project_id (string, required)
                                          ## params (hash, required)
@@ -51,7 +51,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
 
-```ruby
+```elixir
 @client.update_task(project_id, task_id, params = {})  # Input:
                                                        ## project_id (string, required)
                                                        ## task_id (string or integer, required)
@@ -64,7 +64,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 task = @client.task('project_id', 'task_id')
 task.update(params)
 ```
@@ -73,7 +73,7 @@ task.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
 
-```ruby
+```elixir
 @client.destroy_task(project_id, task_id)  # Input:
                                            ## project_id (string, required)
                                            ## task_id (string, required)
@@ -84,7 +84,7 @@ task.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 task = @client.task('project_id', 'task_id')
 task.destroy
 ```

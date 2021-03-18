@@ -2,78 +2,79 @@
 
 ## Installation and Requirements
 
-This gem requires [Ruby 2.4+](https://www.ruby-lang.org/en/) and [RubyGems package manager](https://rubygems.org/pages/download).
+This package is tested with [Elixir 1.2+](https://elixir-lang.org/).
 
-Install it by running:
+Add it to the `mix.exs` file:
 
-    gem install ruby-lokalise-api
+```elixir
+def deps do
+  [
+    {:elixir_lokalise_api}
+  ]
+end
+```
+
+
 
 ## Initializing the Client
 
 In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section).
 
-After you've obtained the token, initialize the client:
+After you've obtained the token, put it inside `config.exs`:
 
-```ruby
-require 'ruby-lokalise-api'
-
-@client = Lokalise.client 'YOUR_TOKEN_HERE'
+```elixir
+config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
 ```
 
-Now the `@client` can be used to perform API requests! Learn more about additional options in the [Customizing request section](#customizing-request).
+If you are using ENV variables, use the following approach:
+
+```elixir
+config :elixir_lokalise_api, api_token: {:system, "ENV_VARIABLE_NAME"}
+```
+
+Now you can send API requests!
 
 ## Objects and models
 
-Individual objects are represented as instances of Ruby classes which are called *models*. Each model responds to the methods that are named after the API object's attributes. [This file](https://github.com/lokalise/ruby-lokalise-api/blob/master/lib/ruby-lokalise-api/data/attributes.json) lists all objects and their methods.
+Individual objects are represented as Elixir structs which are called *models*. Each model responds to the methods that are named after the API object's attributes.
 
 Here is an example:
 
-```ruby
-project = client.project '123'
+```elixir
+{:ok, project} = ElixirLokaliseApi.Projects.find("123.abc")
+
 project.name
 project.description
-project.created_by
+project.base_language_iso
+```
+
+You can also use pattern matching:
+
+```elixir
+{:ok, %ElixirLokaliseApi.Model.Project{} = project} = ElixirLokaliseApi.Projects.find("123.abc")
 ```
 
 Many resources have common methods like `project_id` and `branch`:
 
-```ruby
-webhook = client.webhook project_id, '123.abc'
+```elixir
+{:ok, webhook} = ElixirLokaliseApi.Webhooks.find("123.abc", "345def")
 webhook.project_id
 webhook.branch
 ```
 
-To get access to raw data returned by the API, use `#raw_data`:
-
-```ruby
-project.raw_data
-```
-
-Models support method chaining, meaning you can fetch a resource, update and delete it in one line:
-
-```ruby
-@client.project('123').update(name: 'New name').destroy
-```
-
-### Reloading data
-
-Most of the resources can be reloaded using the `#reload_data` method. This method will fetch the latest data for the resource:
-
-```ruby
-project = client.project '123'
-# do something else...
-# project might be updated via UI, so load new data:
-reloaded_project = project.reload_data
-# now `reloaded_project` has fresh data from the API
-```
-
 ## Collections of resources and pagination
 
-Fetching (or creating/updating) multiple objects will return a *collection* of objects. To get access to the actual data, use the `#collection` method:
+Fetching (or creating/updating) multiple objects will return a *collection* of objects represented as a struct. To get access to the actual data, use the `items` attribute. Each item of the collection is usually represented as a model struct:
 
-```ruby
-project = @client.projects.collection.first # => Get the first project
-project.name
+```elixir
+{:ok, %ElixirLokaliseApi.Collection.Projects{} = projects} = ElixirLokaliseApi.Projects.all()
+
+project = hd projects.items # => Get the first project from the collection
+
+%ElixirLokaliseApi.Model.Project{} = project # => project is a model struct
+
+project.name # => you can fetch attributes easily
+project.description
 ```
 
 Bulk fetches support [pagination](https://app.lokalise.com/api2docs/curl/#resource-pagination). There are two common parameters available:
@@ -81,45 +82,38 @@ Bulk fetches support [pagination](https://app.lokalise.com/api2docs/curl/#resour
 * `:limit` (defaults to `100`, maximum is `5000`) - number of records to display per page
 * `:page` (defaults  to `1`) - page to fetch
 
-```ruby
-projects = @client.projects limit: 10, page: 3 #=> Paginate by 10 records and fetch the third page
+```elixir
+{:ok, projects} = ElixirLokaliseApi.Projects.all(page: 3, limit: 10) #=> Paginate by 10 records and fetch the third page
 ```
 
-Collections respond to the following methods:
+Paginated collections have the following attributes:
 
-* `#total_pages`
-* `#total_results`
-* `#results_per_page`
-* `#current_page`
-* `#next_page?`
-* `#last_page?`
-* `#prev_page?`
-* `#first_page?`
-
-For example:
-
-```ruby
-projects.current_page #=> 3
-projects.last_page? #=> true, this is the last page and there are no more projects available
+```elixir
+projects.total_count # => Total number of items
+projects.page_count # => Total number of pages
+projects.per_page_limit # => The number of items per page
+projects.current_page # => Currently requested page number
 ```
 
-On top of that, you may easily fetch the next or the previous page of the collection by using:
+To work with pagination data, use the `ElixirLokaliseApi.Pagination` module:
 
-* `#next_page`
-* `#prev_page`
-
-These methods return instances of the same collection class or `nil` if the next/previous page is unavailable. Methods respect the parameters you've initially passed:
-
-```ruby
-translations = @client.translations 'project_id', limit: 4, page: 2, disable_references: 0 # => we passed three parameters here
-
-translations.prev_page # => will load the previous page while preserving the `limit` and `disable_references` params
+```elixir
+projects |> ElixirLokaliseApi.Pagination.first_page?() # => Is this the first page?
+projects |> ElixirLokaliseApi.Pagination.last_page?() # => Is this the last page?
+projects |> ElixirLokaliseApi.Pagination.next_page?() # => Is there a next page available?
+projects |> ElixirLokaliseApi.Pagination.prev_page?() # => Is there a previous page available?
 ```
 
 ## Branching
 
 If you are using [project branching feature](https://docs.lokalise.com/en/articles/3391861-project-branching), simply add branch name separated by semicolon to your project ID in any endpoint to access the branch. For example, in order to access `new-feature` branch for the project with an id `123abcdef.01`:
 
-```ruby
-@client.files '123abcdef.01:new-feature'
+```elixir
+{:ok, files} = ElixirLokaliseApi.Files.all("123abcdef.01:new-feature")
+
+files.project_id # => "123abcdef.01"
+files.branch # => "new-feature"
+
+file = hd files.items
+file.filename
 ```

@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-screenshots-get)
 
-```ruby
+```elixir
 @client.screenshots(project_id, params = {})  # Input:
                                               ## project_id (string, required)
                                               ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-screenshot-get)
 
-```ruby
+```elixir
 @client.screeshot(project_id, screeshot_id)     # Input:
                                                 ## project_id (string, required)
                                                 ## screeshot_id (string, required)
@@ -31,7 +31,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-screenshots-post)
 
-```ruby
+```elixir
 @client.create_screenshots(project_id, params)     # Input:
                                                    ## project_id (string, required)
                                                    ## params (hash or array of hashes, required)
@@ -49,7 +49,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-screenshot-put)
 
-```ruby
+```elixir
 @client.update_screenshot(project_id, screenshot_id, params = {}) # Input:
                                                                   ## project_id (string, required)
                                                                   ## screenshot_id (string, required)
@@ -64,7 +64,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 screenshot = @client.screenshot('project_id', 'screen_id')
 screenshot.update(params)
 ```
@@ -73,7 +73,7 @@ screenshot.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-screenshot-delete)
 
-```ruby
+```elixir
 @client.destroy_screenshot(project_id, screenshot_id)   # Input:
                                                         ## project_id (string, required)
                                                         ## screenshot_id (string, required)
@@ -83,7 +83,7 @@ screenshot.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 screenshot = @client.screenshot('project_id', 'screen_id')
 screenshot.destroy
 ```

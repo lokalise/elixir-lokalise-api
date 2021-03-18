@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-groups-get)
 
-```ruby
+```elixir
 @client.team_user_groups(team_id, params = {})  # Input:
                                                 ## team_id (string, required)
                                                 ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-group-get)
 
-```ruby
+```elixir
 @client.team_user_group(team_id, group_id)  # Input:
                                             ## team_id (string, required)
                                             ## group_id (string, required)
@@ -31,7 +31,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-group-post)
 
-```ruby
+```elixir
 @client.create_team_user_group(team_id, params) # Input:
                                                 ## team_id (string, required)
                                                 ## params (hash, required):
@@ -48,7 +48,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-group-put)
 
-```ruby
+```elixir
 @client.update_team_user_group(team_id, group_id, params) # Input:
                                                           ## team_id (string, required)
                                                           ## group_id (string, required)
@@ -64,7 +64,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 group = @client.team_user_group('team_id', 'group_id')
 group.update(params)
 ```
@@ -73,7 +73,7 @@ group.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-add-projects-to-group-put)
 
-```ruby
+```elixir
 @client.add_projects_to_group(team_id, group_id, project_ids) # Input:
                                                               ## team_id (string, required)
                                                               ## group_id (string, required)
@@ -82,7 +82,7 @@ group.update(params)
 
 Alternatively:
 
-```ruby
+```elixir
 group = @client.team_user_group('team_id', 'group_id')
 group.add_projects projects: [project_id1, project_id2]
 ```
@@ -91,7 +91,7 @@ group.add_projects projects: [project_id1, project_id2]
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-projects-from-group-put)
 
-```ruby
+```elixir
 @client.remove_projects_from_group(team_id, group_id, project_ids)  # Input:
                                                                     ## team_id (string, required)
                                                                     ## group_id (string, required)
@@ -100,7 +100,7 @@ group.add_projects projects: [project_id1, project_id2]
 
 Alternatively:
 
-```ruby
+```elixir
 group = @client.team_user_group('team_id', 'group_id')
 group.remove_projects projects: [project_id1, project_id2]
 ```
@@ -109,7 +109,7 @@ group.remove_projects projects: [project_id1, project_id2]
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-add-members-to-group-put)
 
-```ruby
+```elixir
 @client.add_users_to_group(team_id, group_id, user_ids) # Input:
                                                         ## team_id (string, required)
                                                         ## group_id (string, required)
@@ -118,7 +118,7 @@ group.remove_projects projects: [project_id1, project_id2]
 
 Alternatively:
 
-```ruby
+```elixir
 group = @client.team_user_group('team_id', 'group_id')
 group.add_users users: [user_id1, user_id2]
 ```
@@ -127,7 +127,7 @@ group.add_users users: [user_id1, user_id2]
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-members-from-group-put)
 
-```ruby
+```elixir
 @client.remove_users_from_group(team_id, group_id, user_ids)  # Input:
                                                               ## team_id (string, required)
                                                               ## group_id (string, required)
@@ -136,7 +136,7 @@ group.add_users users: [user_id1, user_id2]
 
 Alternatively:
 
-```ruby
+```elixir
 group = @client.team_user_group('team_id', 'group_id')
 group.remove_users users: [user_id1, user_id2]
 ```
@@ -145,7 +145,7 @@ group.remove_users users: [user_id1, user_id2]
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-group-delete)
 
-```ruby
+```elixir
 @client.destroy_team_user_group(team_id, group_id)  # Input:
                                                     ## team_id (string, required)
                                                     ## group_id (string, required)
@@ -155,7 +155,7 @@ group.remove_users users: [user_id1, user_id2]
 
 Alternatively:
 
-```ruby
+```elixir
 group = @client.team_user_group('team_id', 'group_id')
 group.destroy
 ```

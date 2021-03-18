@@ -33,6 +33,19 @@ defmodule ElixirLokaliseApi.FilesTest do
     end
   end
 
+  test "lists all files with branch" do
+    use_cassette "files_all_branch" do
+      {:ok, %FilesCollection{} = files} = Files.all("#{@project_id}:merge-me")
+
+      assert files.project_id == @project_id
+      assert files.branch == "merge-me"
+
+      file = files.items |> List.first()
+      assert file.filename == "%LANG_ISO%.yml"
+      assert file.key_count == 3
+    end
+  end
+
   test "lists paginated files" do
     use_cassette "files_all_paginated" do
       {:ok, %FilesCollection{} = files} = Files.all(@project_id, page: 2, limit: 3)

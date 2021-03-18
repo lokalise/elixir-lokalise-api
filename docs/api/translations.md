@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-translations-get)
 
-```ruby
+```elixir
 @client.translations(project_id, params = {})   # Input:
                                                 ## project_id (string, required)
                                                 ## params (hash)
@@ -20,7 +20,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-translation-get)
 
-```ruby
+```elixir
 @client.translation(project_id, translation_id, params = {})   # Input:
                                                                 ## project_id (string, required)
                                                                 ## translation_id (string, required)
@@ -34,7 +34,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-translation-put)
 
-```ruby
+```elixir
 @client.update_translation(project_id, translation_id, params = {})   # Input:
                                                                       ## project_id (string, required)
                                                                       ## translation_id (string, required)
@@ -48,7 +48,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 translation = @client.translation('project_id', 'translation_id')
 translation.update(params)
 ```

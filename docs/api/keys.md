@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
 
-```ruby
+```elixir
 @client.keys(project_id, params = {})   # Input:
                                         ## project_id (string, required)
                                         ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
 
-```ruby
+```elixir
 @client.key(project_id, key_id, params = {})    # Input:
                                                 ## project_id (string, required)
                                                 ## key_id (string, required)
@@ -33,7 +33,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
-```ruby
+```elixir
 @client.create_keys(project_id, params)   # Input:
                                           ## project_id (string, required)
                                           ## params (array of hashes or hash, required)
@@ -48,7 +48,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
 
-```ruby
+```elixir
 @client.update_key(project_id, key_id, params = {})   # Input:
                                                       ## project_id (string, required)
                                                       ## key_id (string, required)
@@ -60,7 +60,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 key = @client.key('project_id', 'key_id')
 key.update(params)
 ```
@@ -69,7 +69,7 @@ key.update(params)
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
-```ruby
+```elixir
 @client.update_keys(project_id, params)  # Input:
                                          ## project_id (string, required)
                                          ## params (hash or array of hashes, required)
@@ -81,7 +81,7 @@ key.update(params)
 
 Example:
 
-```ruby
+```elixir
 client.update_keys '123.abc', [
   {
     key_id: 456,
@@ -98,7 +98,7 @@ client.update_keys '123.abc', [
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
 
-```ruby
+```elixir
 @client.destroy_key(project_id, key_id) # Input:
                                         ## project_id (string, required)
                                         ## key_id (string, required)
@@ -108,7 +108,7 @@ client.update_keys '123.abc', [
 
 Alternatively:
 
-```ruby
+```elixir
 key = @client.key('project_id', 'key_id')
 key.destroy
 ```
@@ -117,7 +117,7 @@ key.destroy
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
 
-```ruby
+```elixir
 @client.destroy_keys(project_id, key_ids) # Input:
                                           ## project_id (string, required)
                                           ## key_ids (array, required)
@@ -127,7 +127,7 @@ key.destroy
 
 Alternatively:
 
-```ruby
+```elixir
 keys = @client.keys('project_id')
 keys.destroy_all # => will effectively destroy all keys in the project
 ```

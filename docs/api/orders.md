@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
 
-```ruby
+```elixir
 @client.orders(team_id, params = {})  # Input:
                                       ## team_id (integer, string, required)
                                       ## params (hash)
@@ -19,7 +19,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
 
-```ruby
+```elixir
 @client.order(team_id, order_id)  # Input:
                                   ## team_id (string, integer, required)
                                   ## order_id (string, required)
@@ -31,7 +31,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
 
-```ruby
+```elixir
 @client.create_order(team_id, params)  # Input:
                                        ## team_id (string, integer, required)
                                        ## params (hash, required)

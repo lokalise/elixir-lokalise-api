@@ -6,7 +6,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
 
-```ruby
+```elixir
 @client.payment_cards(params = {})    # Input:
                                       ## params (hash)
                                       ### :page and :limit
@@ -18,7 +18,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
 
-```ruby
+```elixir
 @client.payment_card(card_id)     # Input:
                                   ## card_id (string, required)
                                   # Output:
@@ -29,7 +29,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
 
-```ruby
+```elixir
 @client.create_payment_card(params)   # Input:
                                       ## params (hash, required)
                                       ### number (integer, string, required) - card number
@@ -45,7 +45,7 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
 
-```ruby
+```elixir
 @client.destroy_payment_card(card_id)   # Input:
                                         ## card_id (integer, string, required)
                                         # Output:
@@ -54,7 +54,7 @@
 
 Alternatively:
 
-```ruby
+```elixir
 card = @client.payment_card('card_id')
 card.destroy
 ```
