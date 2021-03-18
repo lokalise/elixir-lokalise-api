@@ -7,12 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-providers-get)
 
 ```elixir
-@client.translation_providers(team_id, params = {})   # Input:
-                                                      ## team_id (string, required)
-                                                      ## params (hash)
-                                                      ### :page and :limit
-                                                      # Output:
-                                                      ## Collection of providers for the team
+{:ok, translation_providers} = ElixirLokaliseApi.TranslationProviders.all(team_id, page: 2, limit: 1)
+
+provider = hd(translation_providers.items)
+provider.provider_id
 ```
 
 ## Fetch a single translation provider
@@ -20,9 +18,7 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-provider-get)
 
 ```elixir
-@client.translation_provider(team_id, provider_id)  # Input:
-                                                    ## team_id (string, required)
-                                                    ## provider_id (string, required)
-                                                    # Output:
-                                                    ## Single provider for the team
+{:ok, provider} = ElixirLokaliseApi.TranslationProviders.find(team_id, provider_id)
+
+provider.provider_id
 ```

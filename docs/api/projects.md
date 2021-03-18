@@ -7,12 +7,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-projects-get)
 
 ```elixir
-@client.projects(params = {})   # Input:
-                                ## params (hash)
-                                ### :filter_team_id (string) - load projects only for the given team
-                                ### :page and :limit
-                                # Output:
-                                ## Collection of projects under the `projects` attribute
+{:ok, projects} = ElixirLokaliseApi.Projects.all(page: 3, limit: 2)
+project = projects.items |> hd
+project.name
 ```
 
 ## Fetch a single project
@@ -20,10 +17,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-project-get)
 
 ```elixir
-@client.project(project_id)     # Input:
-                                ## project_id (string, required)
-                                # Output:
-                                ## A single project
+{:ok, project} = ElixirLokaliseApi.Projects.find(project_id)
+
+project.project_id
 ```
 
 ## Create a project
@@ -31,14 +27,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-project-post)
 
 ```elixir
-@client.create_project(params)  # Input:
-                                ## params (hash, required)
-                                ### name (string, required)
-                                ### description (string)
-                                ### team_id (integer) - you must be an admin of the chosen team. When omitted, defaults to the current team of the token's owner
-                                # Output:
-                                ## A newly created project
-
+project_data = %{name: "Elixir SDK", description: "Created via API"}
+{:ok, project} = ElixirLokaliseApi.Projects.create(project_data)
+project.name
 ```
 
 ## Update a project
@@ -46,20 +37,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-project-put)
 
 ```elixir
-@client.update_project(project_id, params)  # Input:
-                                            ## project_id (string, required)
-                                            ## params (hash, required)
-                                            ### name (string, required)
-                                            ### description (string)
-                                            # Output:
-                                            ## An updated project
-```
+project_data = %{name: "Updated SDK", description: "Updated via API"}
 
-Alternatively:
-
-```elixir
-project = @client.project('project_id')
-project.update(params)
+{:ok, project} = ElixirLokaliseApi.Projects.update(project_id, project_data)
+project.project_id
 ```
 
 ## Empty a project
@@ -69,17 +50,8 @@ project.update(params)
 Deletes *all* keys and translations from the project.
 
 ```elixir
-@client.empty_project(project_id)   # Input:
-                                    ## project_id (string, required)
-                                    # Output:
-                                    ## A project containing its id and a `keys_deleted => true` attribute
-```
-
-Alternatively:
-
-```elixir
-project = @client.project('project_id')
-project.empty
+{:ok, resp} = ElixirLokaliseApi.Projects.empty(project_id)
+resp.keys_deleted
 ```
 
 ## Delete a project
@@ -87,15 +59,6 @@ project.empty
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-project-delete)
 
 ```elixir
-@client.destroy_project(project_id)   # Input:
-                                      ## project_id (string, required)
-                                      # Output:
-                                      ## A project containing its id and a `project_deleted => true` attribute
-```
-
-Alternatively:
-
-```elixir
-project = @client.project('project_id')
-project.destroy
+{:ok, resp} = ElixirLokaliseApi.Projects.delete(project_id)
+resp.project_deleted
 ```

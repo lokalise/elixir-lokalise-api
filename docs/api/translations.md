@@ -7,13 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-translations-get)
 
 ```elixir
-@client.translations(project_id, params = {})   # Input:
-                                                ## project_id (string, required)
-                                                ## params (hash)
-                                                ### Find full list in the docs
-                                                ### :page and :limit
-                                                # Output:
-                                                ## Collection of translations for the project
+{:ok, translations} = ElixirLokaliseApi.Translations.all(@project_id, filter_is_reviewed: 0, page: 2, limit: 1)
+
+translation = hd(translations.items)
+translation.translation_id
 ```
 
 ## Fetch a single translation
@@ -21,13 +18,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-translation-get)
 
 ```elixir
-@client.translation(project_id, translation_id, params = {})   # Input:
-                                                                ## project_id (string, required)
-                                                                ## translation_id (string, required)
-                                                                ## params (hash)
-                                                                ### :disable_references (string) - whether to disable key references. Supported values are 0 and 1
-                                                                # Output:
-                                                                ## Single translation for the project
+{:ok, translation} = ElixirLokaliseApi.Translations.find(project_id, translation_id, disable_references: 1)
+
+translation.translation_id
 ```
 
 ## Update translation
@@ -35,20 +28,12 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-translation-put)
 
 ```elixir
-@client.update_translation(project_id, translation_id, params = {})   # Input:
-                                                                      ## project_id (string, required)
-                                                                      ## translation_id (string, required)
-                                                                      ## params (hash, required)
-                                                                      ### :translation (string or hash, required) - the actual translation. Provide hash for plural keys.
-                                                                      ### :is_fuzzy (boolean)
-                                                                      ### :is_reviewed (boolean)
-                                                                      # Output:
-                                                                      ## Updated translation
-```
+data = %{
+  translation: "Updated!",
+  is_reviewed: true
+}
 
-Alternatively:
+{:ok, translation} = ElixirLokaliseApi.Translations.update(project_id, translation_id, data)
 
-```elixir
-translation = @client.translation('project_id', 'translation_id')
-translation.update(params)
+translation.translation_id
 ```

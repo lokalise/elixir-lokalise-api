@@ -46,7 +46,7 @@ defmodule ElixirLokaliseApi.KeysTest do
       refute keys |> Pagination.next_page?()
       assert keys |> Pagination.prev_page?()
 
-      key = hd keys.items
+      key = hd(keys.items)
       assert key.key_id == 79_039_609
     end
   end
@@ -120,7 +120,7 @@ defmodule ElixirLokaliseApi.KeysTest do
 
       {:ok, %KeysCollection{} = keys} = Keys.create(@project_id, data)
 
-      key = hd keys.items
+      key = hd(keys.items)
       assert key.key_name.android == "elixir"
       assert key.description == "Via API"
       assert List.first(key.translations).translation == "Hi from Elixir"

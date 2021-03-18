@@ -7,12 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-webhooks-get)
 
 ```elixir
-@client.webhooks(project_id, params = {}) # Input:
-                                          ## project_id (string, required)
-                                          ## params (hash)
-                                          ### :page and :limit
-                                          # Output:
-                                          ## Collection of webhooks for the project
+{:ok, webhooks} = ElixirLokaliseApi.Webhooks.all(project_id, page: 2, limit: 1)
+
+webhook = hd(webhooks.items)
+webhook.webhook_id
 ```
 
 ## Fetch a single webhook
@@ -20,11 +18,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-webhook-get)
 
 ```elixir
-@client.webhook(project_id, webhook_id)   # Input:
-                                          ## project_id (string, required)
-                                          ## webhook_id (string, required)
-                                          # Output:
-                                          ## Webhook for the given project
+{:ok, webhook} = ElixirLokaliseApi.Webhooks.find(project_id, webhook_id)
+
+webhook.webhook_id
 ```
 
 ## Create webhook
@@ -32,14 +28,14 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-webhook-post)
 
 ```elixir
-@client.create_webhook(project_id, params)    # Input:
-                                              ## project_id (string, required)
-                                              ## params (hash, required)
-                                              ### :url (string, required) - webhook URL
-                                              ### :events (array, required) - events to subscribe to. Check the API docs to find the list of supported events
-                                              ### :event_lang_map (array) - map the event with an array of languages iso codes
-                                              # Output:
-                                              ## Created webhook
+data = %{
+  url: "http://bodrovis.tech/lokalise",
+  events: ["project.imported"]
+}
+
+{:ok, webhook} = ElixirLokaliseApi.Webhooks.create(project_id, data)
+
+webhook.url
 ```
 
 ## Update webhook
@@ -47,22 +43,13 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-webhook-put)
 
 ```elixir
-@client.update_webhook(project_id, webhook_id, params)    # Input:
-                                                          ## project_id (string, required)
-                                                          ## webhook_id (string, required)
-                                                          ## params (hash)
-                                                          ### :url (string) - webhook URL
-                                                          ### :events (array) - events to subscribe to. Check the API docs to find the list of supported events
-                                                          ### :event_lang_map (array) - map the event with an array of languages iso codes
-                                                          # Output:
-                                                          ## Updated webhook
-```
+data = %{
+  events: ["project.exported"]
+}
 
-Alternatively:
+{:ok, webhook} = ElixirLokaliseApi.Webhooks.update(project_id, webhook_id, data)
 
-```elixir
-webhook = @client.webhook(project_id, webhook_id)
-webhook.update(params)
+webhook.webhook_id
 ```
 
 ## Delete webhook
@@ -70,18 +57,9 @@ webhook.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-webhook-delete)
 
 ```elixir
-@client.destroy_webhook(project_id, webhook_id)   # Input:
-                                                  ## project_id (string, required)
-                                                  ## webhook_id (string, required)
-                                                  # Output:
-                                                  ## Result of the delete operation
-```
+{:ok, resp} = ElixirLokaliseApi.Webhooks.delete(project_id, webhook_id)
 
-Alternatively:
-
-```elixir
-webhook = @client.webhook(project_id, webhook_id)
-webhook.destroy
+resp.webhook_deleted
 ```
 
 ## Regenerate webhook secret
@@ -89,16 +67,8 @@ webhook.destroy
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch)
 
 ```elixir
-@client.regenerate_webhook_secret(project_id, webhook_id) # Input:
-                                                          ## project_id (string, required)
-                                                          ## webhook_id (string, required)
-                                                          # Output:
-                                                          ## Hash containing `project_id` and new `secret`
-```
+{:ok, resp} = ElixirLokaliseApi.Webhooks.regenerate_secret(project_id, webhook_id)
 
-Alternatively:
-
-```elixir
-webhook = @client.webhook(project_id, webhook_id)
-webhook.regenerate_secret
+resp.project_id
+resp.secret
 ```

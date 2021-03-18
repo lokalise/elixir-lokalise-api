@@ -7,12 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
 
 ```elixir
-@client.orders(team_id, params = {})  # Input:
-                                      ## team_id (integer, string, required)
-                                      ## params (hash)
-                                      ### :page and :limit
-                                      # Output:
-                                      ## Collection of orders for the given team
+{:ok, orders} = ElixirLokaliseApi.Orders.all(team_id, page: 3, limit: 2)
+
+order = hd(orders.items)
+order.order_id
 ```
 
 ## Fetch a single order
@@ -20,11 +18,8 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
 
 ```elixir
-@client.order(team_id, order_id)  # Input:
-                                  ## team_id (string, integer, required)
-                                  ## order_id (string, required)
-                                  # Output:
-                                  ## A single order
+{:ok, order} = ElixirLokaliseApi.Orders.find(team_id, order_id)
+order.order_id
 ```
 
 ## Create an order
@@ -32,20 +27,18 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
 
 ```elixir
-@client.create_order(team_id, params)  # Input:
-                                       ## team_id (string, integer, required)
-                                       ## params (hash, required)
-                                       ### project_id (string, required)
-                                       ### card_id (integer, string, required) - card to process payment
-                                       ### briefing (string, required)
-                                       ### source_language_iso (string, required)
-                                       ### target_language_isos (array of strings, required)
-                                       ### keys (array of integers, required) - keys to include in the order
-                                       ### provider_slug (string, required)
-                                       ### translation_tier (integer, required)
-                                       ### dry_run (boolean) - return the response without actually placing an order. Useful for price estimation. Default is `false`
-                                       ### translation_style (string) - only for gengo provider. Available values are `formal`, `informal`, `business`, `friendly`. Defaults to `friendly`.
-                                       # Output:
-                                       ## A newly created order
+data = %{
+  project_id: "572560965f984614d567a4.18006942",
+  card_id: 1111,
+  briefing: "Sample",
+  source_language_iso: "en",
+  target_language_isos: ["fr"],
+  keys: [7921],
+  provider_slug: "google",
+  translation_tier: 1
+}
 
+{:ok, order} = ElixirLokaliseApi.Orders.create(team_id, data)
+
+order.keys
 ```

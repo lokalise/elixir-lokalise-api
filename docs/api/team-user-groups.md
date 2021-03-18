@@ -7,12 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-groups-get)
 
 ```elixir
-@client.team_user_groups(team_id, params = {})  # Input:
-                                                ## team_id (string, required)
-                                                ## params (hash)
-                                                ### :page and :limit
-                                                # Output:
-                                                ## Collection of team user groups
+{:ok, groups} = ElixirLokaliseApi.TeamUserGroups.all(team_id, page: 3, limit: 2)
+
+group = hd(groups.items)
+group.group_id
 ```
 
 ## Fetch a single group
@@ -20,11 +18,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-group-get)
 
 ```elixir
-@client.team_user_group(team_id, group_id)  # Input:
-                                            ## team_id (string, required)
-                                            ## group_id (string, required)
-                                            # Output:
-                                            ## Group
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.find(team_id, group_id)
+
+group.group_id
 ```
 
 ## Create group
@@ -32,16 +28,19 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-group-post)
 
 ```elixir
-@client.create_team_user_group(team_id, params) # Input:
-                                                ## team_id (string, required)
-                                                ## params (hash, required):
-                                                ### :name (string, required)
-                                                ### :is_reviewer (boolean, required)
-                                                ### :is_admin (boolean, required)
-                                                ### :admin_rights (array) - required only if is_admin is true
-                                                ### :languages (array of hashes) - required if is_admin is false
-                                                # Output:
-                                                ## Updated group
+data = %{
+  name: "ExGroup",
+  is_reviewer: true,
+  is_admin: false,
+  languages: %{
+    reference: [],
+    contributable: [640]
+  }
+}
+
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.create(team_id, data)
+
+group.name
 ```
 
 ## Update group
@@ -49,24 +48,19 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-group-put)
 
 ```elixir
-@client.update_team_user_group(team_id, group_id, params) # Input:
-                                                          ## team_id (string, required)
-                                                          ## group_id (string, required)
-                                                          ## params (hash, required):
-                                                          ### :name (string, required)
-                                                          ### :is_reviewer (boolean, required)
-                                                          ### :is_admin (boolean, required)
-                                                          ### :admin_rights (array) - required only if is_admin is true
-                                                          ### :languages (array of hashes) - required if is_admin is false
-                                                          # Output:
-                                                          ## Updated group
-```
+data = %{
+  name: "ExGroup Updated",
+  is_reviewer: true,
+  is_admin: false,
+  languages: %{
+    reference: [],
+    contributable: [640]
+  }
+}
 
-Alternatively:
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.update(team_id, group_id, data)
 
-```elixir
-group = @client.team_user_group('team_id', 'group_id')
-group.update(params)
+group.name
 ```
 
 ## Add projects to group
@@ -74,17 +68,13 @@ group.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-add-projects-to-group-put)
 
 ```elixir
-@client.add_projects_to_group(team_id, group_id, project_ids) # Input:
-                                                              ## team_id (string, required)
-                                                              ## group_id (string, required)
-                                                              ## project_ids (string or array, required) - project ids that you would like to add to this group
-```
+data = %{
+  projects: [project_id]
+}
 
-Alternatively:
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.add_projects(team_id, group_id, data)
 
-```elixir
-group = @client.team_user_group('team_id', 'group_id')
-group.add_projects projects: [project_id1, project_id2]
+assert group.group_id
 ```
 
 ## Remove projects from group
@@ -92,17 +82,13 @@ group.add_projects projects: [project_id1, project_id2]
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-projects-from-group-put)
 
 ```elixir
-@client.remove_projects_from_group(team_id, group_id, project_ids)  # Input:
-                                                                    ## team_id (string, required)
-                                                                    ## group_id (string, required)
-                                                                    ## project_ids (string or array, required) - project ids that you would like to remove from this group
-```
+data = %{
+  projects: [project_id]
+}
 
-Alternatively:
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.remove_projects(team_id, group_id, data)
 
-```elixir
-group = @client.team_user_group('team_id', 'group_id')
-group.remove_projects projects: [project_id1, project_id2]
+group.group_id
 ```
 
 ## Add users to group
@@ -110,17 +96,13 @@ group.remove_projects projects: [project_id1, project_id2]
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-add-members-to-group-put)
 
 ```elixir
-@client.add_users_to_group(team_id, group_id, user_ids) # Input:
-                                                        ## team_id (string, required)
-                                                        ## group_id (string, required)
-                                                        ## user_ids (string or array, required) - user ids that you would like to add to this group
-```
+data = %{
+  users: [user_id]
+}
 
-Alternatively:
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.add_members(team_id, group_id, data)
 
-```elixir
-group = @client.team_user_group('team_id', 'group_id')
-group.add_users users: [user_id1, user_id2]
+group.group_id
 ```
 
 ## Remove users from group
@@ -128,17 +110,13 @@ group.add_users users: [user_id1, user_id2]
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-members-from-group-put)
 
 ```elixir
-@client.remove_users_from_group(team_id, group_id, user_ids)  # Input:
-                                                              ## team_id (string, required)
-                                                              ## group_id (string, required)
-                                                              ## user_ids (string or array, required) - user ids that you would like to add to this group
-```
+data = %{
+  users: [user_id]
+}
 
-Alternatively:
+{:ok, group} = ElixirLokaliseApi.TeamUserGroups.remove_members(team_id, group_id, data)
 
-```elixir
-group = @client.team_user_group('team_id', 'group_id')
-group.remove_users users: [user_id1, user_id2]
+group.group_id
 ```
 
 ## Destroy group
@@ -146,16 +124,7 @@ group.remove_users users: [user_id1, user_id2]
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-group-delete)
 
 ```elixir
-@client.destroy_team_user_group(team_id, group_id)  # Input:
-                                                    ## team_id (string, required)
-                                                    ## group_id (string, required)
-                                                    # Output:
-                                                    ## Hash with "team_id" and "group_deleted" set to "true"
-```
+{:ok, resp} = ElixirLokaliseApi.TeamUserGroups.delete(team_id, group_id)
 
-Alternatively:
-
-```elixir
-group = @client.team_user_group('team_id', 'group_id')
-group.destroy
+resp.group_deleted
 ```

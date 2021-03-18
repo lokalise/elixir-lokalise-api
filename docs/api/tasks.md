@@ -7,13 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
 
 ```elixir
-@client.tasks(project_id, params = {})  # Input:
-                                        ## project_id (string, required)
-                                        ## params (hash)
-                                        ### :filter_title (string) - set title filter for the list
-                                        ### :page and :limit
-                                        # Output:
-                                        ## Collection of tasks for the project
+{:ok, tasks} = ElixirLokaliseApi.Tasks.all(project_id, page: 2, limit: 1, filter_statuses: "completed")
+
+task = hd(tasks.items)
+task.task_id
 ```
 
 ## Fetch a single task
@@ -21,11 +18,8 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
 
 ```elixir
-@client.task(project_id, task_id, params = {})  # Input:
-                                                ## project_id (string, required)
-                                                ## task_id (string, required)
-                                                # Output:
-                                                ## Single task for the project
+{:ok, task} = ElixirLokaliseApi.Tasks.find(project_id, task_id)
+task.task_id
 ```
 
 ## Create task
@@ -33,18 +27,20 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
 
 ```elixir
-@client.create_task(project_id, params)  # Input:
-                                         ## project_id (string, required)
-                                         ## params (hash, required)
-                                         ### title (string, required)
-                                         ### keys (array) - translation key ids. Required if "parent_task_id" is not specified
-                                         ### languages (array of hashes, required)
-                                         #### language_iso (string)
-                                         #### users (array) - list of users identifiers, assigned to work on the language
-                                         ### Find other supported options at https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post
-                                         # Output:
-                                         ## A newly created task
+data = %{
+  title: "Elixir",
+  keys: [74_185, 74_187],
+  languages: [
+    %{
+      language_iso: "sq",
+      users: [2018]
+    }
+  ]
+}
 
+{:ok, task} = ElixirLokaliseApi.Tasks.create(project_id, data)
+
+task.title
 ```
 
 ## Update task
@@ -52,21 +48,14 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
 
 ```elixir
-@client.update_task(project_id, task_id, params = {})  # Input:
-                                                       ## project_id (string, required)
-                                                       ## task_id (string or integer, required)
-                                                       ## params (hash)
-                                                       ### Find supported params at https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put
-                                                       # Output:
-                                                       ## An updated task
+data = %{
+  title: "Elixir updated",
+  description: "sample"
+}
 
-```
+{:ok, task} = ElixirLokaliseApi.Tasks.update(project_id, task_id, data)
 
-Alternatively:
-
-```elixir
-task = @client.task('project_id', 'task_id')
-task.update(params)
+task.task_id
 ```
 
 ## Delete task
@@ -74,17 +63,7 @@ task.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
 
 ```elixir
-@client.destroy_task(project_id, task_id)  # Input:
-                                           ## project_id (string, required)
-                                           ## task_id (string, required)
-                                           # Output:
-                                           ## Hash with the project id and "task_deleted" set to "true"
+{:ok, resp} = ElixirLokaliseApi.Tasks.delete(project_id, task_id)
 
-```
-
-Alternatively:
-
-```elixir
-task = @client.task('project_id', 'task_id')
-task.destroy
+resp.task_deleted
 ```

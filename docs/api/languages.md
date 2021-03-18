@@ -7,11 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-system-languages-get)
 
 ```elixir
-@client.system_languages(params = {})   # Input:
-                                        ## params (hash)
-                                        ### :page and :limit
-                                        # Output:
-                                        ## Collection of system languages supported by Lokalise
+{:ok, languages} = ElixirLokaliseApi.SystemLanguages.all(page: 3, limit: 2)
+
+language = hd(languages.items)
+language.lang_iso
 ```
 
 ## Fetch project languages
@@ -19,12 +18,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-languages-get)
 
 ```elixir
-@client.project_languages(project_id, params = {})    # Input:
-                                                      ## project_id (string, required)
-                                                      ## params (hash)
-                                                      ### :page and :limit
-                                                      # Output:
-                                                      ## Collection of languages available in the given project
+{:ok, languages} = ElixirLokaliseApi.ProjectLanguages.all(project_id, page: 3, limit: 2)
+
+language = languages.items |> hd
+language.lang_iso
 ```
 
 ## Fetch a single project language
@@ -32,11 +29,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-language-get)
 
 ```elixir
-@client.language(project_id, language_id)     # Input:
-                                              ## project_id (string, required)
-                                              ## language_id (string, required)
-                                              # Output:
-                                              ## A single language in the given project
+{:ok, language} = ElixirLokaliseApi.ProjectLanguages.find(project_id, lang_id)
+
+language.lang_id
 ```
 
 ## Create project languages
@@ -44,15 +39,21 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-languages-post)
 
 ```elixir
-@client.create_languages(project_id, params)    # Input:
-                                                ## project_id (string, required)
-                                                ## params (array of hashes or hash, required) - contains parameter of newly created languages. Pass array of hashes to create multiple languages, or a hash to create a single language
-                                                ### :lang_iso (string, required)
-                                                ### :custom_iso (string)
-                                                ### :custom_name (string)
-                                                ### :custom_plural_forms (array) - can contain only plural forms initially supported by Lokalise
-                                                # Output:
-                                                ## Collection of newly created languages
+data = %{
+  languages: [
+    %{
+      lang_iso: "fr",
+      custom_iso: "samp"
+    },
+    %{
+      lang_iso: "de",
+      custom_name: "Sample"
+    }
+  ]
+}
+
+{:ok, languages} = ElixirLokaliseApi.ProjectLanguages.create(project_id, data)
+languages.items
 ```
 
 ## Update project language
@@ -60,22 +61,13 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-language-put)
 
 ```elixir
-@client.update_language(project_id, language_id, params)    # Input:
-                                                            ## project_id (string, required)
-                                                            ## language_id (string, required)
-                                                            ## params (hash, required)
-                                                            ### :lang_iso (string, required)
-                                                            ### :custom_name (string)
-                                                            ### :plural_forms (array) - can contain only plural forms initially supported by Lokalise
-                                                            # Output:
-                                                            ## Updated language
-```
+data = %{
+  lang_name: "Updated"
+}
 
-Alternatively:
+{:ok, language} = ElixirLokaliseApi.ProjectLanguages.update(project_id, lang_id, data)
 
-```elixir
-language = @client.language('project_id', 'lang_id')
-language.update(params)
+language.lang_name
 ```
 
 ## Delete project language
@@ -83,16 +75,6 @@ language.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-language-delete)
 
 ```elixir
-@client.destroy_language(project_id, language_id)    # Input:
-                                                     ## project_id (string, required)
-                                                     ## language_id (string, required)
-                                                     # Output:
-                                                     ## Hash with the project's id and "language_deleted"=>true
-```
-
-Alternatively:
-
-```elixir
-language = @client.language('project_id', 'lang_id')
-language.destroy
+{:ok, resp} = ElixirLokaliseApi.ProjectLanguages.delete(project_id, lang_id)
+resp.language_deleted
 ```

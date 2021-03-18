@@ -7,10 +7,7 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-processes-get)
 
 ```elixir
-@client.queued_processes(project_id) # Input:
-                                     ## project_id (string, required)
-                                     # Output:
-                                     ## Collection of queued processes
+{:ok, processes} = ElixirLokaliseApi.QueuedProcesses.all(project_id, page: 2, limit: 1)
 ```
 
 ## Fetch a single queued process
@@ -18,9 +15,7 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-process-get)
 
 ```elixir
-@client.queued_process(project_id, process_id) # Input:
-                                               ## project_id (string, required)
-                                               ## process_id (string, required)
-                                               # Output:
-                                               ## Queued process resource
+{:ok, process} = ElixirLokaliseApi.QueuedProcesses.find(project_id, process_id)
+
+process.type
 ```

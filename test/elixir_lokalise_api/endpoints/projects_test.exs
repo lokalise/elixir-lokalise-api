@@ -36,7 +36,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
   test "lists paginated projects" do
     use_cassette "projects_all_paginated" do
       {:ok, %ProjectsCollection{} = projects} = Projects.all(page: 3, limit: 2)
-      project = projects.items |> List.first()
+      project = projects.items |> hd
       assert project.name == "Demo"
 
       assert Enum.count(projects.items) == 2

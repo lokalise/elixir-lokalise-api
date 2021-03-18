@@ -7,11 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
 
 ```elixir
-@client.payment_cards(params = {})    # Input:
-                                      ## params (hash)
-                                      ### :page and :limit
-                                      # Output:
-                                      ## Collection of payment cards under the `payment_cards` attribute
+{:ok, cards} = ElixirLokaliseApi.PaymentCards.all(page: 2, limit: 2)
+
+card = hd(cards.items)
+card.card_id
 ```
 
 ## Fetch a single payment card
@@ -19,10 +18,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
 
 ```elixir
-@client.payment_card(card_id)     # Input:
-                                  ## card_id (string, required)
-                                  # Output:
-                                  ## A single payment card
+{:ok, card} = ElixirLokaliseApi.PaymentCards.find(card_id)
+
+card.card_id
 ```
 
 ## Create a payment card
@@ -30,15 +28,16 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
 
 ```elixir
-@client.create_payment_card(params)   # Input:
-                                      ## params (hash, required)
-                                      ### number (integer, string, required) - card number
-                                      ### cvc (integer, required) - 3-digit card CVV (CVC)
-                                      ### exp_month (integer, required) - card expiration month (1 - 12)
-                                      ### exp_year (integer, required) - card expiration year (for example, 2019)
-                                      # Output:
-                                      ## A newly created payment card
+data = %{
+  number: "1212121212121212",
+  cvc: 123,
+  exp_month: 3,
+  exp_year: 2030
+}
 
+{:ok, card} = ElixirLokaliseApi.PaymentCards.create(data)
+
+card.card_id
 ```
 
 ## Delete a payment card
@@ -46,15 +45,6 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
 
 ```elixir
-@client.destroy_payment_card(card_id)   # Input:
-                                        ## card_id (integer, string, required)
-                                        # Output:
-                                        ## Hash containing card id and `card_deleted => true` attribute
-```
-
-Alternatively:
-
-```elixir
-card = @client.payment_card('card_id')
-card.destroy
+{:ok, resp} = ElixirLokaliseApi.PaymentCards.delete(card_id)
+resp.card_deleted
 ```
