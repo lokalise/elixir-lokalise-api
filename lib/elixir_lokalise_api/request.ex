@@ -22,7 +22,7 @@ defmodule ElixirLokaliseApi.Request do
       UrlGenerator.generate(module, opts),
       Processor.encode(opts[:data]),
       headers(),
-      params: opts[:query_params]
+      request_params(opts[:query_params])
     )
     |> Processor.parse(module, opts[:type])
   end
@@ -35,7 +35,7 @@ defmodule ElixirLokaliseApi.Request do
     ]
   end
 
-  defp prepare_opts(opts) do
-    Keyword.merge(@defaults, opts)
-  end
+  defp request_params(params), do: Keyword.merge(Config.request_options(), params: params)
+
+  defp prepare_opts(opts), do: Keyword.merge(@defaults, opts)
 end

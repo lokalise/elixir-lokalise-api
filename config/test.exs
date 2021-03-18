@@ -2,7 +2,10 @@ use Mix.Config
 
 config :elixir_lokalise_api,
   api_token: {:system, "LOKALISE_API_TOKEN"},
-  timeout: 3000
+  request_options: [
+    timeout: 5000,
+    recv_timeout: 5000
+  ]
 
 config :logger, level: :info
 

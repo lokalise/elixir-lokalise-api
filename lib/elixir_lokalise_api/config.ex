@@ -16,6 +16,8 @@ defmodule ElixirLokaliseApi.Config do
   """
   def api_token, do: from_env(app_config()[:app], :api_token)
 
+  def request_options, do: from_env(app_config()[:app], :request_options, Keyword.new())
+
   @doc """
   Returns package version
   """

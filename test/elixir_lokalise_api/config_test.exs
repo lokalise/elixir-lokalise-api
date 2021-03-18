@@ -5,7 +5,7 @@ defmodule ElixirLokaliseApi.ConfigTest do
 
   test "from_env returns a plain value" do
     app = Config.app_config()[:app]
-    assert Config.from_env(app, :timeout) == 3000
+    assert Config.from_env(app, :request_options)
   end
 
   test "from_env returns a value under system" do
