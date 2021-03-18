@@ -44,7 +44,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
       refute branches |> Pagination.next_page?()
       assert branches |> Pagination.prev_page?()
 
-      branch = branches.items |> List.first()
+      branch = hd branches.items
       assert branch.name == "master"
     end
   end

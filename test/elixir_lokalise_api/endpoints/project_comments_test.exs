@@ -45,7 +45,7 @@ defmodule ElixirLokaliseApi.ProjectCommentsTest do
       assert comments |> Pagination.next_page?()
       assert comments |> Pagination.prev_page?()
 
-      comment = comments.items |> List.first()
+      comment = hd comments.items
       assert comment.comment == "my comment"
     end
   end

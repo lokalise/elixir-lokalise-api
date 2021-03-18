@@ -5,12 +5,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-contributors-get)
 
 ```elixir
-@client.contributors(project_id, params = {})   # Input:
-                                                ## project_id (string, required)
-                                                ## params (hash)
-                                                ### :page and :limit
-                                                # Output:
-                                                ## Collection of contributors in the given project
+{:ok, contributors} = ElixirLokaliseApi.Contributors.all(project_id, page: 2, limit: 1)
+
+contributor = hd contributors.items
+contributor.user_id
 ```
 
 ## Fetch a single contributor
@@ -18,11 +16,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-contributor-get)
 
 ```elixir
-@client.contributor(project_id, contributor_id)   # Input:
-                                                  ## project_id (string, required)
-                                                  ## contributor_id (string, required) - named as "user_id" in the response
-                                                  # Output:
-                                                  ## Contributor in the given project
+{:ok, contributor} = ElixirLokaliseApi.Contributors.find(project_id, contributor_id)
+
+contributor.user_id
 ```
 
 ## Create contributors
@@ -30,19 +26,25 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-contributors-post)
 
 ```elixir
-@client.create_contributors(project_id, params)  # Input:
-                                                 ## project_id (string, required)
-                                                 ## params (array of hashes or hash, required) - parameters for the newly created contributors. Pass array of hashes to create multiple contributors, or a hash to create a single contributor
-                                                 ### :email (string, required)
-                                                 ### :fullname (string)
-                                                 ### :is_admin (boolean)
-                                                 ### :is_reviewer (boolean)
-                                                 ### :languages (array of hashes, required if "is_admin" set to false) - possible languages attributes:
-                                                 #### :lang_iso (string, required)
-                                                 #### :is_writable (boolean)
-                                                 ### :admin_rights (array)
-                                                 # Output:
-                                                 ## Collection of newly created contributors
+data = %{
+  contributors: [
+    %{
+      email: "elixir_test@example.com",
+      fullname: "Elixir Rocks",
+      languages: [
+        %{
+          lang_iso: "en",
+          is_writable: false
+        }
+      ]
+    }
+  ]
+}
+
+{:ok, contributors} = ElixirLokaliseApi.Contributors.create(project_id, data)
+
+contributor = hd contributors.items
+contributor.email
 ```
 
 ## Update contributor
@@ -50,25 +52,13 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-contributor-put)
 
 ```elixir
-@client.update_contributor(project_id, contributor_id, params)   # Input:
-                                                                 ## project_id (string, required)
-                                                                 ## contributor_id (string, required)
-                                                                 ## params (hash, required)
-                                                                 ### :is_admin (boolean)
-                                                                 ### :is_reviewer (boolean)
-                                                                 ### :languages (array of hashes) - possible languages attributes:
-                                                                 #### :lang_iso (string, required)
-                                                                 #### :is_writable (boolean)
-                                                                 ### :admin_rights (array)
-                                                                 # Output:
-                                                                 ## Updated contributor
-```
+data = %{
+  is_reviewer: true
+}
 
-Alternatively:
+{:ok, contributor} = ElixirLokaliseApi.Contributors.update(project_id, contributor_id, data)
 
-```elixir
-contributor = @client.contributor('project_id', 'contributor_id')
-contributor.update(params)
+contributor.user_id
 ```
 
 ## Delete contributor
@@ -76,16 +66,7 @@ contributor.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-contributor-delete)
 
 ```elixir
-@client.destroy_contributor(project_id, contributor_id)    # Input:
-                                                           ## project_id (string, required)
-                                                           ## contributor_id (string, required)
-                                                           # Output:
-                                                           ## Hash with the project's id and "contributor_deleted"=>true
-```
+{:ok, resp} = ElixirLokaliseApi.Contributors.delete(project_id, contributor_id)
 
-Alternatively:
-
-```elixir
-contributor = @client.contributor('project_id', 'id')
-contributor.destroy
+resp.contributor_deleted
 ```

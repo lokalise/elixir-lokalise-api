@@ -7,12 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-comments-get)
 
 ```elixir
-@client.project_comments(project_id, params = {})   # Input:
-                                                    ## project_id (string, required)
-                                                    ## params (hash)
-                                                    ### :page and :limit
-                                                    # Output:
-                                                    ## Collection of comments available in the given project
+{:ok, comments} = ElixirLokaliseApi.ProjectComments.all(project_id, page: 2, limit: 1)
+
+single_comment = hd comments.items
+single_comment.comment
 ```
 
 ## Fetch key comments
@@ -20,13 +18,7 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-key-comments-get)
 
 ```elixir
-@client.comments(project_id, key_id, params = {})   # Input:
-                                                    ## project_id (string, required)
-                                                    ## key_id (string, required)
-                                                    ## params (hash)
-                                                    ### :page and :limit
-                                                    # Output:
-                                                    ## Collection of comments available for the specified key in the given project
+{:ok, comments} = ElixirLokaliseApi.KeyComments.all(project_id, key_id, limit: 1, page: 2)
 ```
 
 ## Create key comments
@@ -34,13 +26,15 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-comments-post)
 
 ```elixir
-@client.create_comments(project_id, key_id, params)   # Input:
-                                                      ## project_id (string, required)
-                                                      ## key_id (string, required)
-                                                      ## params (array or hash, required) - contains parameter of newly created comments. Pass array of hashes to create multiple comments, or a hash to create a single comment
-                                                      ### :comment (string, required)
-                                                      # Output:
-                                                      ## Newly created comment
+data = %{
+  comments: [
+    %{comment: "Elixir comment"}
+  ]
+}
+
+{:ok, comments} = ElixirLokaliseApi.KeyComments.create(project_id, key_id, data)
+comment = hd comments.items
+comment.comment
 ```
 
 ## Fetch key comment
@@ -48,12 +42,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-comment-get)
 
 ```elixir
-@client.comment(project_id, key_id, comment_id)   # Input:
-                                                  ## project_id (string, required)
-                                                  ## key_id (string, required)
-                                                  ## comment_id (string, required)
-                                                  # Output:
-                                                  ## Comment for the key in the given project
+{:ok, comment} = ElixirLokaliseApi.KeyComments.find(project_id, key_id, comment_id)
+
+comment.comment
+comment.comment_id
 ```
 
 ## Delete key comment
@@ -61,17 +53,7 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-comment-delete)
 
 ```elixir
-@client.destroy_comment(project_id, key_id, comment_id)   # Input:
-                                                          ## project_id (string, required)
-                                                          ## key_id (string, required)
-                                                          ## comment_id (string, required)
-                                                          # Output:
-                                                          ## Hash with the project's id and "comment_deleted"=>true
-```
+{:ok, resp} = ElixirLokaliseApi.KeyComments.delete(project_id, key_id, comment_id)
 
-Alternatively:
-
-```elixir
-comment = @client.comment('project_id', 'comment_id')
-comment.destroy
+assert resp.comment_deleted
 ```

@@ -49,6 +49,10 @@ translation_data = %{
 process.status |> IO.puts # => "finished"
 ```
 
+## Documentation
+
+All documentation and usage examples can be found at [bodrovis.github.io/elixir-lokalise-api](https://bodrovis.github.io/elixir-lokalise-api/)
+
 ## License
 
 Licensed under the [BSD 3 Clause license](https://github.com/bodrovis/elixir-lokalise-api/blob/master/LICENSE).

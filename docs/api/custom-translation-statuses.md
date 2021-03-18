@@ -9,12 +9,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-custom-translation-statuses-get)
 
 ```elixir
-@client.translation_statuses(project_id, params = {}) # Input:
-                                                      ## project_id (string, required)
-                                                      ## params (hash)
-                                                      ### :page and :limit
-                                                      # Output:
-                                                      ## Collection of translation statuses for the project
+{:ok, statuses} = ElixirLokaliseApi.TranslationStatuses.all(project_id, page: 2, limit: 1)
+
+status = hd(statuses.items)
+status.status_id
 ```
 
 ## Fetch a single translation status
@@ -22,11 +20,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-custom-translation-status-get)
 
 ```elixir
-@client.translation_status(project_id, status_id) # Input:
-                                                  ## project_id (string, required)
-                                                  ## status_id (string or integer, required)
-                                                  # Output:
-                                                  ## Translation status inside the given project
+{:ok, status} = ElixirLokaliseApi.TranslationStatuses.find(project_id, status_id)
+
+status.status_id
 ```
 
 ## Create translation status
@@ -34,13 +30,14 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-custom-translation-status-post)
 
 ```elixir
-@client.create_translation_status(project_id, params) # Input:
-                                                      ## project_id (string, required)
-                                                      ## params (hash, required)
-                                                      ### :title (string, required) - title of the new status
-                                                      ### :color (string, required) - HEX color code of the new status. Lokalise allows a very limited number of color codes to set. Check the official docs or use `#translation_status_colors` method listed below to find the list of supported colors
-                                                      # Output:
-                                                      ## Created translation status
+data = %{
+  title: "elixir",
+  color: "#344563"
+}
+
+{:ok, status} = ElixirLokaliseApi.TranslationStatuses.create(project_id, data)
+
+status.title
 ```
 
 ## Update translation status
@@ -48,21 +45,13 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-custom-translation-status-put)
 
 ```elixir
-@client.update_translation_status(project_id, status_id, params)  # Input:
-                                                                  ## project_id (string, required)
-                                                                  ## status_id (string or integer, required)
-                                                                  ## params (hash, required)
-                                                                  ### :title (string, required) - title of the new status
-                                                                  ### :color (string, required) - HEX color code of the new status
-                                                                  # Output:
-                                                                  ## Updated translation status
-```
+data = %{
+  title: "elixir-upd"
+}
 
-Alternatively:
+{:ok, status} = ElixirLokaliseApi.TranslationStatuses.update(project_id, status_id, data)
 
-```elixir
-status = @client.translation_status(project_id, status_id)
-status.update(params)
+status.title
 ```
 
 ## Delete translation status
@@ -70,18 +59,9 @@ status.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-custom-translation-status-delete)
 
 ```elixir
-@client.destroy_translation_status(project_id, status_id) # Input:
-                                                          ## project_id (string, required)
-                                                          ## status_id (string or integer, required)
-                                                          # Output:
-                                                          ## Result of the delete operation
-```
+{:ok, resp} = ElixirLokaliseApi.TranslationStatuses.delete(project_id, status_id)
 
-Alternatively:
-
-```elixir
-status = @client.translation_status(project_id, status_id)
-status.destroy
+resp.custom_translation_status_deleted
 ```
 
 ## Supported color codes for translation statuses
@@ -91,8 +71,7 @@ status.destroy
 As long as Lokalise supports only very limited array of color hexadecimal codes for custom translation statuses, this method can be used to fetch all permitted values.
 
 ```elixir
-@client.translation_status_colors(project_id) # Input:
-                                              ## project_id (string, required)
-                                              # Output:
-                                              ## Array of color codes in HEX format
+{:ok, resp} = ElixirLokaliseApi.TranslationStatuses.available_colors(project_id)
+
+resp.colors
 ```

@@ -21,7 +21,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
       assert Enum.count(contributors.items) == 3
       assert contributors.project_id == @project_id
 
-      contributor = contributors.items |> List.first()
+      contributor = hd contributors.items
       assert contributor.user_id == 20181
     end
   end
@@ -85,7 +85,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
       assert contributors.project_id == @project_id
 
-      contributor = contributors.items |> List.first()
+      contributor = hd contributors.items
 
       assert contributor.email == "elixir_test@example.com"
       assert contributor.fullname == "Elixir Rocks"

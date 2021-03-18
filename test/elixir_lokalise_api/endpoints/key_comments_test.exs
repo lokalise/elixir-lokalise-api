@@ -48,7 +48,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
       assert comments |> Pagination.next_page?()
       assert comments |> Pagination.prev_page?()
 
-      comment = comments.items |> List.first()
+      comment = hd comments.items
       assert comment.comment == "Image file key"
     end
   end
@@ -81,7 +81,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
       assert Enum.count(comments.items) == 1
       assert comments.project_id == @project_id
 
-      comment = comments.items |> List.first()
+      comment = hd comments.items
       assert comment.comment == "Elixir comment"
       assert comment.key_id == @key_id
     end

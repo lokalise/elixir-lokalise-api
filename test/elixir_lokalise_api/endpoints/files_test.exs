@@ -62,7 +62,7 @@ defmodule ElixirLokaliseApi.FilesTest do
       refute files |> Pagination.next_page?()
       assert files |> Pagination.prev_page?()
 
-      file = files.items |> List.first()
+      file = hd files.items
       assert file.filename == "test_async.json"
     end
   end

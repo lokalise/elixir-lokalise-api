@@ -7,12 +7,10 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
 
 ```elixir
-@client.keys(project_id, params = {})   # Input:
-                                        ## project_id (string, required)
-                                        ## params (hash)
-                                        ### :page and :limit
-                                        # Output:
-                                        ## Collection of keys available in the given project
+{:ok, keys} = ElixirLokaliseApi.Keys.all(project_id, page: 2, limit: 3)
+
+key = hd keys.items
+key.key_id
 ```
 
 ## Fetch a single project key
@@ -20,13 +18,9 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
 
 ```elixir
-@client.key(project_id, key_id, params = {})    # Input:
-                                                ## project_id (string, required)
-                                                ## key_id (string, required)
-                                                ## params (hash)
-                                                ### :disable_references (string) - possible values are "1" and "0".
-                                                # Output:
-                                                ## Project key
+{:ok, key} = ElixirLokaliseApi.Keys.find(project_id, key_id, disable_references: "1")
+
+key.key_id
 ```
 
 ## Create project keys
@@ -34,14 +28,35 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
 ```elixir
-@client.create_keys(project_id, params)   # Input:
-                                          ## project_id (string, required)
-                                          ## params (array of hashes or hash, required)
-                                          ### :key_name (string or hash, required) - for projects with enabled per-platform key names, pass hash with "ios", "android", "web" and "other" params.
-                                          ### :platforms (array) - supported values are "ios", "android", "web" and "other"
-                                          ### Find all other supported attributes at https://app.lokalise.com/api2docs/curl/#transition-create-keys-post
-                                          # Output:
-                                          ## Collection of newly created keys
+data = %{
+  keys: [
+    %{
+      key_name: %{
+        web: "elixir",
+        android: "elixir",
+        ios: "elixir_ios",
+        other: "el_other"
+      },
+      description: "Via API",
+      platforms: ["web", "android"],
+      translations: [
+        %{
+          language_iso: "en",
+          translation: "Hi from Elixir"
+        },
+        %{
+          language_iso: "fr",
+          translation: "test"
+        }
+      ]
+    }
+  ]
+}
+
+{:ok, keys} = ElixirLokaliseApi.Keys.create(project_id, data)
+
+key = hd keys.items
+key.key_name.android
 ```
 
 ## Update project key
@@ -49,20 +64,14 @@
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
 
 ```elixir
-@client.update_key(project_id, key_id, params = {})   # Input:
-                                                      ## project_id (string, required)
-                                                      ## key_id (string, required)
-                                                      ## params (hash)
-                                                      ### Find a list of supported attributes at https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put
-                                                      # Output:
-                                                      ## Updated key
-```
+data = %{
+  description: "Updated via SDK",
+  tags: ["sample"]
+}
 
-Alternatively:
+{:ok, key} = ElixirLokaliseApi.Keys.update(project_id, key_id, data)
 
-```elixir
-key = @client.key('project_id', 'key_id')
-key.update(params)
+key.key_id
 ```
 
 ## Bulk update project keys
@@ -70,28 +79,23 @@ key.update(params)
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
 ```elixir
-@client.update_keys(project_id, params)  # Input:
-                                         ## project_id (string, required)
-                                         ## params (hash or array of hashes, required)
-                                         ### :key_id (string, required)
-                                         ### Find all other supported attributes at https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put
-                                         # Output:
-                                         ## Collection of updated keys
-```
+data = %{
+  keys: [
+    %{
+      key_id: key_id,
+      description: "Bulk updated via SDK",
+      tags: ["sample"]
+    },
+    %{
+      key_id: key_id2,
+      platforms: ["web", "android"]
+    }
+  ]
+}
 
-Example:
+{:ok, keys} = ElixirLokaliseApi.Keys.update_bulk(project_id, data)
 
-```elixir
-client.update_keys '123.abc', [
-  {
-    key_id: 456,
-    description: 'bulk updated'
-  },
-  {
-    key_id: 769,
-    tags: %w[bulk update]
-  }
-]
+keys.items
 ```
 
 ## Delete project key
@@ -99,18 +103,9 @@ client.update_keys '123.abc', [
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
 
 ```elixir
-@client.destroy_key(project_id, key_id) # Input:
-                                        ## project_id (string, required)
-                                        ## key_id (string, required)
-                                        # Output:
-                                        ## Hash with project_id and "key_removed" set to "true"
-```
+{:ok, resp} = ElixirLokaliseApi.Keys.delete(project_id, key_id)
 
-Alternatively:
-
-```elixir
-key = @client.key('project_id', 'key_id')
-key.destroy
+resp.key_removed
 ```
 
 ## Bulk delete project keys
@@ -118,16 +113,14 @@ key.destroy
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
 
 ```elixir
-@client.destroy_keys(project_id, key_ids) # Input:
-                                          ## project_id (string, required)
-                                          ## key_ids (array, required)
-                                          # Output:
-                                          ## Hash with project_id and "keys_removed" set to "true"
-```
+data = %{
+  keys: [
+    key_id,
+    key_id2
+  ]
+}
 
-Alternatively:
+{:ok, resp} = ElixirLokaliseApi.Keys.delete_bulk(project_id, data)
 
-```elixir
-keys = @client.keys('project_id')
-keys.destroy_all # => will effectively destroy all keys in the project
+resp.keys_removed
 ```
