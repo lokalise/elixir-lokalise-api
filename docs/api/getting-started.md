@@ -14,8 +14,6 @@ def deps do
 end
 ```
 
-
-
 ## Initializing the Client
 
 In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section).
@@ -23,13 +21,13 @@ In order to perform API requests, you require a special token that can be obtain
 After you've obtained the token, put it inside `config.exs`:
 
 ```elixir
-config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
+config :your_app, api_token: "LOKALISE_API_TOKEN"
 ```
 
 If you are using ENV variables, use the following approach:
 
 ```elixir
-config :elixir_lokalise_api, api_token: {:system, "ENV_VARIABLE_NAME"}
+config :your_app, api_token: {:system, "ENV_VARIABLE_NAME"}
 ```
 
 Now you can send API requests!
