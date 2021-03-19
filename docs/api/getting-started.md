@@ -100,6 +100,8 @@ projects |> ElixirLokaliseApi.Pagination.first_page?() # => Is this the first pa
 projects |> ElixirLokaliseApi.Pagination.last_page?() # => Is this the last page?
 projects |> ElixirLokaliseApi.Pagination.next_page?() # => Is there a next page available?
 projects |> ElixirLokaliseApi.Pagination.prev_page?() # => Is there a previous page available?
+projects |> Pagination.next_page() # => What is the number of the next page?
+projects |> Pagination.prev_page() # => What is the number of the previous page?
 ```
 
 ## Branching
