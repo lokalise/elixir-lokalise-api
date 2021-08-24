@@ -60,4 +60,4 @@ Brief API reference is also available at [hexdocs.pm](https://hexdocs.pm/elixir_
 
 Licensed under the [BSD 3 Clause license](https://github.com/lokalise/elixir-lokalise-api/blob/master/LICENSE).
 
-Copyright (c) Lokalise team, [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) Lokalise team and [Ilya Bodrov](http://bodrovis.tech)
