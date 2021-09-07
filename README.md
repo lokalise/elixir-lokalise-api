@@ -21,13 +21,13 @@ end
 Put your Lokalise API token into `config.exs`:
 
 ```elixir
-config :your_app, api_token: "LOKALISE_API_TOKEN"
+config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
 ```
 
 If you are using ENV variables, use the following approach:
 
 ```elixir
-config :your_app, api_token: {:system, "LOKALISE_API_TOKEN"}
+config :elixir_lokalise_api, api_token: {:system, "LOKALISE_API_TOKEN"}
 ```
 
 Now you can perform API calls:

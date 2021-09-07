@@ -5,7 +5,7 @@ defmodule ElixirLokaliseApi.MixProject do
     [
       app: :elixir_lokalise_api,
       version: "1.0.0",
-      elixir: "~> 1.2",
+      elixir: "~> 1.10",
       name: "ElixirLokaliseApi",
       description: "Lokalise APIv2 interface for Elixir.",
       source_url: "https://github.com/lokalise/elixir-lokalise-api",

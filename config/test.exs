@@ -1,7 +1,7 @@
-use Mix.Config
+import Config
 
 config :elixir_lokalise_api,
-  api_token: {:system, "LOKALISE_API_TOKEN"},
+  api_token: "LOKALISE_API_TOKEN",
   request_options: [
     timeout: 5000,
     recv_timeout: 5000

@@ -6,22 +6,17 @@ defmodule ElixirLokaliseApi.Config do
   """
 
   @doc """
-  Returns package configuration defined inside the `mix.exs` file
-  """
-  def app_config, do: Mix.Project.config()
-
-  @doc """
   Returns Lokalise APIv2 token. Set it inside your `mix.exs`:
       config :elixir_lokalise_api, api_token: "YOUR_API_TOKEN"
   """
-  def api_token, do: from_env(app_config()[:app], :api_token)
+  def api_token, do: from_env(:api_token)
 
-  def request_options, do: from_env(app_config()[:app], :request_options, Keyword.new())
+  def request_options, do: from_env(:request_options, Keyword.new())
 
   @doc """
   Returns package version
   """
-  def version, do: app_config()[:version]
+  def version, do: from_env(:version, "1.0.0")
 
   @doc """
   Returns the base URL of the Lokalise APIv2
@@ -32,10 +27,10 @@ defmodule ElixirLokaliseApi.Config do
   A light wrapper around `Application.get_env/2`, providing automatic support for
   `{:system, "VAR"}` tuples. Based on https://github.com/danielberkompas/ex_twilio/blob/master/lib/ex_twilio/config.ex
   """
-  def from_env(otp_app, key, default \\ nil)
+  def from_env(key, default \\ nil)
 
-  def from_env(otp_app, key, default) do
-    otp_app
+  def from_env(key, default) do
+    :elixir_lokalise_api
     |> Application.get_env(key, default)
     |> read_from_system(default)
   end
