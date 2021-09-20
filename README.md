@@ -1,9 +1,7 @@
 # ElixirLokaliseApi
 
 ![Hex.pm](https://img.shields.io/hexpm/v/elixir_lokalise_api)
-
 [![Build Status](https://travis-ci.com/lokalise/elixir-lokalise-api.svg?branch=master)](https://travis-ci.com/lokalise/elixir-lokalise-api)
-
 [![Coverage Status](https://coveralls.io/repos/github/lokalise/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/lokalise/elixir-lokalise-api)
 
 Official Elixir interface for Lokalise APIv2.
