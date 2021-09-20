@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.0 (20-Sep-2021)
+
+* Reworked configuration (thanks, @dragonwasrobot). Instead of saying `config :your_app, api_token: "LOKALISE_API_TOKEN"`, you should now provide config in the following way:
+
+```elixir
+config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
+
+# OR
+
+config :elixir_lokalise_api, api_token: {:system, "ENV_VARIABLE_NAME"} # for env variables
+```
+
 ## 1.0.0
 
 * First stable release
