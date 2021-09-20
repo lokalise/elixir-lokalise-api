@@ -1,7 +1,9 @@
 # ElixirLokaliseApi
 
 ![Hex.pm](https://img.shields.io/hexpm/v/elixir_lokalise_api)
+
 [![Build Status](https://travis-ci.com/lokalise/elixir-lokalise-api.svg?branch=master)](https://travis-ci.com/lokalise/elixir-lokalise-api)
+
 [![Coverage Status](https://coveralls.io/repos/github/lokalise/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/lokalise/elixir-lokalise-api)
 
 Official Elixir interface for Lokalise APIv2.
@@ -13,7 +15,7 @@ Add a new depedency to `mix.exs`:
 ```elixir
 def deps do
   [
-    {:elixir_lokalise_api}
+    {:elixir_lokalise_api, "~> 2.0"}
   ]
 end
 ```
@@ -21,13 +23,13 @@ end
 Put your Lokalise API token into `config.exs`:
 
 ```elixir
-config :your_app, api_token: "LOKALISE_API_TOKEN"
+config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
 ```
 
 If you are using ENV variables, use the following approach:
 
 ```elixir
-config :your_app, api_token: {:system, "LOKALISE_API_TOKEN"}
+config :elixir_lokalise_api, api_token: {:system, "LOKALISE_API_TOKEN"}
 ```
 
 Now you can perform API calls:
@@ -60,4 +62,4 @@ Brief API reference is also available at [hexdocs.pm](https://hexdocs.pm/elixir_
 
 Licensed under the [BSD 3 Clause license](https://github.com/lokalise/elixir-lokalise-api/blob/master/LICENSE).
 
-Copyright (c) Lokalise team, [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) Lokalise team and [Ilya Bodrov](http://bodrovis.tech)
