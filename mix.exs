@@ -4,8 +4,8 @@ defmodule ElixirLokaliseApi.MixProject do
   def project do
     [
       app: :elixir_lokalise_api,
-      version: "1.0.0",
-      elixir: "~> 1.2",
+      version: "2.0.0",
+      elixir: "~> 1.10",
       name: "ElixirLokaliseApi",
       description: "Lokalise APIv2 interface for Elixir.",
       source_url: "https://github.com/lokalise/elixir-lokalise-api",
@@ -37,7 +37,7 @@ defmodule ElixirLokaliseApi.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, ">= 0.9.0"},
+      {:httpoison, "~> 1.8.0"},
       {:jason, "~> 1.2"},
       {:ex_doc, "~> 0.23", only: [:dev, :test]},
       {:exvcr, "~> 0.11", only: :test},

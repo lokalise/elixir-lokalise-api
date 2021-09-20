@@ -4,17 +4,14 @@ defmodule ElixirLokaliseApi.ConfigTest do
   alias ElixirLokaliseApi.Config
 
   test "from_env returns a plain value" do
-    app = Config.app_config()[:app]
-    assert Config.from_env(app, :request_options)
+    assert Config.from_env(:request_options)
   end
 
   test "from_env returns a value under system" do
-    app = Config.app_config()[:app]
-    assert Config.from_env(app, :api_token) != nil
+    assert Config.from_env(:api_token) != nil
   end
 
   test "from_env returns a default value when missing" do
-    app = Config.app_config()[:app]
-    assert Config.from_env(app, :missing, :ok) == :ok
+    assert Config.from_env(:missing, :ok) == :ok
   end
 end
