@@ -2,9 +2,12 @@ defmodule ElixirLokaliseApi do
   @moduledoc """
   `ElixirLokaliseApi` is an official client (interface) for the Lokalise APIv2.
 
-  Learn more about Lokalise API at https://app.lokalise.com/api2docs.
+  Learn more about Lokalise API at
+  [https://app.lokalise.com/api2docs](https://app.lokalise.com/api2docs).
 
-  To get started, you will need an API token that can be generated in your Lokalise profile.
+  To get started, you will need an API token that can be generated in your
+  Lokalise profile.
+
   This token should be stored in your config file, for example `dev.exs`:
 
       config :elixir_lokalise_api, api_token: {:system, "LOKALISE_API_TOKEN"}

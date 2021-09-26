@@ -4,7 +4,7 @@ layout: default
 
 # Lokalise APIv2 Elixir interface
 
-Add a new depedency to `mix.exs`:
+Add a new dependency to `mix.exs`:
 
 ```elixir
 def deps do

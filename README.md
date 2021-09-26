@@ -1,14 +1,18 @@
 # ElixirLokaliseApi
 
-![Hex.pm](https://img.shields.io/hexpm/v/elixir_lokalise_api)
 [![Build Status](https://travis-ci.com/lokalise/elixir-lokalise-api.svg?branch=master)](https://travis-ci.com/lokalise/elixir-lokalise-api)
 [![Coverage Status](https://coveralls.io/repos/github/lokalise/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/lokalise/elixir-lokalise-api)
+[![Module Version](https://img.shields.io/hexpm/v/elixir_lokalise_api.svg)](https://hex.pm/packages/elixir_lokalise_api)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/elixir_lokalise_api/)
+[![Total Download](https://img.shields.io/hexpm/dt/elixir_lokalise_api.svg)](https://hex.pm/packages/elixir_lokalise_api)
+[![License](https://img.shields.io/hexpm/l/elixir_lokalise_api.svg)](https://github.com/elixir-lokalise-api/elixir_lokalise_api/blob/master/LICENSE.md)
+[![Last Updated](https://img.shields.io/github/last-commit/lokalise/elixir-lokalise-api.svg)](https://github.com/lokalise/elixir-lokalise-api/commits/master)
 
 Official Elixir interface for Lokalise APIv2.
 
 ## Quickstart
 
-Add a new depedency to `mix.exs`:
+Add a new dependency to `mix.exs`:
 
 ```elixir
 def deps do
@@ -56,8 +60,8 @@ All documentation and usage examples can be found at [lokalise.github.io/elixir-
 
 Brief API reference is also available at [hexdocs.pm](https://hexdocs.pm/elixir_lokalise_api/).
 
-## License
+## Copyright and License
 
-Licensed under the [BSD 3 Clause license](https://github.com/lokalise/elixir-lokalise-api/blob/master/LICENSE).
+Licensed under the [BSD 3 Clause license](./LICENSE.md).
 
-Copyright (c) Lokalise team and [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) 2021 Lokalise team and [Ilya Bodrov](http://bodrovis.tech)
