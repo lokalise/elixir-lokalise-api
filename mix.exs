@@ -1,15 +1,15 @@
 defmodule ElixirLokaliseApi.MixProject do
   use Mix.Project
 
+  @source_url "https://github.com/lokalise/elixir-lokalise-api"
+  @version "2.0.0"
+
   def project do
     [
       app: :elixir_lokalise_api,
-      version: "2.0.0",
+      version: @version,
       elixir: "~> 1.10",
       name: "ElixirLokaliseApi",
-      description: "Lokalise APIv2 interface for Elixir.",
-      source_url: "https://github.com/lokalise/elixir-lokalise-api",
-      homepage_url: "https://lokalise.github.io/elixir-lokalise-api",
       package: package(),
       docs: docs(),
       deps: deps(),
@@ -27,19 +27,17 @@ defmodule ElixirLokaliseApi.MixProject do
     ]
   end
 
-  # Run "mix help compile.app" to learn about applications.
   def application do
     [
       extra_applications: [:logger]
     ]
   end
 
-  # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:httpoison, "~> 1.8.0"},
       {:jason, "~> 1.2"},
-      {:ex_doc, "~> 0.25.2", only: [:dev, :test]},
+      {:ex_doc, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:exvcr, "~> 0.13.2", only: :test},
       {:excoveralls, "~> 0.14.2", only: :test}
     ]
@@ -47,17 +45,27 @@ defmodule ElixirLokaliseApi.MixProject do
 
   def docs do
     [
-      readme: "README.md",
-      main: ElixirLokaliseApi
+      extras: [
+        "CHANGELOG.md": [title: "Changelog"],
+        "LICENSE.md": [title: "License"],
+        "README.md": [title: "Overview"],
+      ],
+      main: "readme",
+      homepage_url: @source_url,
+      source_url: @source_url,
+      source_ref: "v#{@version}",
+      formatters: ["html"]
     ]
   end
 
   defp package do
     [
+      description: "Lokalise APIv2 interface for Elixir.",
       maintainers: ["Ilya Bodrov-Krukowski"],
       licenses: ["BSD-3-Clause"],
       links: %{
-        "Github" => "https://github.com/lokalise/elixir-lokalise-api"
+        "Changelog" => "https://lokalise.github.io/elixir-lokalise-api/additional_info/changelog",
+        "GitHub" => @source_url
       }
     ]
   end
