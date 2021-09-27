@@ -28,6 +28,8 @@ defmodule ElixirLokaliseApi.Processor do
 
       {:error, error, status} = ElixirLokaliseApi.Projects.find(nil)
   """
+  @spec parse(HTTPoison.Response.t(), atom, String.t()) ::
+          {:ok, struct | map} | {:error, map, integer}
   def parse(response, module, type) do
     data_key = module.data_key
     singular_data_key = module.singular_data_key
