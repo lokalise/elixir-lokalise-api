@@ -119,7 +119,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
     use_cassette "project_create_error" do
       project_data = %{name: "Elixir SDK", description: "Created via API"}
 
-      {:error, %{} = data, status} = Projects.create(project_data)
+      {:error, {%{} = data, status}} = Projects.create(project_data)
       assert status == 400
       assert data.error.message == "Invalid `X-Api-Token` header"
     end
