@@ -15,7 +15,7 @@ defmodule ElixirLokaliseApi.Request do
   Prepares and sends an HTTP request with the provided verb and options.
   """
   @spec do_request(method(), url(), Keyword.t()) ::
-          {:ok, struct | map} | {:error, String.t() | {map, integer}}
+          {:ok, struct | map} | {:error, atom | String.t() | {map, integer}}
   def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()
 
