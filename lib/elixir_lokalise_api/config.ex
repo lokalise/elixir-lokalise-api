@@ -35,6 +35,8 @@ defmodule ElixirLokaliseApi.Config do
     |> read_from_system(default)
   end
 
+  # coveralls-ignore-start
   defp read_from_system({:system, env}, default), do: System.get_env(env) || default
+  # coveralls-ignore-stop
   defp read_from_system(value, _default), do: value
 end

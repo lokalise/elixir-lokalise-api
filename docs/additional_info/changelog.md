@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.0 (27-Sep-2021)
+
+* Prevent HTTPoison from leaking errors to higher modules (thanks, @dragonwasrobot).
+* Fixed docs (thanks, @kianmeng).
+
 ## 2.0.0 (20-Sep-2021)
 
 * Reworked configuration (thanks, @dragonwasrobot). Instead of saying `config :your_app, api_token: "LOKALISE_API_TOKEN"`, you should now provide config in the following way:

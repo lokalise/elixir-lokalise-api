@@ -34,7 +34,9 @@ defmodule ElixirLokaliseApi.Request do
     else
       {:error, error} ->
         # HTTPoison error
+        # coveralls-ignore-start
         {:error, error.reason}
+        # coveralls-ignore-end
 
       {:error, data, status} ->
         # Processor error
