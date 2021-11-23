@@ -3,7 +3,7 @@ elixir:
   - '1.10'
   - '1.12'
 otp_release:
-  - 23.3.4.9
+  - 23.1.2
 env:
   - MIX_ENV=test
 
