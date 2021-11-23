@@ -46,11 +46,17 @@ defmodule ElixirLokaliseApi.Request do
 
   @spec headers :: Keyword.t()
   defp headers do
-    [
-      "X-Api-Token": Config.api_token(),
+    opts = [
       Accept: "application/json",
       "User-Agent": "elixir-lokalise-api package/#{Config.version()}"
     ]
+
+    case Config.oauth2_token() do
+      nil ->
+        Keyword.merge(opts, ["X-Api-Token": Config.api_token()])
+      token ->
+        Keyword.merge(opts, ["Authorization": "Bearer #{token}"])
+    end
   end
 
   @spec request_params(Keyword.t()) :: Keyword.t()

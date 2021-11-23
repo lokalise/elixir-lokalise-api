@@ -1,5 +1,19 @@
 # Changelog
 
+## Unreleased
+
+* Added experimental support for API tokens obtained via OAuth 2 workflow. To use such tokens:
+
+```elixir
+config :elixir_lokalise_api, oauth2_token: "YOUR_API_OAUTH2_TOKEN"
+```
+
+* You can also provide OAuth 2 tokens dynamically:
+
+```elixir
+:oauth2_token |> ElixirLokaliseApi.Config.put_env(oauth2_token)
+```
+
 ## 2.1.0 (27-Sep-2021)
 
 * Prevent HTTPoison from leaking errors to higher modules (thanks, @dragonwasrobot).
