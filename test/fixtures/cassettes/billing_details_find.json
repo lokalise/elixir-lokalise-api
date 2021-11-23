@@ -1,0 +1,43 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/2.1.0",
+        "X-Api-Token": "***"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/teams/176692/billing_details"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"company\":\"Self-employed\",\"address1\":\"Sample line 1\",\"address2\":\"Sample line 2\",\"city\":\"Riga\",\"zip\":\"LV-6543\",\"phone\":\"+371123456\",\"vatnumber\":\"123\",\"country_code\":\"LV\",\"billing_email\":\"hello@example.com\",\"state_code\":\"\"}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Tue, 23 Nov 2021 17:11:36 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "Expires": "Tue, 23 Nov 2021 17:11:36 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
