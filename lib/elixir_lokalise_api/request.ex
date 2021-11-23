@@ -36,7 +36,8 @@ defmodule ElixirLokaliseApi.Request do
         # HTTPoison error
         # coveralls-ignore-start
         {:error, error.reason}
-        # coveralls-ignore-end
+
+      # coveralls-ignore-end
 
       {:error, data, status} ->
         # Processor error
@@ -53,9 +54,10 @@ defmodule ElixirLokaliseApi.Request do
 
     case Config.oauth2_token() do
       nil ->
-        Keyword.merge(opts, ["X-Api-Token": Config.api_token()])
+        Keyword.merge(opts, "X-Api-Token": Config.api_token())
+
       token ->
-        Keyword.merge(opts, ["Authorization": "Bearer #{token}"])
+        Keyword.merge(opts, Authorization: "Bearer #{token}")
     end
   end
 
