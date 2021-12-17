@@ -21,13 +21,25 @@ In order to perform API requests, you require a special token that can be obtain
 After you've obtained the token, put it inside `config.exs`:
 
 ```elixir
-config :your_app, api_token: "LOKALISE_API_TOKEN"
+config :elixir_lokalise_api, api_token: "LOKALISE_API_TOKEN"
 ```
 
 If you are using ENV variables, use the following approach:
 
 ```elixir
-config :your_app, api_token: {:system, "ENV_VARIABLE_NAME"}
+config :elixir_lokalise_api, api_token: {:system, "ENV_VARIABLE_NAME"}
+```
+
+If you are using OAuth 2 tokens:
+
+```elixir
+config :elixir_lokalise_api, oauth2_token: "YOUR_API_OAUTH2_TOKEN"
+```
+
+Update OAuth 2 tokens on the fly:
+
+```elixir
+:oauth2_token |> ElixirLokaliseApi.Config.put_env(oauth2_token)
 ```
 
 Now you can send API requests!

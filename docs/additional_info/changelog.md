@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 2.2.0
 
 * Added experimental support for API tokens obtained via OAuth 2 workflow. To use such tokens:
 
@@ -14,7 +14,8 @@ config :elixir_lokalise_api, oauth2_token: "YOUR_API_OAUTH2_TOKEN"
 :oauth2_token |> ElixirLokaliseApi.Config.put_env(oauth2_token)
 ```
 
-* Added `TeamUserBillingDetails` endpoint
+* Added [`TeamUserBillingDetails` endpoint](https://lokalise.github.io/elixir-lokalise-api/api/team-user-billing-details)
+* Added [`Segments` endpoint](https://lokalise.github.io/elixir-lokalise-api/api/segments)
 
 ## 2.1.0 (27-Sep-2021)
 
