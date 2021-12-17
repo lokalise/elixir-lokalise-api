@@ -70,6 +70,15 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def url_params(p_id, i_id, s_id), do: url_params(p_id, i_id) ++ [{subitem_key(), s_id}]
       end
 
+      if :child_reader in import_functions do
+        @doc false
+        def child_key, do: @child_key
+
+        @doc false
+        def url_params(p_id, i_id, s_id, c_id),
+          do: url_params(p_id, i_id, s_id) ++ [{child_key(), c_id}]
+      end
+
       if :find in import_functions do
         @doc """
         Finds an item under the given endpoint.
@@ -92,6 +101,14 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def find(parent_id, item_id, subitem_id), do: do_get([parent_id, item_id, subitem_id])
       end
 
+      if :find4 in import_functions do
+        @doc """
+        Finds an item under the given endpoint.
+        """
+        def find(parent_id, item_id, subitem_id, child_id, params \\ []),
+          do: do_get([parent_id, item_id, subitem_id, child_id], query_params: params)
+      end
+
       if :all in import_functions do
         @doc """
         Finds a collection of items under the given endpoint.
@@ -112,6 +129,14 @@ defmodule ElixirLokaliseApi.DynamicResource do
         """
         def all(parent_id, item_id, params \\ []),
           do: do_get([parent_id, item_id], query_params: params)
+      end
+
+      if :all4 in import_functions do
+        @doc """
+        Finds a collection of items under the given endpoint.
+        """
+        def all(parent_id, item_id, subitem_id, params \\ []),
+          do: do_get([parent_id, item_id, subitem_id], query_params: params)
       end
 
       if :create in import_functions do
@@ -154,6 +179,22 @@ defmodule ElixirLokaliseApi.DynamicResource do
         Updates an item under the given endpoint.
         """
         def update(parent_id, item_id, data), do: do_update([parent_id, item_id], data: data)
+      end
+
+      if :update4 in import_functions do
+        @doc """
+        Updates an item under the given endpoint.
+        """
+        def update(parent_id, item_id, subitem_key, data),
+          do: do_update([parent_id, item_id, subitem_key], data: data)
+      end
+
+      if :update5 in import_functions do
+        @doc """
+        Updates an item under the given endpoint.
+        """
+        def update(parent_id, item_id, subitem_key, child_key, data),
+          do: do_update([parent_id, item_id, subitem_key, child_key], data: data)
       end
 
       if :delete in import_functions do

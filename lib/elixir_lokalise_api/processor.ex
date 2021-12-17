@@ -79,6 +79,8 @@ defmodule ElixirLokaliseApi.Processor do
       |> add_data_by_key(module.parent_key, raw_json)
       |> add_data_by_key(:branch, raw_json)
       |> add_data_by_key(:user_id, raw_json)
+      |> add_data_by_key(:key_id, raw_json)
+      |> add_data_by_key(:language_iso, raw_json)
       |> add_data_by_key(:errors, raw_json)
       |> pagination_for(resp_headers)
 

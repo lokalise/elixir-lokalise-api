@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/2.1.0",
+        "X-Api-Token": "***"
+      },
+      "method": "get",
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/39066161618d4ecb9fdc12.00274309/keys/129358815/segments/en/2?disable_references=1"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"39066161618d4ecb9fdc12.00274309\",\"key_id\":129358815,\"language_iso\":\"en\",\"segment\":{\"segment_number\":2,\"language_iso\":\"en\",\"value\":\"This is just a simple text.\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2021-11-22 16:46:50 (Etc\\/UTC)\",\"modified_at_timestamp\":1637599610,\"is_reviewed\":false,\"reviewed_by\":0,\"is_fuzzy\":false,\"words\":6,\"custom_translation_statuses\":[{\"status_id\":5734,\"title\":\"context\",\"color\":\"#61bd4f\"}]}}",
+      "headers": {
+        "Server": "nginx",
+        "Date": "Fri, 17 Dec 2021 13:55:52 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "4bde471c-bdbc-4553-8542-489f0fe9f235",
+        "Expires": "Fri, 17 Dec 2021 13:55:52 GMT",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]
