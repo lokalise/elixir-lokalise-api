@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.2.0
+## 2.2.0 (17-Dec-2021)
 
 * Added experimental support for API tokens obtained via OAuth 2 workflow. To use such tokens:
 
