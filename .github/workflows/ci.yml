@@ -24,6 +24,7 @@ jobs:
             otp: 24
     env:
       MIX_ENV: test
+      LOKALISE_API_TOKEN: 123abc
     steps:
       - uses: actions/checkout@v2
       - uses: erlef/setup-beam@v1

@@ -1,6 +1,6 @@
 # ElixirLokaliseApi
 
-[![Build Status](https://travis-ci.com/lokalise/elixir-lokalise-api.svg?branch=master)](https://app.travis-ci.com/github/lokalise/elixir-lokalise-api)
+![CI](https://github.com/lokalise/elixir-lokalise-api/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/lokalise/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/lokalise/elixir-lokalise-api)
 [![Module Version](https://img.shields.io/hexpm/v/elixir_lokalise_api.svg)](https://hex.pm/packages/elixir_lokalise_api)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/elixir_lokalise_api/)
