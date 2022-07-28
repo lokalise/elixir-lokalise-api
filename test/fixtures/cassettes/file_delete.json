@@ -1,0 +1,45 @@
+[
+  {
+    "request": {
+      "body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/2.1.0",
+        "X-Api-Token": "***"
+      },
+      "method": "delete",
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "request_body": "",
+      "url": "https://api.lokalise.com/api2/projects/507504186242fccb32f015.15252556/files/1163613"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"project_id\":\"507504186242fccb32f015.15252556\",\"file_deleted\":true}",
+      "headers": {
+        "Date": "Thu, 28 Jul 2022 10:53:59 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Server": "nginx",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, no-cache, no-store, private",
+        "pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "2aa50ec3-025e-411f-80f9-ec4cec93a73c",
+        "Expires": "Thu, 28 Jul 2022 10:53:59 GMT",
+        "Set-Cookie": "PHPSESSID=deleted; expires=Wed, 28-Jul-2021 10:53:58 GMT; Max-Age=0; path=/; httponly",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

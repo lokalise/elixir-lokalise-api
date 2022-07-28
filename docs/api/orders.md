@@ -1,10 +1,8 @@
 # Translation orders
 
-[Order attributes](https://app.lokalise.com/api2docs/curl/#object-orders)
-
 ## Fetch orders
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
+[Doc](https://developers.lokalise.com/reference/list-all-orders
 
 ```elixir
 {:ok, orders} = ElixirLokaliseApi.Orders.all(team_id, page: 3, limit: 2)
@@ -15,7 +13,7 @@ order.order_id
 
 ## Fetch a single order
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-an-order
 
 ```elixir
 {:ok, order} = ElixirLokaliseApi.Orders.find(team_id, order_id)
@@ -24,7 +22,7 @@ order.order_id
 
 ## Create an order
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
+[Doc](https://developers.lokalise.com/reference/create-an-order
 
 ```elixir
 data = %{

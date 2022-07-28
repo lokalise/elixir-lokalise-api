@@ -2,7 +2,7 @@
 
 ## Fetch contributors
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-contributors-get)
+[Doc](https://developers.lokalise.com/reference/list-all-contributors
 
 ```elixir
 {:ok, contributors} = ElixirLokaliseApi.Contributors.all(project_id, page: 2, limit: 1)
@@ -13,7 +13,7 @@ contributor.user_id
 
 ## Fetch a single contributor
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-contributor-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-contributor
 
 ```elixir
 {:ok, contributor} = ElixirLokaliseApi.Contributors.find(project_id, contributor_id)
@@ -23,7 +23,7 @@ contributor.user_id
 
 ## Create contributors
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-contributors-post)
+[Doc](https://developers.lokalise.com/reference/create-contributors
 
 ```elixir
 data = %{
@@ -49,7 +49,7 @@ contributor.email
 
 ## Update contributor
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-contributor-put)
+[Doc](https://developers.lokalise.com/reference/update-a-contributor
 
 ```elixir
 data = %{
@@ -63,7 +63,7 @@ contributor.user_id
 
 ## Delete contributor
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-contributor-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-contributor
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Contributors.delete(project_id, contributor_id)

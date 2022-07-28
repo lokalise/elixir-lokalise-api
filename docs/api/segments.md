@@ -1,10 +1,8 @@
 # Segments
 
-[Segment attributes](https://app.lokalise.com/api2docs/curl/#object-segments)
-
 ## Fetch segments
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-segments-for-key-language-get)
+[API doc](https://developers.lokalise.com/reference/list-all-segments-for-key-language
 
 ```elixir
 {:ok, segments} = ElixirLokaliseApi.Segments.all(@project_id, @key_id, @lang_iso, disable_references: 1, filter_untranslated: 0)
@@ -18,7 +16,7 @@ segment.is_reviewed
 
 ## Fetch a single segment
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-segment-for-key-language-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-segment-for-key-language
 
 ```elixir
 segment_number = 1
@@ -31,7 +29,7 @@ segment.words
 
 ## Update segment
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-segment-put)
+[API doc](https://developers.lokalise.com/reference/update-a-segment
 
 ```elixir
 segment_number = 2

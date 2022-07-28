@@ -14,6 +14,7 @@ defmodule ElixirLokaliseApi.FilesTest do
   doctest Files
 
   @project_id "803826145ba90b42d5d860.46800099"
+  @file_id 1_163_613
 
   test "lists all files" do
     use_cassette "files_all" do
@@ -99,6 +100,16 @@ defmodule ElixirLokaliseApi.FilesTest do
       {:ok, %ProcessModel{} = process} = QueuedProcesses.find(@project_id, process_id)
       assert process.type == "file-import"
       assert process.status == "finished"
+    end
+  end
+
+  test "deletes a file" do
+    use_cassette "file_delete" do
+      docs_project_id = "507504186242fccb32f015.15252556"
+      {:ok, %{} = resp} = Files.delete(docs_project_id, @file_id)
+
+      assert resp.file_deleted
+      assert resp.project_id == docs_project_id
     end
   end
 end

@@ -5,14 +5,15 @@ defmodule ElixirLokaliseApi.Files do
 
   @model ElixirLokaliseApi.Model.File
   @collection ElixirLokaliseApi.Collection.Files
-  @endpoint "projects/{!:project_id}/files/{:_postfix}"
+  @endpoint "projects/{!:project_id}/files/{:file_id}/{:_postfix}"
   @data_key :files
   @singular_data_key nil
   @parent_key :project_id
   @foreign_model ElixirLokaliseApi.Model.QueuedProcess
   @foreign_data_key :process
+  @item_key :file_id
 
-  use ElixirLokaliseApi.DynamicResource, import: [:foreign_model, :all2]
+  use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :foreign_model, :all2, :delete2]
 
   @doc """
   Downloads a translation bundle from the project.
