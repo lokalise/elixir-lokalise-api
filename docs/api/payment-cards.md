@@ -1,10 +1,8 @@
 # Payment cards
 
-[Payment card attributes](https://app.lokalise.com/api2docs/curl/#object-payment-cards)
-
 ## Fetch payment cards
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
+[Doc](https://developers.lokalise.com/reference/list-all-cards
 
 ```elixir
 {:ok, cards} = ElixirLokaliseApi.PaymentCards.all(page: 2, limit: 2)
@@ -15,7 +13,7 @@ card.card_id
 
 ## Fetch a single payment card
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-card
 
 ```elixir
 {:ok, card} = ElixirLokaliseApi.PaymentCards.find(card_id)
@@ -25,7 +23,7 @@ card.card_id
 
 ## Create a payment card
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
+[Doc](https://developers.lokalise.com/reference/create-a-card
 
 ```elixir
 data = %{
@@ -42,7 +40,7 @@ card.card_id
 
 ## Delete a payment card
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-card
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.PaymentCards.delete(card_id)

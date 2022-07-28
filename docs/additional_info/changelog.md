@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.3.0 (28-Jul-2022)
+
+* Added support for [Delete file endpoint](https://developers.lokalise.com/reference/delete-a-file):
+
+```elixir
+{:ok, %{} = resp} = Files.delete(project_id, file_id)
+
+resp.file_deleted # => true
+resp.project_id # => "123.abc"
+```
+
+* Fixed documentation links
+
 ## 2.2.0 (17-Dec-2021)
 
 * Added experimental support for API tokens obtained via OAuth 2 workflow. To use such tokens:

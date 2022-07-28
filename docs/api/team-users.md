@@ -1,10 +1,8 @@
 # Team users
 
-[Team user attributes](https://app.lokalise.com/api2docs/curl/#object-team-users)
-
 ## Fetch team users
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-team-users-get)
+[Doc](https://developers.lokalise.com/reference/list-all-team-users
 
 ```elixir
 {:ok, users} = ElixirLokaliseApi.TeamUsers.all(team_id, limit: 1, page: 2)
@@ -15,7 +13,7 @@ user.user_id
 
 ## Fetch a single team user
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-team-user-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-team-user
 
 ```elixir
 {:ok, user} = ElixirLokaliseApi.TeamUsers.find(team_id, user_id)
@@ -25,7 +23,7 @@ user.user_id
 
 ## Update team user
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-team-user-put)
+[Doc](https://developers.lokalise.com/reference/update-a-team-user
 
 ```elixir
 data = %{
@@ -39,7 +37,7 @@ user.user_id
 
 ## Delete team user
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-team-user-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-team-user
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.TeamUsers.delete(team_id, user_id)

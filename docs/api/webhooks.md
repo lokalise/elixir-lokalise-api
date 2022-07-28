@@ -1,10 +1,8 @@
 # Webhooks
 
-[Webhook attributes](https://app.lokalise.com/api2docs/curl/#object-webhooks)
-
 ## Fetch webhooks
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-webhooks-get)
+[Doc](https://developers.lokalise.com/reference/list-all-webhooks
 
 ```elixir
 {:ok, webhooks} = ElixirLokaliseApi.Webhooks.all(project_id, page: 2, limit: 1)
@@ -15,7 +13,7 @@ webhook.webhook_id
 
 ## Fetch a single webhook
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-webhook-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-webhook
 
 ```elixir
 {:ok, webhook} = ElixirLokaliseApi.Webhooks.find(project_id, webhook_id)
@@ -25,7 +23,7 @@ webhook.webhook_id
 
 ## Create webhook
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-webhook-post)
+[Doc](https://developers.lokalise.com/reference/create-a-webhook
 
 ```elixir
 data = %{
@@ -40,7 +38,7 @@ webhook.url
 
 ## Update webhook
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-webhook-put)
+[Doc](https://developers.lokalise.com/reference/update-a-webhook
 
 ```elixir
 data = %{
@@ -54,7 +52,7 @@ webhook.webhook_id
 
 ## Delete webhook
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-webhook-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-webhook
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Webhooks.delete(project_id, webhook_id)
@@ -64,7 +62,7 @@ resp.webhook_deleted
 
 ## Regenerate webhook secret
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch)
+[Doc](https://developers.lokalise.com/reference/regenerate-a-webhook-secret
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Webhooks.regenerate_secret(project_id, webhook_id)
