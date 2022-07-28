@@ -1,10 +1,8 @@
 # Tasks
 
-[Task attributes](https://app.lokalise.com/api2docs/curl/#resource-tasks)
-
 ## Fetch tasks
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
+[Doc](https://developers.lokalise.com/reference/list-all-tasks
 
 ```elixir
 {:ok, tasks} = ElixirLokaliseApi.Tasks.all(project_id, page: 2, limit: 1, filter_statuses: "completed")
@@ -15,7 +13,7 @@ task.task_id
 
 ## Fetch a single task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-task
 
 ```elixir
 {:ok, task} = ElixirLokaliseApi.Tasks.find(project_id, task_id)
@@ -24,7 +22,7 @@ task.task_id
 
 ## Create task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
+[Doc](https://developers.lokalise.com/reference/create-a-task
 
 ```elixir
 data = %{
@@ -45,7 +43,7 @@ task.title
 
 ## Update task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
+[Doc](https://developers.lokalise.com/reference/update-a-task
 
 ```elixir
 data = %{
@@ -60,7 +58,7 @@ task.task_id
 
 ## Delete task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-task
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Tasks.delete(project_id, task_id)

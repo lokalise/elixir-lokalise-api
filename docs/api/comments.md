@@ -1,10 +1,8 @@
 # Comments
 
-[Comments attributes](https://app.lokalise.com/api2docs/curl/#resource-comments)
-
 ## Fetch project comments
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-comments-get)
+[Doc](https://developers.lokalise.com/reference/list-project-comments
 
 ```elixir
 {:ok, comments} = ElixirLokaliseApi.ProjectComments.all(project_id, page: 2, limit: 1)
@@ -15,7 +13,7 @@ single_comment.comment
 
 ## Fetch key comments
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-key-comments-get)
+[Doc](https://developers.lokalise.com/reference/list-key-comments
 
 ```elixir
 {:ok, comments} = ElixirLokaliseApi.KeyComments.all(project_id, key_id, limit: 1, page: 2)
@@ -23,7 +21,7 @@ single_comment.comment
 
 ## Create key comments
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-comments-post)
+[Doc](https://developers.lokalise.com/reference/create-comments
 
 ```elixir
 data = %{
@@ -39,7 +37,7 @@ comment.comment
 
 ## Fetch key comment
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-comment-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-comment
 
 ```elixir
 {:ok, comment} = ElixirLokaliseApi.KeyComments.find(project_id, key_id, comment_id)
@@ -50,7 +48,7 @@ comment.comment_id
 
 ## Delete key comment
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-comment-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-comment
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.KeyComments.delete(project_id, key_id, comment_id)

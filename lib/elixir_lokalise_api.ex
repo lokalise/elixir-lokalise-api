@@ -3,7 +3,7 @@ defmodule ElixirLokaliseApi do
   `ElixirLokaliseApi` is an official client (interface) for the Lokalise APIv2.
 
   Learn more about Lokalise API at
-  [https://app.lokalise.com/api2docs](https://app.lokalise.com/api2docs).
+  [https://developers.lokalise.com/reference/lokalise-rest-api](https://developers.lokalise.com/reference/lokalise-rest-api).
 
   To get started, you will need an API token that can be generated in your
   Lokalise profile.

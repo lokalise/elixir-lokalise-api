@@ -1,10 +1,8 @@
 # Team user groups
 
-[Team user group attributes](https://app.lokalise.com/api2docs/curl/#object-team-user-groups)
-
 ## Fetch team user groups
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-groups-get)
+[Doc](https://developers.lokalise.com/reference/list-all-groups
 
 ```elixir
 {:ok, groups} = ElixirLokaliseApi.TeamUserGroups.all(team_id, page: 3, limit: 2)
@@ -15,7 +13,7 @@ group.group_id
 
 ## Fetch a single group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-group-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-group
 
 ```elixir
 {:ok, group} = ElixirLokaliseApi.TeamUserGroups.find(team_id, group_id)
@@ -25,7 +23,7 @@ group.group_id
 
 ## Create group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-group-post)
+[Doc](https://developers.lokalise.com/reference/create-a-group
 
 ```elixir
 data = %{
@@ -45,7 +43,7 @@ group.name
 
 ## Update group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-group-put)
+[Doc](https://developers.lokalise.com/reference/update-a-group
 
 ```elixir
 data = %{
@@ -65,7 +63,7 @@ group.name
 
 ## Add projects to group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-add-projects-to-group-put)
+[Doc](https://developers.lokalise.com/reference/add-projects-to-group
 
 ```elixir
 data = %{
@@ -79,7 +77,7 @@ assert group.group_id
 
 ## Remove projects from group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-projects-from-group-put)
+[Doc](https://developers.lokalise.com/reference/remove-projects-from-group
 
 ```elixir
 data = %{
@@ -93,7 +91,7 @@ group.group_id
 
 ## Add users to group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-add-members-to-group-put)
+[Doc](https://developers.lokalise.com/reference/add-members-to-group
 
 ```elixir
 data = %{
@@ -107,7 +105,7 @@ group.group_id
 
 ## Remove users from group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-members-from-group-put)
+[Doc](https://developers.lokalise.com/reference/remove-members-from-group
 
 ```elixir
 data = %{
@@ -121,7 +119,7 @@ group.group_id
 
 ## Destroy group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-group-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-group
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.TeamUserGroups.delete(team_id, group_id)

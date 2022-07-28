@@ -1,12 +1,10 @@
 # Custom translation statuses
 
-[Translation Status attributes](https://app.lokalise.com/api2docs/curl/#object-translation-statuses)
-
 *Custom translation statuses must be enabled for the project before using this endpoint!* It can be done in the project settings.
 
 ## Fetch translation statuses
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-custom-translation-statuses-get)
+[Doc](https://developers.lokalise.com/reference/list-all-custom-translation-statuses
 
 ```elixir
 {:ok, statuses} = ElixirLokaliseApi.TranslationStatuses.all(project_id, page: 2, limit: 1)
@@ -17,7 +15,7 @@ status.status_id
 
 ## Fetch a single translation status
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-custom-translation-status-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-a-custom-translation-status
 
 ```elixir
 {:ok, status} = ElixirLokaliseApi.TranslationStatuses.find(project_id, status_id)
@@ -27,7 +25,7 @@ status.status_id
 
 ## Create translation status
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-custom-translation-status-post)
+[Doc](https://developers.lokalise.com/reference/create-a-custom-translation-status
 
 ```elixir
 data = %{
@@ -42,7 +40,7 @@ status.title
 
 ## Update translation status
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-custom-translation-status-put)
+[Doc](https://developers.lokalise.com/reference/update-a-custom-translation-status
 
 ```elixir
 data = %{
@@ -56,7 +54,7 @@ status.title
 
 ## Delete translation status
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-custom-translation-status-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-custom-translation-status
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.TranslationStatuses.delete(project_id, status_id)
@@ -66,7 +64,7 @@ resp.custom_translation_status_deleted
 
 ## Supported color codes for translation statuses
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-available-colors-for-custom-translation-statuses-get)
+[Doc](https://developers.lokalise.com/reference/retrieve-available-colors-for-custom-translation-statuses
 
 As long as Lokalise supports only very limited array of color hexadecimal codes for custom translation statuses, this method can be used to fetch all permitted values.
 

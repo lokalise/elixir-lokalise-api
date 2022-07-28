@@ -2,7 +2,7 @@ defmodule ElixirLokaliseApi.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/lokalise/elixir-lokalise-api"
-  @version "2.2.0"
+  @version "2.3.0"
 
   def project do
     [
@@ -68,7 +68,7 @@ defmodule ElixirLokaliseApi.MixProject do
   defp package do
     [
       description: "Lokalise APIv2 interface for Elixir.",
-      maintainers: ["Ilya Bodrov-Krukowski"],
+      maintainers: ["Ilya Krukowski"],
       licenses: ["BSD-3-Clause"],
       links: %{
         "Changelog" => "https://lokalise.github.io/elixir-lokalise-api/additional_info/changelog",

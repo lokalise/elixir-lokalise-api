@@ -64,4 +64,4 @@ Brief API reference is also available at [hexdocs.pm](https://hexdocs.pm/elixir_
 
 Licensed under the [BSD 3 Clause license](./LICENSE.md).
 
-Copyright (c) 2021 Lokalise team and [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) 2022 Lokalise group and [Ilya Krukowski](http://bodrovis.tech)

@@ -1,10 +1,8 @@
 # Team user billing details
 
-[Team user billing details attributes](https://app.lokalise.com/api2docs/curl/#object-team-user-billing-details)
-
 ## Fetch team user billing details
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-team-user-billing-details-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-team-user-billing-details
 
 ```elixir
 team_id = 1234
@@ -16,7 +14,7 @@ details.country_code # => "LV"
 
 ## Create team user billing details
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-team-user-billing-details-post)
+[API doc](https://developers.lokalise.com/reference/create-team-user-billing-details
 
 ```elixir
 team_id = 1234
@@ -33,7 +31,7 @@ details.zip # => "LV-0123"
 
 ## Update team user billing details
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-team-user-billing-details-put)
+[API doc](https://developers.lokalise.com/reference/update-team-user-billing-details
 
 ```elixir
 team_id = 1234

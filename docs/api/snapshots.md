@@ -1,10 +1,8 @@
 # Snapshots
 
-[Snapshot attributes](https://app.lokalise.com/api2docs/curl/#object-snapshots)
-
 ## Fetch snapshots
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-snapshots-get)
+[Doc](https://developers.lokalise.com/reference/list-all-snapshots
 
 ```elixir
 {:ok, snapshots} = ElixirLokaliseApi.Snapshots.all(project_id, page: 2, limit: 1)
@@ -15,7 +13,7 @@ snapshot.snapshot_id
 
 ## Create snapshot
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-snapshot-post)
+[Doc](https://developers.lokalise.com/reference/create-a-snapshot
 
 ```elixir
 data = %{
@@ -28,7 +26,7 @@ snapshot.title
 
 ## Restore snapshot
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-restore-a-snapshot-post)
+[Doc](https://developers.lokalise.com/reference/restore-a-snapshot
 
 ```elixir
 {:ok, project} = ElixirLokaliseApi.Snapshots.restore(project_id, snapshot_id)
@@ -38,7 +36,7 @@ project.project_id
 
 ## Delete snapshot
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-snapshot-delete)
+[Doc](https://developers.lokalise.com/reference/delete-a-snapshot
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Snapshots.delete(project_id, snapshot_id)
