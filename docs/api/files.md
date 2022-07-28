@@ -2,7 +2,7 @@
 
 ## Fetch translation files
 
-[Doc](https://developers.lokalise.com/reference/list-all-files
+[Doc](https://developers.lokalise.com/reference/list-all-files)
 
 ```elixir
 {:ok, files} = ElixirLokaliseApi.Files.all(project_id, page: 2, limit: 3)
@@ -13,7 +13,7 @@ file.filename
 
 ## Download translation files
 
-[Doc](https://developers.lokalise.com/reference/download-files
+[Doc](https://developers.lokalise.com/reference/download-files)
 
 Exports project files as a `.zip` bundle and makes them available to download (the link is valid for 12 months).
 
@@ -30,7 +30,7 @@ resp.bundle_url
 
 ## Upload translation file
 
-[Doc](https://developers.lokalise.com/reference/upload-a-file
+[Doc](https://developers.lokalise.com/reference/upload-a-file)
 
 ```elixir
 data = %{
@@ -54,7 +54,7 @@ process.status # => "finished"
 
 ## Delete translation file
 
-[Doc](https://developers.lokalise.com/reference/delete-a
+[Doc](https://developers.lokalise.com/reference/delete-a-file)
 
 Please note that this endpoint does not support "software localization" projects.
 

@@ -2,7 +2,7 @@
 
 ## Fetch screenshots
 
-[Doc](https://developers.lokalise.com/reference/list-all-screenshots
+[Doc](https://developers.lokalise.com/reference/list-all-screenshots)
 
 ```elixir
 {:ok, screenshots} = ElixirLokaliseApi.Screenshots.all(project_id, page: 2, limit: 1)
@@ -13,7 +13,7 @@ screenshot.screenshot_id
 
 ## Fetch a single screenshot
 
-[Doc](https://developers.lokalise.com/reference/retrieve-a-screenshot
+[Doc](https://developers.lokalise.com/reference/retrieve-a-screenshot)
 
 ```elixir
 {:ok, screenshot} = ElixirLokaliseApi.Screenshots.find(project_id, screenshot_id)
@@ -23,7 +23,7 @@ screenshot.screenshot_id
 
 ## Create screenshots
 
-[Doc](https://developers.lokalise.com/reference/create-screenshots
+[Doc](https://developers.lokalise.com/reference/create-screenshots)
 
 ```elixir
 data = %{
@@ -43,7 +43,7 @@ screenshot.title
 
 ## Update screenshot
 
-[Doc](https://developers.lokalise.com/reference/update-a-screenshot
+[Doc](https://developers.lokalise.com/reference/update-a-screenshot)
 
 ```elixir
 data = %{
@@ -58,7 +58,7 @@ screenshot.title
 
 ## Delete screenshot
 
-[Doc](https://developers.lokalise.com/reference/delete-a-screenshot
+[Doc](https://developers.lokalise.com/reference/delete-a-screenshot)
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Screenshots.delete(project_id, screenshot_id)

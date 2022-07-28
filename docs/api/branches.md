@@ -2,7 +2,7 @@
 
 ## Fetch branches
 
-[Doc](https://developers.lokalise.com/reference/list-all-branches
+[Doc](https://developers.lokalise.com/reference/list-all-branches)
 
 ```elixir
 {:ok, branches} = ElixirLokaliseApi.Branches.all(project_id, page: 2, limit: 1)
@@ -13,7 +13,7 @@ branch.name
 
 ## Fetch branch
 
-[Doc](https://developers.lokalise.com/reference/retrieve-a-branch
+[Doc](https://developers.lokalise.com/reference/retrieve-a-branch)
 
 ```elixir
 {:ok, branch} = ElixirLokaliseApi.Branches.find(project_id, branch_id)
@@ -24,7 +24,7 @@ branch.name
 
 ## Create branch
 
-[Doc](https://developers.lokalise.com/reference/retrieve-a-branch
+[Doc](https://developers.lokalise.com/reference/retrieve-a-branch)
 
 ```elixir
 data = %{name: "Elixir"}
@@ -36,7 +36,7 @@ branch.name
 
 ## Update branch
 
-[Doc](https://developers.lokalise.com/reference/update-a-branch
+[Doc](https://developers.lokalise.com/reference/update-a-branch)
 
 ```elixir
 data = %{name: "Elixir-update"}
@@ -48,7 +48,7 @@ branch.name
 
 ## Delete branch
 
-[Doc](https://developers.lokalise.com/reference/delete-a-branch
+[Doc](https://developers.lokalise.com/reference/delete-a-branch)
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Branches.delete(project_id, branch_id)
@@ -58,7 +58,7 @@ resp.branch_deleted
 
 ## Merge branch
 
-[Doc](https://developers.lokalise.com/reference/merge-a-branch
+[Doc](https://developers.lokalise.com/reference/merge-a-branch)
 
 ```elixir
 data = %{force_conflict_resolve_using: "target", target_branch_id: target_branch_id}

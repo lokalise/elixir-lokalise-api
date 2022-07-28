@@ -2,7 +2,7 @@
 
 ## Fetch project keys
 
-[Doc](https://developers.lokalise.com/reference/list-all-keys
+[Doc](https://developers.lokalise.com/reference/list-all-keys)
 
 ```elixir
 {:ok, keys} = ElixirLokaliseApi.Keys.all(project_id, page: 2, limit: 3)
@@ -13,7 +13,7 @@ key.key_id
 
 ## Fetch a single project key
 
-[Doc](https://developers.lokalise.com/reference/retrieve-a-key
+[Doc](https://developers.lokalise.com/reference/retrieve-a-key)
 
 ```elixir
 {:ok, key} = ElixirLokaliseApi.Keys.find(project_id, key_id, disable_references: "1")
@@ -23,7 +23,7 @@ key.key_id
 
 ## Create project keys
 
-[Doc](https://developers.lokalise.com/reference/create-keys
+[Doc](https://developers.lokalise.com/reference/create-keys)
 
 ```elixir
 data = %{
@@ -59,7 +59,7 @@ key.key_name.android
 
 ## Update project key
 
-[Doc](https://developers.lokalise.com/reference/update-a-key
+[Doc](https://developers.lokalise.com/reference/update-a-key)
 
 ```elixir
 data = %{
@@ -74,7 +74,7 @@ key.key_id
 
 ## Bulk update project keys
 
-[Doc](https://developers.lokalise.com/reference/bulk-update
+[Doc](https://developers.lokalise.com/reference/bulk-update)
 
 ```elixir
 data = %{
@@ -98,7 +98,7 @@ keys.items
 
 ## Delete project key
 
-[Doc](https://developers.lokalise.com/reference/delete-a-key
+[Doc](https://developers.lokalise.com/reference/delete-a-key)
 
 ```elixir
 {:ok, resp} = ElixirLokaliseApi.Keys.delete(project_id, key_id)
@@ -108,7 +108,7 @@ resp.key_removed
 
 ## Bulk delete project keys
 
-[Doc](https://developers.lokalise.com/reference/delete-multiple-keys
+[Doc](https://developers.lokalise.com/reference/delete-multiple-keys)
 
 ```elixir
 data = %{

@@ -2,7 +2,7 @@
 
 ## Fetch orders
 
-[Doc](https://developers.lokalise.com/reference/list-all-orders
+[Doc](https://developers.lokalise.com/reference/list-all-orders)
 
 ```elixir
 {:ok, orders} = ElixirLokaliseApi.Orders.all(team_id, page: 3, limit: 2)
@@ -13,7 +13,7 @@ order.order_id
 
 ## Fetch a single order
 
-[Doc](https://developers.lokalise.com/reference/retrieve-an-order
+[Doc](https://developers.lokalise.com/reference/retrieve-an-order)
 
 ```elixir
 {:ok, order} = ElixirLokaliseApi.Orders.find(team_id, order_id)
@@ -22,7 +22,7 @@ order.order_id
 
 ## Create an order
 
-[Doc](https://developers.lokalise.com/reference/create-an-order
+[Doc](https://developers.lokalise.com/reference/create-an-order)
 
 ```elixir
 data = %{
