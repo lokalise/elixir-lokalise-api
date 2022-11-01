@@ -46,7 +46,7 @@ defmodule ElixirLokaliseApi.MixProject do
       {:jason, "~> 1.2"},
       {:ex_doc, "~> 0.29.0", only: [:dev, :test]},
       {:exvcr, "~> 0.13.2", only: :test},
-      {:excoveralls, "~> 0.14.2", only: :test}
+      {:excoveralls, "~> 0.15.0", only: :test}
     ]
   end
 
