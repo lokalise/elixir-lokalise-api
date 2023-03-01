@@ -12,14 +12,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - elixir: 1.10.x
-            otp: 21
-          - elixir: 1.11.x
-            otp: 22
-          - elixir: 1.11.x
-            otp: 23
           - elixir: 1.12.x
             otp: 24
+          - elixir: 1.13.x
+            otp: 24
+          - elixir: 1.14.x
+            otp: 25
     env:
       MIX_ENV: test
       LOKALISE_API_TOKEN: 123abc
