@@ -17,11 +17,11 @@ jobs:
     env:
       MIX_ENV: test
       LOKALISE_API_TOKEN: 123abc
-      OAUTH2_CLIENT_ID=123abc
-      OAUTH2_CLIENT_SECRET=123abc
-      OAUTH2_CODE=123abc
-      OAUTH2_ACCESS_TOKEN=123abc
-      OAUTH2_REFRESH_TOKEN=123abc
+      OAUTH2_CLIENT_ID: 123abc
+      OAUTH2_CLIENT_SECRET: 123abc
+      OAUTH2_CODE: 123abc
+      OAUTH2_ACCESS_TOKEN: 123abc
+      OAUTH2_REFRESH_TOKEN: 123abc
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
