@@ -11,7 +11,8 @@ defmodule ElixirLokaliseApi.OAuth2.Auth do
   @singular_data_key nil
 
   alias ElixirLokaliseApi.Config
-  use ElixirLokaliseApi.DynamicResource#, import: [:foreign_model]
+  # , import: [:foreign_model]
+  use ElixirLokaliseApi.DynamicResource
 
   @doc """
   Generates an authentication URL to obtain
@@ -20,7 +21,7 @@ defmodule ElixirLokaliseApi.OAuth2.Auth do
   def auth(scope, redirect_uri \\ nil, state \\ nil) do
     "#{Config.base_url(:oauth2)}auth"
     |> URI.new!()
-    |> do_append(:client_id, Config.oauth2_client_id)
+    |> do_append(:client_id, Config.oauth2_client_id())
     |> do_append(:scope, Enum.join(scope, " "))
     |> do_append(:redirect_uri, redirect_uri)
     |> do_append(:state, state)
@@ -32,8 +33,8 @@ defmodule ElixirLokaliseApi.OAuth2.Auth do
   """
   def token(code) do
     data = %{
-      client_id: Config.oauth2_client_id,
-      client_secret: Config.oauth2_client_secret,
+      client_id: Config.oauth2_client_id(),
+      client_secret: Config.oauth2_client_secret(),
       code: code,
       grant_type: "authorization_code"
     }
@@ -50,8 +51,8 @@ defmodule ElixirLokaliseApi.OAuth2.Auth do
   """
   def refresh(refresh_token) do
     data = %{
-      client_id: Config.oauth2_client_id,
-      client_secret: Config.oauth2_client_secret,
+      client_id: Config.oauth2_client_id(),
+      client_secret: Config.oauth2_client_secret(),
       refresh_token: refresh_token,
       grant_type: "refresh_token"
     }

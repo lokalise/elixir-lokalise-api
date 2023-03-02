@@ -18,7 +18,7 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
     uri = Auth.auth(["read_projects"])
 
     assert String.contains?(uri, "scope=read_projects")
-    assert String.contains?(uri, "client_id=#{Config.oauth2_client_id}")
+    assert String.contains?(uri, "client_id=#{Config.oauth2_client_id()}")
     assert String.contains?(uri, "https://app.lokalise.com/oauth2/auth")
   end
 
@@ -26,25 +26,27 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
     uri = Auth.auth(["read_projects", "write_projects", "write_tasks"])
 
     assert String.contains?(uri, "scope=read_projects+write_projects+write_tasks")
-    assert String.contains?(uri, "client_id=#{Config.oauth2_client_id}")
+    assert String.contains?(uri, "client_id=#{Config.oauth2_client_id()}")
   end
 
   test "auth allows to pass redirect uri" do
-    uri = Auth.auth(
-      ["read_projects", "write_tasks"],
-      "http://example.com/callback"
-    )
+    uri =
+      Auth.auth(
+        ["read_projects", "write_tasks"],
+        "http://example.com/callback"
+      )
 
     assert String.contains?(uri, "scope=read_projects+write_tasks")
     assert String.contains?(uri, "example.com%2Fcallback")
   end
 
   test "auth allows to pass state" do
-    uri = Auth.auth(
-      ["read_projects", "write_tasks"],
-      "http://example.com/callback",
-      "secret state"
-    )
+    uri =
+      Auth.auth(
+        ["read_projects", "write_tasks"],
+        "http://example.com/callback",
+        "secret state"
+      )
 
     assert String.contains?(uri, "secret+state")
   end
@@ -53,7 +55,7 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
     use_cassette "oauth2_token" do
       {:ok, %TokenModel{} = result} = Auth.token(System.get_env("OAUTH2_CODE"))
 
-      assert result.access_token == System.get_env("OAUTH2_ACCESS_TOKEN")
+      assert result.access_token == "e43a0fac0e025da1dbbf7201a08c28691f399a1d"
       assert result.refresh_token == "123"
       assert result.expires_in == 3600
       assert result.token_type == "Bearer"

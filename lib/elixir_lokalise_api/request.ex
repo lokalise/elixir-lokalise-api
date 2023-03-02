@@ -9,7 +9,13 @@ defmodule ElixirLokaliseApi.Request do
   alias ElixirLokaliseApi.UrlGenerator
   alias __MODULE__
 
-  @defaults [type: nil, data: nil, url_params: Keyword.new(), query_params: Keyword.new(), for: :api]
+  @defaults [
+    type: nil,
+    data: nil,
+    url_params: Keyword.new(),
+    query_params: Keyword.new(),
+    for: :api
+  ]
 
   @doc """
   Prepares and sends an HTTP request with the provided verb and options.
@@ -44,7 +50,6 @@ defmodule ElixirLokaliseApi.Request do
         {:error, {data, status}}
     end
   end
-
 
   defp headers(:api) do
     opts = headers(:base)
