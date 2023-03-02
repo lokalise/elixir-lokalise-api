@@ -11,7 +11,6 @@ defmodule ElixirLokaliseApi.OAuth2.Auth do
   @singular_data_key nil
 
   alias ElixirLokaliseApi.Config
-  # , import: [:foreign_model]
   use ElixirLokaliseApi.DynamicResource
 
   @doc """
