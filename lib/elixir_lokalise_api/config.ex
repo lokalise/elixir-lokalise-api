@@ -20,6 +20,18 @@ defmodule ElixirLokaliseApi.Config do
   """
   def oauth2_token, do: from_env(:oauth2_token)
 
+  @doc """
+  Returns Lokalise OAuth2 client ID. Set it inside your `mix.exs`:
+      config :elixir_lokalise_api, oauth2_client_id: "YOUR_CLIENT_ID"
+  """
+  def oauth2_client_id, do: from_env(:oauth2_client_id)
+
+  @doc """
+  Returns Lokalise OAuth2 client secret. Set it inside your `mix.exs`:
+      config :elixir_lokalise_api, oauth2_client_secret: "YOUR_CLIENT_ID"
+  """
+  def oauth2_client_secret, do: from_env(:oauth2_client_secret)
+
   def request_options, do: from_env(:request_options, Keyword.new())
 
   @doc """
@@ -28,9 +40,11 @@ defmodule ElixirLokaliseApi.Config do
   def version, do: from_env(:version, "2.1.0")
 
   @doc """
-  Returns the base URL of the Lokalise APIv2
+  Returns the base URL of the Lokalise APIv2 or OAuth2
   """
-  def base_url, do: "https://api.lokalise.com/api2/"
+  def base_url(:api), do: "https://api.lokalise.com/api2/"
+
+  def base_url(:oauth2), do: "https://app.lokalise.com/oauth2/"
 
   @doc """
   A wrapper around `Application.put_env/3`

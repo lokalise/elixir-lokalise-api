@@ -11,7 +11,7 @@ defmodule ElixirLokaliseApi.UrlGenerator do
     module.endpoint()
     |> format(opts[:url_params])
     |> remove_double_slashes()
-    |> full_url()
+    |> full_url(opts[:for])
     |> clean()
   end
 
@@ -27,7 +27,7 @@ defmodule ElixirLokaliseApi.UrlGenerator do
     end)
   end
 
-  defp full_url(path), do: Config.base_url() <> path
+  defp full_url(path, url_for), do: Config.base_url(url_for) <> path
 
   defp clean(url), do: url |> String.replace_trailing("/", "")
 

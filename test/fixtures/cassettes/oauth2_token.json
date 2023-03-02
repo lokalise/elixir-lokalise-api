@@ -1,0 +1,44 @@
+[
+  {
+    "request": {
+      "body": "{\"client_id\":\"client_id\",\"client_secret\":\"client_secret\",\"code\":\"360b74aa97287b03e8854d443a3fe184e761106b\",\"grant_type\":\"authorization_code\"}",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/2.1.0"
+      },
+      "method": "post",
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "request_body": "",
+      "url": "https://app.lokalise.com/oauth2/token"
+    },
+    "response": {
+      "binary": false,
+      "body": "{\"access_token\":\"e43a0fac0e025da1dbbf7201a08c28691f399a1d\",\"refresh_token\":\"123\",\"expires_in\":3600,\"token_type\":\"Bearer\"}",
+      "headers": {
+        "Date": "Thu, 02 Mar 2023 12:55:07 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Server": "nginx",
+        "Vary": "Accept-Encoding",
+        "Expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+        "Cache-Control": "no-store, no-cache, must-revalidate",
+        "Pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "bff31213-6881-402b-b349-8dbacfd80fca",
+        "pragma": "no-cache",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type"
+      },
+      "status_code": 200,
+      "type": "ok"
+    }
+  }
+]

@@ -1,5 +1,41 @@
 # Changelog
 
+## 3.0.0 (02-Feb-2023)
+
+* Elixir v1.14+ is required.
+* Added new configuration options: `oauth2_client_id` and `oauth2_client_secret`. For example, you can say:
+
+```elixir
+config :elixir_lokalise_api, oauth2_client_id: {:system, "OAUTH_CLIENT_ID"}
+```
+
+* These new options are added to introduce [OAuth 2 flow](https://developers.lokalise.com/docs/oauth-2-flow). Now you can obtain OAuth 2 tokens and refresh them:
+
+```elixir
+# 1. Generate an authentication URL:
+
+uri = ElixirLokaliseApi.OAuth2.Auth.auth(
+  ["read_projects", "write_tasks"], # scopes
+  "http://example.com/callback", # redirect uri
+  "secret state" # state
+)
+
+# 2. The user should visit this URL. They'll be redirected to the callback along with a secret code.
+
+# 3. Use the secret code to obtain an access token:
+
+{:ok, response} = ElixirLokaliseApi.OAuth2.Auth.token("secret code")
+
+response.access_token # => 123abc
+response.refresh_token # => 345xyz
+
+# 4. Use the refresh token to obtain a new access token:
+
+{:ok, response} = ElixirLokaliseApi.OAuth2.Auth.refresh("OAUTH2_REFRESH_TOKEN")
+
+response.access_token # => 789xyz
+```
+
 ## 2.3.0 (28-Jul-2022)
 
 * Added support for [Delete file endpoint](https://developers.lokalise.com/reference/delete-a-file):

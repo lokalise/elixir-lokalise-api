@@ -15,6 +15,7 @@ defmodule ElixirLokaliseApi.Files do
 
   use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :foreign_model, :all2, :delete2]
 
+  @spec download(any, any) :: {:error, atom | binary | {map, integer}} | {:ok, map}
   @doc """
   Downloads a translation bundle from the project.
   """

@@ -11,6 +11,14 @@ defmodule ElixirLokaliseApi.ConfigTest do
     assert Config.from_env(:api_token) != nil
   end
 
+  test "oauth2_client_id returns an id" do
+    assert Config.oauth2_client_id() != nil
+  end
+
+  test "oauth2_client_secret returns a secret" do
+    assert Config.oauth2_client_secret() != nil
+  end
+
   test "from_env returns a default value when missing" do
     assert Config.from_env(:missing, :ok) == :ok
   end

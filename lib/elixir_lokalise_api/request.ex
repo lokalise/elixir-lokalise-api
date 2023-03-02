@@ -9,7 +9,7 @@ defmodule ElixirLokaliseApi.Request do
   alias ElixirLokaliseApi.UrlGenerator
   alias __MODULE__
 
-  @defaults [type: nil, data: nil, url_params: Keyword.new(), query_params: Keyword.new()]
+  @defaults [type: nil, data: nil, url_params: Keyword.new(), query_params: Keyword.new(), for: :api]
 
   @doc """
   Prepares and sends an HTTP request with the provided verb and options.
@@ -24,7 +24,7 @@ defmodule ElixirLokaliseApi.Request do
         verb,
         UrlGenerator.generate(module, opts),
         Processor.encode(opts[:data]),
-        headers(),
+        headers(opts[:for]),
         request_params(opts[:query_params])
       )
 
@@ -45,12 +45,9 @@ defmodule ElixirLokaliseApi.Request do
     end
   end
 
-  @spec headers :: Keyword.t()
-  defp headers do
-    opts = [
-      Accept: "application/json",
-      "User-Agent": "elixir-lokalise-api package/#{Config.version()}"
-    ]
+
+  defp headers(:api) do
+    opts = headers(:base)
 
     case Config.oauth2_token() do
       nil ->
@@ -59,6 +56,13 @@ defmodule ElixirLokaliseApi.Request do
       token ->
         Keyword.merge(opts, Authorization: "Bearer #{token}")
     end
+  end
+
+  defp headers(_) do
+    [
+      Accept: "application/json",
+      "User-Agent": "elixir-lokalise-api package/#{Config.version()}"
+    ]
   end
 
   @spec request_params(Keyword.t()) :: Keyword.t()
