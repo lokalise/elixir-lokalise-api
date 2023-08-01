@@ -44,7 +44,7 @@ defmodule ElixirLokaliseApi.MixProject do
       {:dialyxir, "~> 1.1", only: :dev, runtime: false},
       {:httpoison, "~> 2.0"},
       {:jason, "~> 1.2"},
-      {:ex_doc, "~> 0.29.0", only: [:dev, :test]},
+      {:ex_doc, "~> 0.30.3", only: [:dev, :test]},
       {:exvcr, "~> 0.14.1", only: :test},
       {:excoveralls, "~> 0.16.1", only: :test}
     ]
