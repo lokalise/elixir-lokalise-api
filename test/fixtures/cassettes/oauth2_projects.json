@@ -4,7 +4,7 @@
       "body": "",
       "headers": {
         "Accept": "application/json",
-        "User-Agent": "elixir-lokalise-api package/2.1.0",
+        "User-Agent": "elixir-lokalise-api package/3.0.0",
         "Authorization": "***"
       },
       "method": "get",

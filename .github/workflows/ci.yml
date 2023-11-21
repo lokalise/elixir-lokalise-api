@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - elixir: 1.14.x
-            otp: 25
+          - elixir: 1.15.x
+            otp: 26
     env:
       MIX_ENV: test
       LOKALISE_API_TOKEN: 123abc
@@ -24,7 +24,7 @@ jobs:
       OAUTH2_REFRESH_TOKEN: 123abc
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
