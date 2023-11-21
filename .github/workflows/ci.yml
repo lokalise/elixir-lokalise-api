@@ -45,6 +45,5 @@ jobs:
       - run: mix compile --warnings-as-errors
         if: matrix.warnings_as_errors
       - run: |
-          mix deps.clean ssl_verify_fun
           mix deps.compile ssl_verify_fun --force
       - run: mix coveralls.github
