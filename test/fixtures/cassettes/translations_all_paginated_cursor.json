@@ -1,0 +1,45 @@
+[
+  {
+    "request": {
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "body": "",
+      "url": "https://api.lokalise.com/api2/projects/2273827860c1e2473eb195.11207948/translations?limit=2&pagination=cursor&cursor=eyIxIjozMDU0Mzg5ODQ0fQ%3D%3D",
+      "request_body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/3.0.0",
+        "X-Api-Token": "***"
+      },
+      "method": "get"
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"project_id\":\"2273827860c1e2473eb195.11207948\",\"branch\":\"master\",\"translations\":[{\"translation_id\":3054389845,\"segment_number\":1,\"key_id\":379781388,\"language_iso\":\"pl\",\"translation\":\"Zalogowa\\u0107 si\\u0119\",\"modified_by\":2,\"modified_by_email\":\"support@lokali.se\",\"modified_at\":\"2024-03-19 13:47:16 (Etc\\/UTC)\",\"modified_at_timestamp\":1710856036,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":true,\"is_fuzzy\":true,\"words\":2,\"custom_translation_statuses\":[],\"task_id\":2259983},{\"translation_id\":3054389846,\"segment_number\":1,\"key_id\":379781388,\"language_iso\":\"en\",\"translation\":\"Sign in\",\"modified_by\":20181,\"modified_by_email\":\"bodrovis@protonmail.com\",\"modified_at\":\"2023-11-03 12:08:11 (Etc\\/UTC)\",\"modified_at_timestamp\":1699013291,\"is_reviewed\":false,\"reviewed_by\":0,\"is_unverified\":false,\"is_fuzzy\":false,\"words\":2,\"custom_translation_statuses\":[],\"task_id\":null}]}",
+      "headers": {
+        "Date": "Tue, 14 May 2024 18:38:49 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Server": "nginx",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=-172800, must-revalidate, no-cache, no-store, private",
+        "X-Pagination-Limit": "2",
+        "X-Pagination-Next-Cursor": "eyIxIjozMDU0Mzg5ODQ2fQ==",
+        "pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "02b16ea4-b2f3-44c1-b998-037bc604dfa5",
+        "Expires": "Thu, 16 May 2024 18:38:49 GMT",
+        "Set-Cookie": "PHPSESSID=deleted; expires=Mon, 15-May-2023 18:38:48 GMT; Max-Age=0; path=/; httponly"
+      },
+      "status_code": 200
+    }
+  }
+]

@@ -7,7 +7,8 @@ defmodule ElixirLokaliseApi.Processor do
     "x-pagination-total-count" => :total_count,
     "x-pagination-page-count" => :page_count,
     "x-pagination-limit" => :per_page_limit,
-    "x-pagination-page" => :current_page
+    "x-pagination-page" => :current_page,
+    "x-pagination-next-cursor" => :next_cursor
   }
 
   @doc """
@@ -102,8 +103,15 @@ defmodule ElixirLokaliseApi.Processor do
           acc
 
         [list | _] ->
-          {header_value, _} = list |> elem(1) |> Integer.parse()
-          acc |> Map.put(formatted_header, header_value)
+          header_value = list |> elem(1)
+
+          parsed_value =
+            case Integer.parse(header_value) do
+              {number, _} -> number
+              :error -> header_value
+            end
+
+          acc |> Map.put(formatted_header, parsed_value)
       end
     end)
   end

@@ -6,5 +6,6 @@ defmodule ElixirLokaliseApi.Collection.Keys do
             page_count: nil,
             per_page_limit: nil,
             current_page: nil,
+            next_cursor: nil,
             errors: []
 end

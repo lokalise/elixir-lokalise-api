@@ -4,6 +4,8 @@
 
 [Doc](https://developers.lokalise.com/reference/list-all-keys)
 
+**This endpoint also supports cursor pagination which is now a recommended approach, especially for fetching large amounts of data. Please [learn more in the Pagination docs](https://lokalise.github.io/elixir-lokalise-api/api/getting-started#cursor-pagination).**
+
 ```elixir
 {:ok, keys} = ElixirLokaliseApi.Keys.all(project_id, page: 2, limit: 3)
 

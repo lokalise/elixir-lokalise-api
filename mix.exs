@@ -2,7 +2,7 @@ defmodule ElixirLokaliseApi.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/lokalise/elixir-lokalise-api"
-  @version "3.0.0"
+  @version "3.1.0"
 
   def project do
     [
@@ -44,9 +44,9 @@ defmodule ElixirLokaliseApi.MixProject do
       {:dialyxir, "~> 1.1", only: :dev, runtime: false},
       {:httpoison, "~> 2.0"},
       {:jason, "~> 1.2"},
-      {:ex_doc, "~> 0.29.0", only: [:dev, :test]},
-      {:exvcr, "~> 0.13.2", only: :test},
-      {:excoveralls, "~> 0.15.0", only: :test}
+      {:ex_doc, "~> 0.32.2", only: [:dev, :test]},
+      {:exvcr, "~> 0.15.1", only: :test},
+      {:excoveralls, "~> 0.18.1", only: :test}
     ]
   end
 

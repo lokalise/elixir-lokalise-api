@@ -13,6 +13,7 @@ defmodule ElixirLokaliseApi.TranslationsTest do
   doctest Translations
 
   @project_id "287061316050d93a27ada8.24068671"
+  @project_id2 "2273827860c1e2473eb195.11207948"
 
   test "lists all translations" do
     use_cassette "translations_all" do
@@ -43,6 +44,21 @@ defmodule ElixirLokaliseApi.TranslationsTest do
 
       translation = hd(translations.items)
       assert translation.translation_id == 580_728_817
+    end
+  end
+
+  test "lists paginated with cursor translations" do
+    use_cassette "translations_all_paginated_cursor" do
+      {:ok, %TranslationsCollection{} = translations} =
+        Translations.all(@project_id2,
+          limit: 2,
+          pagination: "cursor",
+          cursor: "eyIxIjozMDU0Mzg5ODQ0fQ=="
+        )
+
+      assert Enum.count(translations.items) == 2
+      assert translations.per_page_limit == 2
+      assert translations.next_cursor == "eyIxIjozMDU0Mzg5ODQ2fQ=="
     end
   end
 

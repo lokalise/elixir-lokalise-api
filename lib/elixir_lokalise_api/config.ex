@@ -37,7 +37,7 @@ defmodule ElixirLokaliseApi.Config do
   @doc """
   Returns package version
   """
-  def version, do: from_env(:version, "2.1.0")
+  def version, do: from_env(:version, "3.1.0")
 
   @doc """
   Returns the base URL of the Lokalise APIv2 or OAuth2

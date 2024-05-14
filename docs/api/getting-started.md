@@ -116,6 +116,17 @@ projects |> Pagination.next_page() # => What is the number of the next page?
 projects |> Pagination.prev_page() # => What is the number of the previous page?
 ```
 
+### Cursor pagination
+
+The [List Keys](https://developers.lokalise.com/reference/list-all-keys) and [List Translations](https://developers.lokalise.com/reference/list-all-translations) endpoints support cursor pagination, which is recommended for its faster performance compared to traditional "offset" pagination. By default, "offset" pagination is used, so you must explicitly set `pagination` to `"cursor"` to use cursor pagination:
+
+```elixir
+{:ok, %KeysCollection{} = keys} = Keys.all(@project_id, limit: 2, pagination: "cursor", cursor: "eyIxIjozNzk3ODEzODh9")
+
+keys.per_page_limit # => 2
+keys.next_cursor # => "eyIxIjo0NTc4NDUxMDd9"
+```
+
 ## Branching
 
 If you are using [project branching feature](https://docs.lokalise.com/en/articles/3391861-project-branching), simply add branch name separated by semicolon to your project ID in any endpoint to access the branch. For example, in order to access `new-feature` branch for the project with an id `123abcdef.01`:

@@ -13,6 +13,7 @@ defmodule ElixirLokaliseApi.KeysTest do
   doctest Keys
 
   @project_id "572560965f984614d567a4.18006942"
+  @project_id2 "2273827860c1e2473eb195.11207948"
 
   test "lists all keys" do
     use_cassette "keys_all" do
@@ -48,6 +49,17 @@ defmodule ElixirLokaliseApi.KeysTest do
 
       key = hd(keys.items)
       assert key.key_id == 79_039_609
+    end
+  end
+
+  test "lists paginated with cursor keys" do
+    use_cassette "keys_find_cursor" do
+      {:ok, %KeysCollection{} = keys} =
+        Keys.all(@project_id2, limit: 2, pagination: "cursor", cursor: "eyIxIjozNzk3ODEzODh9")
+
+      assert Enum.count(keys.items) == 2
+      assert keys.per_page_limit == 2
+      assert keys.next_cursor == "eyIxIjo0NTc4NDUxMDd9"
     end
   end
 

@@ -4,6 +4,8 @@
 
 [Doc](https://developers.lokalise.com/reference/list-all-translations)
 
+**This endpoint also supports cursor pagination which is now a recommended approach, especially for fetching large amounts of data. Please [learn more in the Pagination docs](https://lokalise.github.io/elixir-lokalise-api/api/getting-started#cursor-pagination).**
+
 ```elixir
 {:ok, translations} = ElixirLokaliseApi.Translations.all(@project_id, filter_is_reviewed: 0, page: 2, limit: 1)
 

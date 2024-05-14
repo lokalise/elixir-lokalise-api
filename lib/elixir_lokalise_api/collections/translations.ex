@@ -5,5 +5,6 @@ defmodule ElixirLokaliseApi.Collection.Translations do
             total_count: nil,
             page_count: nil,
             per_page_limit: nil,
-            current_page: nil
+            current_page: nil,
+            next_cursor: nil
 end

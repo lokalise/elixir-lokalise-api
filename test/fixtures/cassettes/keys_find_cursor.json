@@ -1,0 +1,45 @@
+[
+  {
+    "request": {
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "body": "",
+      "url": "https://api.lokalise.com/api2/projects/2273827860c1e2473eb195.11207948/keys?limit=2&pagination=cursor&cursor=eyIxIjozNzk3ODEzODh9",
+      "request_body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/3.0.0",
+        "X-Api-Token": "***"
+      },
+      "method": "get"
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"project_id\":\"2273827860c1e2473eb195.11207948\",\"branch\":\"master\",\"keys\":[{\"key_id\":395658713,\"created_at\":\"2023-10-17 12:38:06 (Etc\\/UTC)\",\"created_at_timestamp\":1697546286,\"key_name\":{\"ios\":\"sign_up\",\"android\":\"sign_up\",\"web\":\"sign_up\",\"other\":\"sign_up\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"android\",\"web\"],\"tags\":[],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":2,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2023-10-17 12:38:06 (Etc\\/UTC)\",\"modified_at_timestamp\":1697546286,\"translations_modified_at\":\"2024-03-19 13:47:16 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1710856036},{\"key_id\":457845107,\"created_at\":\"2024-03-19 13:07:00 (Etc\\/UTC)\",\"created_at_timestamp\":1710853620,\"key_name\":{\"ios\":\"about:meta_desc\",\"android\":\"about:meta_desc\",\"web\":\"about:meta_desc\",\"other\":\"about:meta_desc\"},\"filenames\":{\"ios\":\"\",\"android\":\"\",\"web\":\"%LANG_ISO%.yml\",\"other\":\"\"},\"description\":\"\",\"platforms\":[\"web\"],\"tags\":[],\"is_plural\":false,\"plural_name\":\"\",\"is_hidden\":false,\"is_archived\":false,\"context\":\"\",\"base_words\":17,\"char_limit\":0,\"custom_attributes\":\"\",\"modified_at\":\"2024-03-19 13:07:00 (Etc\\/UTC)\",\"modified_at_timestamp\":1710853620,\"translations_modified_at\":\"2024-03-19 13:47:16 (Etc\\/UTC)\",\"translations_modified_at_timestamp\":1710856036}]}",
+      "headers": {
+        "Date": "Tue, 14 May 2024 18:23:27 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Server": "nginx",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=-172800, must-revalidate, no-cache, no-store, private",
+        "X-Pagination-Limit": "2",
+        "X-Pagination-Next-Cursor": "eyIxIjo0NTc4NDUxMDd9",
+        "pragma": "no-cache",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "7770f06c-414d-4e8b-93d0-112c2ea3792b",
+        "Expires": "Thu, 16 May 2024 18:23:27 GMT",
+        "Set-Cookie": "PHPSESSID=deleted; expires=Mon, 15-May-2023 18:23:26 GMT; Max-Age=0; path=/; httponly"
+      },
+      "status_code": 200
+    }
+  }
+]

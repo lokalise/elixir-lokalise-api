@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.1.0 (14-May-2024)
+
+* Add support for [cursor pagination](https://lokalise.github.io/elixir-lokalise-api/api/getting-started#cursor-pagination) for List keys and List translation endpoints:
+
+```elixir
+{:ok, %KeysCollection{} = keys} = Keys.all(@project_id, limit: 2, pagination: "cursor", cursor: "eyIxIjozNzk3ODEzODh9")
+
+keys.per_page_limit # => 2
+keys.next_cursor # => "eyIxIjo0NTc4NDUxMDd9"
+```
+
 ## 3.0.0 (02-Feb-2023)
 
 * Elixir v1.14+ is required.
