@@ -63,6 +63,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
       assert group.team_id == @team_id
       assert group.projects == []
       assert group.members == [35554]
+      assert group.role_id == 5
     end
   end
 

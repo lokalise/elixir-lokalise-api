@@ -1,5 +1,38 @@
 # Changelog
 
+## 3.2.0 (15-Oct-2024)
+
+* Added support for a new [`PermissionTemplates` endpoint](https://developers.lokalise.com/reference/list-all-permission-templates):
+
+```elixir
+{:ok, %PermissionTemplatesCollection{} = templates} = PermissionTemplates.all(team_id)
+
+template = hd(templates)
+
+template.id # => 1
+template.role # => "Manager"
+template.permissions # => ['branches_main_modify', ...]
+template.description # => 'Manage project settings ...'
+template.tag # => 'Full access'
+template.tagColor # => 'green'
+template.tagInfo # => ''
+template.doesEnableAllReadOnlyLanguages # => true
+```
+
+* Added `role_id` attribute to the user group object. For example:
+
+```elixir
+group = TeamUserGroups.find(team_id, group_id)
+group.role_id # => 5
+```
+
+* Added `role_id` attribute to the contributor object. For example:
+
+```elixir
+contributor = Contributors.find(project_id, contributor_id)
+contributor.role_id # => 5
+```
+
 ## 3.1.0 (14-May-2024)
 
 * Add support for [cursor pagination](https://lokalise.github.io/elixir-lokalise-api/api/getting-started#cursor-pagination) for List keys and List translation endpoints:

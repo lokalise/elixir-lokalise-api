@@ -32,8 +32,8 @@ defmodule ElixirLokaliseApi.Processor do
   @spec parse(HTTPoison.Response.t(), atom, String.t()) ::
           {:ok, struct | map} | {:error, map, integer}
   def parse(response, module, type) do
-    data_key = module.data_key
-    singular_data_key = module.singular_data_key
+    data_key = module.data_key()
+    singular_data_key = module.singular_data_key()
     json = response.body |> Jason.decode!(keys: :atoms)
     status = response.status_code
 
@@ -61,9 +61,9 @@ defmodule ElixirLokaliseApi.Processor do
   end
 
   defp create_struct(:foreign_model, module, raw_data) do
-    foreign_model = module.foreign_model
+    foreign_model = module.foreign_model()
 
-    case module.foreign_data_key do
+    case module.foreign_data_key() do
       nil ->
         foreign_model |> struct(raw_data)
 
@@ -72,12 +72,12 @@ defmodule ElixirLokaliseApi.Processor do
     end
   end
 
-  defp create_struct(:model, module, item_data), do: struct(module.model, item_data)
+  defp create_struct(:model, module, item_data), do: struct(module.model(), item_data)
 
   defp create_struct(:collection, module, items_data, resp_headers, raw_json) do
     struct_data =
       struct_for_items(module, items_data)
-      |> add_data_by_key(module.parent_key, raw_json)
+      |> add_data_by_key(module.parent_key(), raw_json)
       |> add_data_by_key(:branch, raw_json)
       |> add_data_by_key(:user_id, raw_json)
       |> add_data_by_key(:key_id, raw_json)
@@ -85,12 +85,12 @@ defmodule ElixirLokaliseApi.Processor do
       |> add_data_by_key(:errors, raw_json)
       |> pagination_for(resp_headers)
 
-    module.collection |> struct(struct_data)
+    module.collection() |> struct(struct_data)
   end
 
   defp struct_for_items(module, raw_data) do
     Enum.reduce(Enum.reverse(raw_data), %{items: []}, fn item, acc ->
-      struct_item = struct(module.model, item)
+      struct_item = struct(module.model(), item)
 
       %{acc | items: [struct_item | acc.items]}
     end)

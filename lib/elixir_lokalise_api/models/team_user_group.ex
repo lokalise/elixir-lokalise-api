@@ -7,5 +7,6 @@ defmodule ElixirLokaliseApi.Model.TeamUserGroup do
             created_at_timestamp: nil,
             team_id: nil,
             projects: [],
-            members: []
+            members: [],
+            role_id: nil
 end

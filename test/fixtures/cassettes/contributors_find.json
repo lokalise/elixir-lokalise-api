@@ -5,7 +5,7 @@
       "headers": {
         "X-Api-Token": "***",
         "Accept": "application/json",
-        "User-Agent": "elixir-lokalise-api package/0.1.0"
+        "User-Agent": "elixir-lokalise-api package/3.2.0"
       },
       "method": "get",
       "options": [],
@@ -14,7 +14,7 @@
     },
     "response": {
       "binary": false,
-      "body": "{\"project_id\":\"217830385f9c0fdbd589f0.91420183\",\"contributor\":{\"user_id\":72008,\"email\":\"golosizpru+ann@gmail.com\",\"fullname\":\"Ann\",\"created_at\":\"2020-07-27 14:35:45 (Etc\\/UTC)\",\"created_at_timestamp\":1595860545,\"is_admin\":false,\"is_reviewer\":true,\"languages\":[{\"lang_id\":640,\"lang_iso\":\"en\",\"lang_name\":\"English\",\"is_writable\":false},{\"lang_id\":600,\"lang_iso\":\"ru_RU\",\"lang_name\":\"Russian (Russia)\",\"is_writable\":true}],\"admin_rights\":[]}}",
+      "body": "{\"project_id\":\"217830385f9c0fdbd589f0.91420183\",\"contributor\":{\"user_id\":72008,\"email\":\"golosizpru+ann@gmail.com\",\"fullname\":\"Ann\",\"created_at\":\"2020-07-27 14:35:45 (Etc\\/UTC)\",\"created_at_timestamp\":1595860545,\"is_admin\":false,\"is_reviewer\":true,\"languages\":[{\"lang_id\":640,\"lang_iso\":\"en\",\"lang_name\":\"English\",\"is_writable\":false},{\"lang_id\":600,\"lang_iso\":\"ru_RU\",\"lang_name\":\"Russian (Russia)\",\"is_writable\":true}],\"admin_rights\":[],\"role_id\":5}}",
       "headers": {
         "Server": "nginx",
         "Content-Type": "application/json",

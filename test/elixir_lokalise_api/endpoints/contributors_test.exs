@@ -61,6 +61,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
       assert contributor.is_reviewer
       refute List.first(contributor.languages).is_writable
       assert contributor.admin_rights == []
+      assert contributor.role_id == 5
     end
   end
 

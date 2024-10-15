@@ -8,5 +8,6 @@ defmodule ElixirLokaliseApi.Model.Contributor do
             is_admin: nil,
             is_reviewer: nil,
             languages: %{},
-            admin_rights: []
+            admin_rights: [],
+            role_id: nil
 end
