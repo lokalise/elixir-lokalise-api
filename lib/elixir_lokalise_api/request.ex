@@ -38,11 +38,10 @@ defmodule ElixirLokaliseApi.Request do
          {:ok, parsed_result} <- Processor.parse(response, module, opts[:type]) do
       {:ok, parsed_result}
     else
+      # coveralls-ignore-start
       {:error, error} ->
         # HTTPoison error
-        # coveralls-ignore-start
         {:error, error.reason}
-
       # coveralls-ignore-end
 
       {:error, data, status} ->
