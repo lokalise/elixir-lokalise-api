@@ -42,6 +42,7 @@ defmodule ElixirLokaliseApi.Request do
       {:error, error} ->
         # HTTPoison error
         {:error, error.reason}
+
       # coveralls-ignore-end
 
       {:error, data, status} ->

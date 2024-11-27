@@ -37,14 +37,17 @@ defmodule ElixirLokaliseApi.Config do
   @doc """
   Returns package version
   """
-  def version, do: from_env(:version, "3.2.0")
+  def version, do: from_env(:version, "3.3.0")
 
   @doc """
-  Returns the base URL of the Lokalise APIv2 or OAuth2
-  """
-  def base_url(:api), do: "https://api.lokalise.com/api2/"
+  Returns the base URL of the Lokalise APIv2 or OAuth2. Set it inside your `mix.exs`:
+      config :elixir_lokalise_api, base_url_api: "YOUR_API_BASE_URL"
+      config :elixir_lokalise_api, base_url_oauth2: "YOUR_OAUTH2_BASE_URL"
 
-  def base_url(:oauth2), do: "https://app.lokalise.com/oauth2/"
+  You can also use `{:system, "ENV_VAR_NAME"}` to set it via environment variables.
+  """
+  def base_url(:api), do: from_env(:base_url_api, "https://api.lokalise.com/api2/")
+  def base_url(:oauth2), do: from_env(:base_url_oauth2, "https://app.lokalise.com/oauth2/")
 
   @doc """
   A wrapper around `Application.put_env/3`

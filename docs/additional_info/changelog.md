@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.3.0 (27-Nov-2024)
+
+* Allow to redefine host for API and OAuth2 requests:
+
+```elixir
+config :elixir_lokalise_api, base_url_api: "YOUR_API_BASE_URL"
+config :elixir_lokalise_api, base_url_oauth2: "YOUR_OAUTH2_BASE_URL"
+```
+
 ## 3.2.0 (15-Oct-2024)
 
 * Added support for a new [`PermissionTemplates` endpoint](https://developers.lokalise.com/reference/list-all-permission-templates):
