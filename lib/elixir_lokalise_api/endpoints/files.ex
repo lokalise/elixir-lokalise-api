@@ -28,6 +28,17 @@ defmodule ElixirLokaliseApi.Files do
   end
 
   @doc """
+  Downloads a translation bundle from the project asynchronously.
+  """
+  def download_async(project_id, data) do
+    make_request(:post,
+      data: data,
+      url_params: url_params(project_id) ++ [{:_postfix, "async-download"}],
+      type: :foreign_model
+    )
+  end
+
+  @doc """
   Uploads base64-encoded translations to the project.
   """
   def upload(project_id, data) do

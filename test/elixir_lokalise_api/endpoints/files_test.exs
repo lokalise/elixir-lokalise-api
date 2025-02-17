@@ -82,6 +82,34 @@ defmodule ElixirLokaliseApi.FilesTest do
     end
   end
 
+  test "downloads files asynchronously" do
+    process_id = "1efed526-cd7c-6f2e-9db9-360c3c31288f"
+    project_id = "6504960967ab53d45e0ed7.15877499"
+
+    use_cassette "files_download_async" do
+      data = %{
+        format: "json",
+        original_filenames: true
+      }
+
+      {:ok, %ProcessModel{} = process} = Files.download_async(project_id, data)
+
+      assert process.process_id == process_id
+    end
+
+    use_cassette "files_download_check" do
+      {:ok, %ProcessModel{} = process} = QueuedProcesses.find(project_id, process_id)
+
+      assert process.type == "async-export"
+      assert process.status == "finished"
+
+      assert String.contains?(
+               process.details[:download_url],
+               "lokalise-live-lok-s3-fss-export.s3.eu-central"
+             )
+    end
+  end
+
   test "uploads files" do
     use_cassette "files_upload" do
       data = %{

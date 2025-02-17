@@ -7,5 +7,6 @@ defmodule ElixirLokaliseApi.Model.QueuedProcess do
             created_by: nil,
             created_by_email: nil,
             created_at: nil,
-            created_at_timestamp: nil
+            created_at_timestamp: nil,
+            details: nil
 end

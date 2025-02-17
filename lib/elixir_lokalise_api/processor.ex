@@ -68,7 +68,7 @@ defmodule ElixirLokaliseApi.Processor do
         foreign_model |> struct(raw_data)
 
       key ->
-        foreign_model |> struct(raw_data[key])
+        foreign_model |> struct(raw_data[key] || raw_data)
     end
   end
 

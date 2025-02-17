@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.4.0 (17-Feb-2025)
+
+* Add support for [async file downloads](https://developers.lokalise.com/reference/download-files-async):
+
+```elixir
+params = %{
+  format: "json",
+  original_filenames: true
+}
+
+{:ok, process} = Files.download_async(project_id, params)
+
+{:ok, process_info} = QueuedProcesses.find(project_id, process.process_id)
+
+process_info.status # => "finished"
+process_info.details[:download_url] # => "https://..."
+```
+
 ## 3.3.0 (27-Nov-2024)
 
 * Allow to redefine host for API and OAuth2 requests:

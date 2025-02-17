@@ -28,6 +28,26 @@ data = %{
 resp.bundle_url
 ```
 
+## Download translation files (async)
+
+[Doc](https://developers.lokalise.com/reference/download-files-async)
+
+Performs file export in background (asynchronously) and returns the process ID. Use the process ID to check for the process status.
+
+```elixir
+params = %{
+  format: "json",
+  original_filenames: true
+}
+
+{:ok, process} = Files.download_async(project_id, params)
+
+{:ok, process_info} = QueuedProcesses.find(project_id, process.process_id)
+
+process_info.status # => "finished"
+process_info.details[:download_url] # => "https://..."
+```
+
 ## Upload translation file
 
 [Doc](https://developers.lokalise.com/reference/upload-a-file)
