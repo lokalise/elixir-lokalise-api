@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "body": "{\"terms\":[5520368,5511072]}",
+      "url": "https://api.lokalise.com/api2/projects/6504960967ab53d45e0ed7.15877499/glossary-terms",
+      "request_body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/3.5.0",
+        "X-Api-Token": "***"
+      },
+      "method": "delete"
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"data\":{\"deleted\":{\"count\":2,\"ids\":[5511072,5520368]}}}",
+      "headers": {
+        "Date": "Fri, 02 May 2025 14:59:01 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, private",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "0fde53f7-f552-4f82-bf2f-ac027758d179",
+        "Expires": "Fri, 02 May 2025 14:59:01 GMT",
+        "Set-Cookie": "PHPSESSID=deleted; expires=Thu, 02-May-2024 14:59:00 GMT; Max-Age=0; path=/; secure; httponly"
+      },
+      "status_code": 200
+    }
+  }
+]

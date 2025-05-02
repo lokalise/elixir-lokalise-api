@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.5.0
+## 3.5.0 (02-May-2025)
 
 * Add support for [GlossaryTerms endpoint](https://developers.lokalise.com/reference/list-glossary-terms)
 

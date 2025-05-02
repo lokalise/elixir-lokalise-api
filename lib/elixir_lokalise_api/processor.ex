@@ -45,11 +45,11 @@ defmodule ElixirLokaliseApi.Processor do
         {:ok, create_struct(:foreign_model, module, data)}
 
       %{^data_key => items_data}
-      when (is_list(items_data) or is_map(items_data)) and status < 400 ->
+      when type != :current_model and (is_list(items_data) or is_map(items_data)) and status < 400 ->
         {:ok, create_struct(:collection, module, items_data, response.headers, json)}
 
       %{^singular_data_key => item_data}
-      when (is_list(item_data) or is_map(item_data)) and status < 400 ->
+      when (type == :current_model or is_list(item_data) or is_map(item_data)) and status < 400 ->
         {:ok, create_struct(:model, module, item_data)}
 
       item_data when status < 400 ->

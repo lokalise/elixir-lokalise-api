@@ -1,0 +1,41 @@
+[
+  {
+    "request": {
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "body": "{\"terms\":[{\"term\":\"elixir\",\"description\":\"language\",\"caseSensitive\":false,\"translatable\":false,\"forbidden\":false}]}",
+      "url": "https://api.lokalise.com/api2/projects/6504960967ab53d45e0ed7.15877499/glossary-terms",
+      "request_body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/3.5.0",
+        "X-Api-Token": "***"
+      },
+      "method": "post"
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"data\":[{\"id\":5520368,\"term\":\"elixir\",\"description\":\"language\",\"caseSensitive\":false,\"translatable\":false,\"forbidden\":false,\"translations\":[{\"langId\":597,\"langName\":\"Russian\",\"langIso\":\"ru\",\"translation\":\"\",\"description\":\"\"},{\"langId\":640,\"langName\":\"English\",\"langIso\":\"en\",\"translation\":\"\",\"description\":\"\"},{\"langId\":674,\"langName\":\"French (Canada)\",\"langIso\":\"fr_CA\",\"translation\":\"\",\"description\":\"\"}],\"tags\":[],\"projectId\":\"6504960967ab53d45e0ed7.15877499\",\"createdAt\":\"2025-05-02 14:44:51 (Etc\\/UTC)\",\"updatedAt\":null}],\"meta\":{\"count\":1,\"created\":1,\"limit\":500},\"errors\":[]}",
+      "headers": {
+        "Date": "Fri, 02 May 2025 14:44:51 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, private",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "de4c31b2-60b0-48b4-852b-157132cdbc56",
+        "Expires": "Fri, 02 May 2025 14:44:51 GMT",
+        "Set-Cookie": "PHPSESSID=deleted; expires=Thu, 02-May-2024 14:44:50 GMT; Max-Age=0; path=/; secure; httponly"
+      },
+      "status_code": 200
+    }
+  }
+]

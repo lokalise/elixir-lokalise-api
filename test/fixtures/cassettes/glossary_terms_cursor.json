@@ -1,0 +1,42 @@
+[
+  {
+    "request": {
+      "options": {
+        "recv_timeout": 5000,
+        "connect_timeout": 5000
+      },
+      "body": "",
+      "url": "https://api.lokalise.com/api2/projects/6504960967ab53d45e0ed7.15877499/glossary-terms?limit=2&cursor=5319746",
+      "request_body": "",
+      "headers": {
+        "Accept": "application/json",
+        "User-Agent": "elixir-lokalise-api package/3.5.0",
+        "X-Api-Token": "***"
+      },
+      "method": "get"
+    },
+    "response": {
+      "binary": false,
+      "type": "ok",
+      "body": "{\"data\":[{\"id\":5489103,\"term\":\"sample term\",\"description\":\"and desc\",\"caseSensitive\":false,\"translatable\":false,\"forbidden\":false,\"translations\":[{\"langId\":597,\"langName\":\"Russian\",\"langIso\":\"ru\",\"translation\":\"\",\"description\":\"\"},{\"langId\":640,\"langName\":\"English\",\"langIso\":\"en\",\"translation\":\"\",\"description\":\"\"},{\"langId\":674,\"langName\":\"French (Canada)\",\"langIso\":\"fr_CA\",\"translation\":\"\",\"description\":\"\"}],\"tags\":[],\"projectId\":\"6504960967ab53d45e0ed7.15877499\",\"createdAt\":\"2025-04-22 12:36:34 (Etc\\/UTC)\",\"updatedAt\":null},{\"id\":5489104,\"term\":\"HTML\",\"description\":\"format\",\"caseSensitive\":true,\"translatable\":false,\"forbidden\":false,\"translations\":[{\"langId\":597,\"langName\":\"Russian\",\"langIso\":\"ru\",\"translation\":\"\",\"description\":\"\"},{\"langId\":640,\"langName\":\"English\",\"langIso\":\"en\",\"translation\":\"\",\"description\":\"\"},{\"langId\":674,\"langName\":\"French (Canada)\",\"langIso\":\"fr_CA\",\"translation\":\"\",\"description\":\"\"}],\"tags\":[],\"projectId\":\"6504960967ab53d45e0ed7.15877499\",\"createdAt\":\"2025-04-22 12:36:41 (Etc\\/UTC)\",\"updatedAt\":null}],\"meta\":{\"count\":2,\"limit\":2,\"cursor\":5319746,\"hasMore\":true,\"nextCursor\":5489104}}",
+      "headers": {
+        "Date": "Fri, 02 May 2025 13:56:53 GMT",
+        "Content-Type": "application/json",
+        "Transfer-Encoding": "chunked",
+        "Connection": "keep-alive",
+        "Vary": "Accept-Encoding",
+        "Cache-Control": "max-age=0, must-revalidate, private",
+        "X-Pagination-Next-Cursor": "5489104",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "deny",
+        "X-XSS-Protection": "1; mode=block",
+        "Strict-Transport-Security": "max-age=31536000",
+        "Referrer-Policy": "origin",
+        "X-Lokalise-Process-Id": "ed048904-430a-4fc0-8445-b6746e23ad27",
+        "Expires": "Fri, 02 May 2025 13:56:53 GMT",
+        "Set-Cookie": "PHPSESSID=deleted; expires=Thu, 02-May-2024 13:56:52 GMT; Max-Age=0; path=/; secure; httponly"
+      },
+      "status_code": 200
+    }
+  }
+]
