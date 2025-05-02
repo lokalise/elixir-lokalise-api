@@ -4,7 +4,7 @@
       "body": "{\"client_id\":\"client_id\",\"client_secret\":\"client_secret\",\"code\":\"360b74aa97287b03e8854d443a3fe184e761106b\",\"grant_type\":\"authorization_code\"}",
       "headers": {
         "Accept": "application/json",
-        "User-Agent": "elixir-lokalise-api package/3.2.0"
+        "User-Agent": "elixir-lokalise-api package/3.5.0"
       },
       "method": "post",
       "options": {

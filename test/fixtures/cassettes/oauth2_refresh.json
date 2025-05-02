@@ -4,7 +4,7 @@
       "body": "{\"client_id\":\"client_id\",\"client_secret\":\"client_secret\",\"grant_type\":\"refresh_token\",\"refresh_token\":\"refresh\"}",
       "headers": {
         "Accept": "application/json",
-        "User-Agent": "elixir-lokalise-api package/3.2.0"
+        "User-Agent": "elixir-lokalise-api package/3.5.0"
       },
       "method": "post",
       "options": {

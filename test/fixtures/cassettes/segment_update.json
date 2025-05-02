@@ -4,7 +4,7 @@
       "body": "{\"is_reviewed\":true,\"value\":\"Sample text from Elixir\"}",
       "headers": {
         "Accept": "application/json",
-        "User-Agent": "elixir-lokalise-api package/3.2.0",
+        "User-Agent": "elixir-lokalise-api package/3.5.0",
         "X-Api-Token": "***"
       },
       "method": "put",

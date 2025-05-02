@@ -4,7 +4,7 @@
       "body": "{\"billing_email\":\"hi@example.com\",\"country_code\":\"LV\",\"zip\":\"LV-0123\"}",
       "headers": {
         "Accept": "application/json",
-        "User-Agent": "elixir-lokalise-api package/3.2.0",
+        "User-Agent": "elixir-lokalise-api package/3.5.0",
         "X-Api-Token": "***"
       },
       "method": "post",
