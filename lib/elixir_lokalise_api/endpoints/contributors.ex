@@ -13,4 +13,10 @@ defmodule ElixirLokaliseApi.Contributors do
 
   use ElixirLokaliseApi.DynamicResource,
     import: [:item_reader, :find2, :all2, :create2, :delete2, :update3]
+
+  def me(project_id) do
+    make_request(:get,
+      url_params: url_params(project_id, :me)
+    )
+  end
 end

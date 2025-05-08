@@ -2,7 +2,7 @@ defmodule ElixirLokaliseApi.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/lokalise/elixir-lokalise-api"
-  @version "3.5.0"
+  @version "3.6.0"
 
   def project do
     [

@@ -21,6 +21,19 @@ contributor.user_id
 contributor.user_id
 ```
 
+## Fetch current contributor (token-based)
+
+[Doc](https://developers.lokalise.com/reference/retrieve-me-as-a-contributor)
+
+This endpoint returns contributor in the given project based on the user whose token is used to send the request. In other words, it returns information about self in scope of a project.
+
+```elixir
+{:ok, contributor} = ElixirLokaliseApi.Contributors.me(project_id)
+
+contributor.user_id
+contributor.fullname
+```
+
 ## Create contributors
 
 [Doc](https://developers.lokalise.com/reference/create-contributors)

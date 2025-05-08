@@ -4,6 +4,7 @@ defmodule ElixirLokaliseApi.TeamsTest do
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Teams
   alias ElixirLokaliseApi.Collection.Teams, as: TeamsCollection
+  alias ElixirLokaliseApi.Model.Team, as: TeamModel
 
   setup_all do
     HTTPoison.start()
@@ -45,6 +46,16 @@ defmodule ElixirLokaliseApi.TeamsTest do
       assert teams |> Pagination.last_page?()
       refute teams |> Pagination.next_page?()
       assert teams |> Pagination.prev_page?()
+    end
+  end
+
+  test "finds team" do
+    use_cassette "team_find" do
+      team_id = 176_692
+      {:ok, %TeamModel{} = team} = Teams.find(team_id)
+
+      assert team.team_id == team_id
+      assert team.name == "Ilya's Team"
     end
   end
 end

@@ -65,6 +65,15 @@ defmodule ElixirLokaliseApi.ContributorsTest do
     end
   end
 
+  test "finds a me (current contributor)" do
+    use_cassette "contributors_me" do
+      {:ok, %ContributorModel{} = contributor} =
+        Contributors.me("5868381966b39e5053ff15.63486389")
+
+      assert contributor.fullname == "Ilya B"
+    end
+  end
+
   test "creates a contributor" do
     use_cassette "contributors_create" do
       data = %{

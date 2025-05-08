@@ -4,10 +4,10 @@ defmodule ElixirLokaliseApi.Teams do
   """
   @model ElixirLokaliseApi.Model.Team
   @collection ElixirLokaliseApi.Collection.Teams
-  @endpoint "teams/"
+  @endpoint "teams/{:team_id}"
   @data_key :teams
-  @singular_data_key nil
-  @parent_key nil
+  @singular_data_key :team
+  @parent_key :team_id
 
-  use ElixirLokaliseApi.DynamicResource, import: [:all]
+  use ElixirLokaliseApi.DynamicResource, import: [:all, :find]
 end

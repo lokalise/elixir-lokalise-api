@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.6.0 (08-May-2025)
+
+* Add support for [Current contributor](https://developers.lokalise.com/reference/retrieve-me-as-a-contributor) (me) endpoint
+* Add support for [Get team details](https://developers.lokalise.com/reference/get-team-details) endpoint
+
 ## 3.5.0 (02-May-2025)
 
 * Add support for [GlossaryTerms endpoint](https://developers.lokalise.com/reference/list-glossary-terms)
