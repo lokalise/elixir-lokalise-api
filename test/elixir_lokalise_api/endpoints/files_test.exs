@@ -1,3 +1,5 @@
+import ExUnit.CaptureIO
+
 defmodule ElixirLokaliseApi.FilesTest do
   use ExUnit.Case, async: true
   use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
@@ -79,6 +81,42 @@ defmodule ElixirLokaliseApi.FilesTest do
 
       assert String.contains?(resp.bundle_url, "Demo_Phoenix")
       assert resp.project_id == @project_id
+    end
+  end
+
+  test "downloads files with too big response" do
+    use_cassette "files_download_response_too_big" do
+      data = %{
+        format: "json",
+        original_filenames: true
+      }
+
+      warning =
+        capture_io(:stderr, fn ->
+          {:ok, %{} = resp} = Files.download(@project_id, data)
+          assert String.contains?(resp.bundle_url, "Demo_Phoenix")
+          assert resp.project_id == @project_id
+          assert resp._request_too_big
+        end)
+
+      assert warning =~ "Your project is too big for sync download"
+    end
+  end
+
+  test "downloads file (error)" do
+    use_cassette "files_download_error" do
+      data = %{
+        format: "json",
+        original_filenames: true
+      }
+
+      {:error, resp} = Files.download(@project_id, data)
+
+      {msg_data, code} = resp
+      message = msg_data.error.message
+
+      assert code == 500
+      assert message == "Fail"
     end
   end
 

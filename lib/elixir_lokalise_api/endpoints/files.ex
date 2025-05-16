@@ -20,11 +20,24 @@ defmodule ElixirLokaliseApi.Files do
   Downloads a translation bundle from the project.
   """
   def download(project_id, data) do
-    make_request(:post,
-      data: data,
-      url_params: url_params(project_id) ++ [{:_postfix, "download"}],
-      type: :raw
-    )
+    case make_request(:post,
+           data: data,
+           url_params: url_params(project_id) ++ [{:_postfix, "download"}],
+           type: :raw
+         ) do
+      {:ok, result} ->
+        if Map.has_key?(result, :_request_too_big) do
+          IO.warn("""
+          Your project is too big for sync download.
+          Please use async one (ElixirLokaliseApi.Files.download_async/2) instead.
+          """)
+        end
+
+        {:ok, result}
+
+      other ->
+        other
+    end
   end
 
   @doc """
