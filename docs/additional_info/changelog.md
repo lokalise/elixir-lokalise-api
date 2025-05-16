@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.6.1 (16-May-2025)
+
+* Add a warning for big projects suggesting to use [async file downloads](https://developers.lokalise.com/reference/download-files-async) endpoint
+
 ## 3.6.0 (08-May-2025)
 
 * Add support for [Current contributor](https://developers.lokalise.com/reference/retrieve-me-as-a-contributor) (me) endpoint

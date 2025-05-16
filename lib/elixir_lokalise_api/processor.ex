@@ -39,7 +39,7 @@ defmodule ElixirLokaliseApi.Processor do
 
     case json do
       raw_data when type == :raw and status < 400 ->
-        {:ok, raw_data}
+        {:ok, create_raw(raw_data, response.headers)}
 
       data when type == :foreign_model and status < 400 ->
         {:ok, create_struct(:foreign_model, module, data)}
@@ -57,6 +57,13 @@ defmodule ElixirLokaliseApi.Processor do
 
       raw_data ->
         {:error, raw_data, status}
+    end
+  end
+
+  defp create_raw(raw_data, headers) do
+    case get_header(headers, "x-response-too-big") do
+      [] -> raw_data
+      _ -> Map.put(raw_data, :_request_too_big, true)
     end
   end
 
@@ -102,8 +109,8 @@ defmodule ElixirLokaliseApi.Processor do
         [] ->
           acc
 
-        [list | _] ->
-          header_value = list |> elem(1)
+        [header_pair | _] ->
+          header_value = header_pair |> elem(1)
 
           parsed_value =
             case Integer.parse(header_value) do
