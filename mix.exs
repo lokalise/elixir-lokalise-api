@@ -16,9 +16,12 @@ defmodule ElixirLokaliseApi.MixProject do
       test_coverage: [tool: ExCoveralls],
 
       # Dialyxir
-      dialyzer: [plt_add_deps: :project],
+      dialyzer: [plt_add_deps: :project]
+    ]
+  end
 
-      # CLI env
+  def cli do
+    [
       preferred_cli_env: [
         vcr: :test,
         "vcr.delete": :test,

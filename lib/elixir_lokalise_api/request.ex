@@ -20,8 +20,8 @@ defmodule ElixirLokaliseApi.Request do
   @doc """
   Prepares and sends an HTTP request with the provided verb and options.
   """
-  @spec do_request(method(), url(), Keyword.t()) ::
-          {:ok, struct | map} | {:error, atom | String.t() | {map, integer}}
+  @spec do_request(method(), module(), Keyword.t()) ::
+          {:ok, struct() | map()} | {:error, atom() | String.t() | {map(), non_neg_integer()}}
   def do_request(verb, module, opts) do
     opts = opts |> prepare_opts()
 
@@ -52,14 +52,14 @@ defmodule ElixirLokaliseApi.Request do
   end
 
   defp headers(:api) do
-    opts = headers(:base)
+    base = headers(:base)
 
     case Config.oauth2_token() do
-      nil ->
-        Keyword.merge(opts, "X-Api-Token": Config.api_token())
+      token when is_binary(token) and byte_size(token) > 0 ->
+        Keyword.merge(base, Authorization: "Bearer #{token}")
 
-      token ->
-        Keyword.merge(opts, Authorization: "Bearer #{token}")
+      _ ->
+        Keyword.merge(base, "X-Api-Token": Config.api_token())
     end
   end
 
