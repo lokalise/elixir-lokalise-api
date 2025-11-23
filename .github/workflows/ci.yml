@@ -4,6 +4,9 @@ on:
   - pull_request
   - push
 
+permissions:
+  contents: read
+  
 jobs:
   mix_test:
     name: mix test (Elixir ${{matrix.elixir}} | OTP ${{matrix.otp}})
