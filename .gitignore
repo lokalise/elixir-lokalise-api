@@ -30,3 +30,5 @@ elixir_lokalise_api-*.tar
 .DS_Store
 .elixir_ls
 .env.bat
+
+docs/Gemfile.lock

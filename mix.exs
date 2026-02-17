@@ -16,7 +16,7 @@ defmodule ElixirLokaliseApi.MixProject do
       test_coverage: [tool: ExCoveralls],
 
       # Dialyxir
-      dialyzer: [plt_add_deps: :project]
+      dialyzer: [plt_add_deps: :apps_direct]
     ]
   end
 

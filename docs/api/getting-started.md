@@ -1,10 +1,10 @@
+---
+---
 # Getting Started
 
 ## Installation and Requirements
 
-This package is tested with [Elixir 1.2+](https://elixir-lang.org/).
-
-Add it to the `mix.exs` file:
+Add package to the `mix.exs` file:
 
 ```elixir
 def deps do

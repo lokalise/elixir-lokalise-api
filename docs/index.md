@@ -1,5 +1,4 @@
 ---
-layout: default
 ---
 
 # Lokalise APIv2 Elixir interface
