@@ -1,7 +1,7 @@
 # ElixirLokaliseApi
 
 ![CI](https://github.com/lokalise/elixir-lokalise-api/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/lokalise/elixir-lokalise-api/badge.svg)](https://coveralls.io/github/lokalise/elixir-lokalise-api)
+[![Coverage Status](https://coveralls.io/repos/github/lokalise/elixir-lokalise-api/badge.svg?branch=master)](https://coveralls.io/github/lokalise/elixir-lokalise-api?branch=master)
 [![Module Version](https://img.shields.io/hexpm/v/elixir_lokalise_api.svg)](https://hex.pm/packages/elixir_lokalise_api)
 [![Hex Docs](https://img.shields.io/badge/hex-docs-lightgreen.svg)](https://hexdocs.pm/elixir_lokalise_api/)
 [![Total Download](https://img.shields.io/hexpm/dt/elixir_lokalise_api.svg)](https://hex.pm/packages/elixir_lokalise_api)

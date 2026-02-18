@@ -29,13 +29,14 @@ defmodule ElixirLokaliseApi.Processor do
 
       {:error, error, status} = ElixirLokaliseApi.Projects.find(nil)
   """
-  @spec parse(HTTPoison.Response.t(), atom, String.t()) ::
+  @spec parse(Finch.Response.t(), atom, String.t()) ::
           {:ok, struct | map} | {:error, map, integer}
   def parse(response, module, type) do
     data_key = module.data_key()
     singular_data_key = module.singular_data_key()
+
     json = response.body |> Jason.decode!(keys: :atoms)
-    status = response.status_code
+    status = response.status
 
     case json do
       raw_data when type == :raw and status < 400 ->
@@ -45,11 +46,14 @@ defmodule ElixirLokaliseApi.Processor do
         {:ok, create_struct(:foreign_model, module, data)}
 
       %{^data_key => items_data}
-      when type != :current_model and (is_list(items_data) or is_map(items_data)) and status < 400 ->
+      when type != :current_model and
+             (is_list(items_data) or is_map(items_data)) and
+             status < 400 ->
         {:ok, create_struct(:collection, module, items_data, response.headers, json)}
 
       %{^singular_data_key => item_data}
-      when (type == :current_model or is_list(item_data) or is_map(item_data)) and status < 400 ->
+      when (type == :current_model or is_list(item_data) or is_map(item_data)) and
+             status < 400 ->
         {:ok, create_struct(:model, module, item_data)}
 
       item_data when status < 400 ->

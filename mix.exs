@@ -16,7 +16,10 @@ defmodule ElixirLokaliseApi.MixProject do
       test_coverage: [tool: ExCoveralls],
 
       # Dialyxir
-      dialyzer: [plt_add_deps: :apps_direct]
+      dialyzer: [
+        plt_add_deps: :apps_direct,
+        plt_add_apps: [:mint]
+      ]
     ]
   end
 
@@ -37,7 +40,8 @@ defmodule ElixirLokaliseApi.MixProject do
 
   def application do
     [
-      extra_applications: [:logger]
+      extra_applications: [:logger],
+      mod: {ElixirLokaliseApi.Application, []}
     ]
   end
 
@@ -46,10 +50,12 @@ defmodule ElixirLokaliseApi.MixProject do
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.1", only: :dev, runtime: false},
       {:httpoison, "~> 2.0"},
+      {:finch, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:ex_doc, "~> 0.37", only: [:dev, :test]},
       {:exvcr, "~> 0.17", only: :test},
-      {:excoveralls, "~> 0.18.1", only: :test}
+      {:excoveralls, "~> 0.18.1", only: :test},
+      {:mox, "~> 1.0", only: :test}
     ]
   end
 
