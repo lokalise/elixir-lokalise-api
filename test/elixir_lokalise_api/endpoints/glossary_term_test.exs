@@ -15,26 +15,10 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
   ]
 
   test "lists glossary terms with cursor" do
-    fake_term = fn id, term_name, case_sensitive ->
-      %{
-        id: id,
-        term: term_name,
-        description: "Description for #{term_name}",
-        caseSensitive: case_sensitive,
-        translatable: false,
-        forbidden: false,
-        translations: build_translations(@languages),
-        tags: [],
-        projectId: @project_id,
-        createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
-        updatedAt: nil
-      }
-    end
-
     terms_response = %{
       data: [
-        fake_term.(1, "sample term", false),
-        fake_term.(2, "HTML", true)
+        build_fake_term(1, "sample term"),
+        build_fake_term(2, "HTML", case_sensitive: true)
       ],
       meta: %{
         count: 2,
@@ -73,19 +57,12 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
     term_id = 5_319_746
 
     term_response = %{
-      data: %{
-        id: term_id,
-        term: "router",
-        description: "A commonly used network device",
-        caseSensitive: false,
-        translatable: true,
-        forbidden: false,
-        translations: build_translations(@languages),
-        tags: [],
-        projectId: @project_id,
-        createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
-        updatedAt: "2024-01-02 00:00:00 (Etc/UTC)"
-      }
+      data:
+        build_fake_term(term_id, "router",
+          description: "A commonly used network device",
+          translatable: true,
+          updated_at: "2024-01-02 00:00:00 (Etc/UTC)"
+        )
     }
 
     ElixirLokaliseApi.HTTPClientMock
@@ -127,19 +104,8 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       ]
     }
 
-    term = %{
-      id: 1,
-      term: "elixir",
-      description: "language",
-      caseSensitive: false,
-      translatable: false,
-      forbidden: false,
-      translations: build_translations(@languages),
-      tags: [],
-      projectId: @project_id,
-      createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
-      updatedAt: nil
-    }
+    term =
+      build_fake_term(1, "elixir", description: "language")
 
     terms_response = %{
       data: [term],
@@ -188,31 +154,15 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       ]
     }
 
-    fake_term = fn id, term_name, opts ->
-      %{
-        id: id,
-        term: term_name,
-        description: opts[:description] || "desc",
-        caseSensitive: opts[:case_sensitive] || false,
-        translatable: opts[:translatable] || false,
-        forbidden: opts[:forbidden] || false,
-        translations: build_translations(@languages),
-        tags: opts[:tags] || [],
-        projectId: @project_id,
-        createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
-        updatedAt: opts[:updated_at]
-      }
-    end
-
     terms_response = %{
       data: [
-        fake_term.(term_id, "test",
+        build_fake_term(term_id, "test",
           description: "test",
           case_sensitive: true,
           translatable: true,
           forbidden: true
         ),
-        fake_term.(term_id2, "elixir",
+        build_fake_term(term_id2, "elixir",
           description: "elixir updated",
           tags: ["sample"],
           updated_at: "2024-01-02 00:00:00 (Etc/UTC)"
@@ -294,5 +244,21 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
         description: ""
       }
     end)
+  end
+
+  defp build_fake_term(id, term_name, opts \\ []) do
+    %{
+      id: id,
+      term: term_name,
+      description: Keyword.get(opts, :description, "Description for #{term_name}"),
+      caseSensitive: Keyword.get(opts, :case_sensitive, false),
+      translatable: Keyword.get(opts, :translatable, false),
+      forbidden: Keyword.get(opts, :forbidden, false),
+      translations: build_translations(@languages),
+      tags: Keyword.get(opts, :tags, []),
+      projectId: @project_id,
+      createdAt: Keyword.get(opts, :created_at, "2024-01-01 00:00:00 (Etc/UTC)"),
+      updatedAt: Keyword.get(opts, :updated_at, nil)
+    }
   end
 end

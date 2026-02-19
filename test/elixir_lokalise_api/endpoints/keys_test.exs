@@ -31,7 +31,7 @@ defmodule ElixirLokaliseApi.KeysTest do
 
       response
       |> ok([
-        {"x-pagination-total-count", "6"},
+        {"x-pagination-total-count", "3"},
         {"x-pagination-page-count", "1"},
         {"x-pagination-limit", "100"},
         {"x-pagination-page", "1"}
@@ -41,7 +41,7 @@ defmodule ElixirLokaliseApi.KeysTest do
     {:ok, %KeysCollection{} = keys} = Keys.all(@project_id)
 
     assert Enum.count(keys.items) == 3
-    assert keys.total_count == 6
+    assert keys.total_count == 3
     assert keys.page_count == 1
     assert keys.per_page_limit == 100
     assert keys.current_page == 1

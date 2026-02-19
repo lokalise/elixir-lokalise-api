@@ -12,13 +12,13 @@ defmodule ElixirLokaliseApi.OrdersTest do
   @project_id "217830385f9c0fdbd589f0.91420183"
 
   test "lists all orders" do
-    orders =
+    fake_orders =
       for i <- 1..3 do
         %{order_id: "abc#{i}", project_id: @project_id}
       end
 
     response = %{
-      orders: orders
+      orders: fake_orders
     }
 
     ElixirLokaliseApi.HTTPClientMock
@@ -39,13 +39,13 @@ defmodule ElixirLokaliseApi.OrdersTest do
   end
 
   test "lists paginated orders" do
-    orders =
+    fake_orders =
       for i <- 1..2 do
         %{order_id: "abc#{i}", project_id: @project_id}
       end
 
     response = %{
-      orders: orders
+      orders: fake_orders
     }
 
     params = [page: 3, limit: 2]
@@ -145,7 +145,7 @@ defmodule ElixirLokaliseApi.OrdersTest do
   end
 
   test "creates an order" do
-    key_id = "79039607"
+    key_id = 79_039_607
 
     data = %{
       project_id: @project_id,
