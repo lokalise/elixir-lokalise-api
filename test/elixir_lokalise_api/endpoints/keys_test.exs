@@ -241,11 +241,11 @@ defmodule ElixirLokaliseApi.KeysTest do
     key_id = 79_039_609
 
     response = %{
-      "project_id" => @project_id,
-      "key" => %{
-        "key_id" => key_id,
-        "created_at" => "2021-03-02 17:00:01 (Etc/UTC)",
-        "created_at_timestamp" => 1_614_704_401
+      project_id: @project_id,
+      key: %{
+        key_id: key_id,
+        created_at: "2021-03-02 17:00:01 (Etc/UTC)",
+        created_at_timestamp: 1_614_704_401
       }
     }
 

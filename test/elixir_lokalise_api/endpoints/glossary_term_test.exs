@@ -8,24 +8,13 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
   doctest GlossaryTerms
 
   @project_id "6504960967ab53d45e0ed7.15877499"
+  @languages [
+    {1, "lv", "Latvian"},
+    {2, "en", "English"},
+    {3, "fr_CA", "French (Canada)"}
+  ]
 
   test "lists glossary terms with cursor" do
-    languages = [
-      {1, "lv", "Latvian"},
-      {2, "en", "English"},
-      {3, "fr_CA", "French (Canada)"}
-    ]
-
-    fake_translation = fn {id, iso, name} ->
-      %{
-        langId: id,
-        langName: name,
-        langIso: iso,
-        translation: "",
-        description: ""
-      }
-    end
-
     fake_term = fn id, term_name, case_sensitive ->
       %{
         id: id,
@@ -34,7 +23,7 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
         caseSensitive: case_sensitive,
         translatable: false,
         forbidden: false,
-        translations: Enum.map(languages, fake_translation),
+        translations: build_translations(@languages),
         tags: [],
         projectId: @project_id,
         createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
@@ -83,23 +72,6 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
   test "finds a glossary term" do
     term_id = 5_319_746
 
-    languages = [
-      {1, "lv", "Latvian"},
-      {2, "en", "English"},
-      {3, "fr_CA", "French (Canada)"}
-    ]
-
-    translations =
-      Enum.map(languages, fn {id, iso, name} ->
-        %{
-          langId: id,
-          langName: name,
-          langIso: iso,
-          translation: "",
-          description: ""
-        }
-      end)
-
     term_response = %{
       data: %{
         id: term_id,
@@ -108,7 +80,7 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
         caseSensitive: false,
         translatable: true,
         forbidden: false,
-        translations: translations,
+        translations: build_translations(@languages),
         tags: [],
         projectId: @project_id,
         createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
@@ -155,23 +127,6 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       ]
     }
 
-    languages = [
-      {1, "lv", "Latvian"},
-      {2, "en", "English"},
-      {3, "fr_CA", "French (Canada)"}
-    ]
-
-    translations =
-      Enum.map(languages, fn {id, iso, name} ->
-        %{
-          langId: id,
-          langName: name,
-          langIso: iso,
-          translation: "",
-          description: ""
-        }
-      end)
-
     term = %{
       id: 1,
       term: "elixir",
@@ -179,7 +134,7 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       caseSensitive: false,
       translatable: false,
       forbidden: false,
-      translations: translations,
+      translations: build_translations(@languages),
       tags: [],
       projectId: @project_id,
       createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
@@ -233,23 +188,6 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       ]
     }
 
-    languages = [
-      {1, "lv", "Latvian"},
-      {2, "en", "English"},
-      {3, "fr_CA", "French (Canada)"}
-    ]
-
-    translations =
-      Enum.map(languages, fn {id, iso, name} ->
-        %{
-          langId: id,
-          langName: name,
-          langIso: iso,
-          translation: "",
-          description: ""
-        }
-      end)
-
     fake_term = fn id, term_name, opts ->
       %{
         id: id,
@@ -258,9 +196,9 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
         caseSensitive: opts[:case_sensitive] || false,
         translatable: opts[:translatable] || false,
         forbidden: opts[:forbidden] || false,
-        translations: translations,
+        translations: build_translations(@languages),
         tags: opts[:tags] || [],
-        projectId: "fake_project_id",
+        projectId: @project_id,
         createdAt: "2024-01-01 00:00:00 (Etc/UTC)",
         updatedAt: opts[:updated_at]
       }
@@ -344,5 +282,17 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
     {:ok, %{} = resp} = GlossaryTerms.delete_bulk(@project_id, data)
 
     assert resp[:data][:deleted][:count] == 2
+  end
+
+  defp build_translations(languages) do
+    Enum.map(languages, fn {id, iso, name} ->
+      %{
+        langId: id,
+        langName: name,
+        langIso: iso,
+        translation: "",
+        description: ""
+      }
+    end)
   end
 end

@@ -206,7 +206,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
       |> ok()
     end)
 
-    {:ok, %{} = resp} = KeyComments.delete(@project_id, @key_id, 8_674_101)
+    {:ok, %{} = resp} = KeyComments.delete(@project_id, @key_id, comment_id)
 
     assert resp.project_id == @project_id
     assert resp.comment_deleted

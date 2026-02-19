@@ -1,7 +1,7 @@
 defmodule ElixirLokaliseApi.FilesTest do
-  import ExUnit.CaptureIO
-
   use ElixirLokaliseApi.Case, async: true
+
+  import ExUnit.CaptureIO
 
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Files
@@ -326,6 +326,8 @@ defmodule ElixirLokaliseApi.FilesTest do
   end
 
   test "uploads files" do
+    process_id = "123-abc"
+
     data = %{
       data: "ZnI6DQogIHRlc3Q6IHRyYW5zbGF0aW9u",
       filename: "sample.yml",
