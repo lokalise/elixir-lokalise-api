@@ -1,6 +1,6 @@
-import ExUnit.CaptureIO
-
 defmodule ElixirLokaliseApi.FilesTest do
+  import ExUnit.CaptureIO
+
   use ElixirLokaliseApi.Case, async: true
 
   alias ElixirLokaliseApi.Pagination
@@ -111,7 +111,8 @@ defmodule ElixirLokaliseApi.FilesTest do
     files =
       [
         "%LANG_ISO%.yml",
-        "file_1.json"
+        "file_1.json",
+        "file_2.json"
       ]
       |> Enum.with_index()
       |> Enum.map(fn {filename, i} ->
@@ -148,7 +149,7 @@ defmodule ElixirLokaliseApi.FilesTest do
 
     {:ok, %FilesCollection{} = files} = Files.all(@project_id, params)
 
-    assert Enum.count(files.items) == 2
+    assert Enum.count(files.items) == 3
     assert files.total_count == 6
     assert files.page_count == 2
     assert files.per_page_limit == 3
@@ -289,7 +290,7 @@ defmodule ElixirLokaliseApi.FilesTest do
 
     process_response = %{
       process: %{
-        process_id: 1,
+        process_id: process_id,
         type: "async-export",
         status: "finished",
         message: nil,
@@ -333,7 +334,7 @@ defmodule ElixirLokaliseApi.FilesTest do
 
     process_response = %{
       process: %{
-        process_id: 1,
+        process_id: process_id,
         type: "file-import",
         status: "queued"
       }

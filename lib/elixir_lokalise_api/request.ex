@@ -30,7 +30,7 @@ defmodule ElixirLokaliseApi.Request do
       |> add_query_params(opts[:query_params])
 
     body = Processor.encode(opts[:data])
-    headers = build_headers(opts[:for])
+    headers = build_headers(opts[:for]) |> maybe_add_json_content_type(body)
 
     request = Finch.build(verb, url, headers, body)
 
@@ -84,10 +84,6 @@ defmodule ElixirLokaliseApi.Request do
     |> URI.to_string()
   end
 
-  # -------------------------
-  # Headers
-  # -------------------------
-
   defp build_headers(:api) do
     base = build_headers(:base)
 
@@ -107,9 +103,16 @@ defmodule ElixirLokaliseApi.Request do
     ]
   end
 
-  # -------------------------
-  # Defaults
-  # -------------------------
+  defp maybe_add_json_content_type(headers, body)
+       when is_binary(body) and byte_size(body) > 0 do
+    if Enum.any?(headers, fn {k, _} -> String.downcase(k) == "content-type" end) do
+      headers
+    else
+      [{"content-type", "application/json"} | headers]
+    end
+  end
+
+  defp maybe_add_json_content_type(headers, _body), do: headers
 
   defp prepare_opts(opts), do: Keyword.merge(@defaults, opts)
 end

@@ -56,20 +56,22 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       }
     }
 
+    params = [limit: 2, cursor: 100]
+
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
       |> assert_path_method("/api2/projects/#{@project_id}/glossary-terms")
+
+      req
+      |> assert_get_params(params)
 
       terms_response
       |> ok([{"x-pagination-next-cursor", "200"}])
     end)
 
     {:ok, %GlossaryTermsCollection{} = glossary_terms} =
-      GlossaryTerms.all(@project_id,
-        limit: 2,
-        cursor: 100
-      )
+      GlossaryTerms.all(@project_id, params)
 
     assert Enum.count(glossary_terms.items) == 2
     assert glossary_terms.next_cursor == 200

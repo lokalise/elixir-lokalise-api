@@ -42,7 +42,6 @@ defmodule ElixirLokaliseApi.TestHTTP do
 
     expected =
       expected_params
-      |> Enum.into(%{})
       |> Enum.into(%{}, fn {k, v} ->
         {to_string(k), to_string(v)}
       end)

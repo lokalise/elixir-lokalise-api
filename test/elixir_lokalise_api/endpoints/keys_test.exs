@@ -1,264 +1,613 @@
 defmodule ElixirLokaliseApi.KeysTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: true
+
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Keys
   alias ElixirLokaliseApi.Collection.Keys, as: KeysCollection
   alias ElixirLokaliseApi.Model.Key, as: KeyModel
 
-  setup_all do
-    HTTPoison.start()
-  end
-
   doctest Keys
 
   @project_id "572560965f984614d567a4.18006942"
-  @project_id2 "2273827860c1e2473eb195.11207948"
 
   test "lists all keys" do
-    use_cassette "keys_all" do
-      {:ok, %KeysCollection{} = keys} = Keys.all(@project_id)
+    keys =
+      for i <- 1..3 do
+        %{
+          key_id: 20_000 + i,
+          description: "Key #{i}"
+        }
+      end
 
-      assert Enum.count(keys.items) == 5
-      assert keys.total_count == 5
-      assert keys.page_count == 1
-      assert keys.per_page_limit == 100
-      assert keys.current_page == 1
-      assert keys.project_id == @project_id
+    response = %{
+      project_id: @project_id,
+      keys: keys
+    }
 
-      key = keys.items |> List.first()
-      assert key.key_id == 79_039_606
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys")
+
+      response
+      |> ok([
+        {"x-pagination-total-count", "6"},
+        {"x-pagination-page-count", "1"},
+        {"x-pagination-limit", "100"},
+        {"x-pagination-page", "1"}
+      ])
+    end)
+
+    {:ok, %KeysCollection{} = keys} = Keys.all(@project_id)
+
+    assert Enum.count(keys.items) == 3
+    assert keys.total_count == 6
+    assert keys.page_count == 1
+    assert keys.per_page_limit == 100
+    assert keys.current_page == 1
+    assert keys.project_id == @project_id
+
+    key = keys.items |> hd()
+    assert key.key_id == 20_001
   end
 
   test "lists paginated keys" do
-    use_cassette "keys_all_paginated" do
-      {:ok, %KeysCollection{} = keys} = Keys.all(@project_id, page: 2, limit: 3)
+    keys =
+      for i <- 1..2 do
+        %{
+          key_id: 20_000 + i,
+          description: "Key #{i}"
+        }
+      end
 
-      assert Enum.count(keys.items) == 2
-      assert keys.total_count == 5
-      assert keys.page_count == 2
-      assert keys.per_page_limit == 3
-      assert keys.current_page == 2
-      assert keys.project_id == @project_id
+    response = %{
+      project_id: @project_id,
+      keys: keys
+    }
 
-      refute keys |> Pagination.first_page?()
-      assert keys |> Pagination.last_page?()
-      refute keys |> Pagination.next_page?()
-      assert keys |> Pagination.prev_page?()
+    params = [page: 2, limit: 3]
 
-      key = hd(keys.items)
-      assert key.key_id == 79_039_609
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys")
+
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok([
+        {"x-pagination-total-count", "6"},
+        {"x-pagination-page-count", "2"},
+        {"x-pagination-limit", "3"},
+        {"x-pagination-page", "2"}
+      ])
+    end)
+
+    {:ok, %KeysCollection{} = keys} = Keys.all(@project_id, params)
+
+    assert Enum.count(keys.items) == 2
+    assert keys.total_count == 6
+    assert keys.page_count == 2
+    assert keys.per_page_limit == 3
+    assert keys.current_page == 2
+    assert keys.project_id == @project_id
+
+    refute keys |> Pagination.first_page?()
+    assert keys |> Pagination.last_page?()
+    refute keys |> Pagination.next_page?()
+    assert keys |> Pagination.prev_page?()
+
+    key = hd(keys.items)
+    assert key.key_id == 20_001
   end
 
   test "lists paginated with cursor keys" do
-    use_cassette "keys_find_cursor" do
-      {:ok, %KeysCollection{} = keys} =
-        Keys.all(@project_id2, limit: 2, pagination: "cursor", cursor: "eyIxIjozNzk3ODEzODh9")
+    keys =
+      for i <- 1..2 do
+        %{
+          key_id: 20_000 + i,
+          description: "Key #{i}"
+        }
+      end
 
-      assert Enum.count(keys.items) == 2
-      assert keys.per_page_limit == 2
-      assert keys.next_cursor == "eyIxIjo0NTc4NDUxMDd9"
-    end
+    response = %{
+      project_id: @project_id,
+      keys: keys
+    }
+
+    params = [limit: 2, pagination: "cursor", cursor: "100"]
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys")
+
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok([
+        {"x-pagination-next-cursor", "200"},
+        {"x-pagination-limit", "2"}
+      ])
+    end)
+
+    {:ok, %KeysCollection{} = keys} =
+      Keys.all(@project_id, params)
+
+    assert Enum.count(keys.items) == 2
+    assert keys.per_page_limit == 2
+    assert keys.next_cursor == 200
   end
 
   test "finds a key" do
-    use_cassette "keys_find" do
-      key_id = 79_039_609
-      {:ok, %KeyModel{} = key} = Keys.find(@project_id, key_id)
+    key_id = 79_039_609
 
-      assert key.key_id == key_id
-      assert key.created_at == "2021-03-02 17:00:01 (Etc/UTC)"
-      assert key.created_at_timestamp == 1_614_704_401
-      assert key.key_name.android == "headline"
-      assert key.filenames.web == ""
-      assert key.description == ""
-      assert key.platforms == ["web"]
-      assert List.first(key.tags) == "Home"
-      assert key.comments == []
-      assert key.screenshots == []
-      assert List.first(key.translations).translation == "Join our community!"
-      refute key.is_plural
-      assert key.plural_name == ""
-      refute key.is_hidden
-      refute key.is_archived
-      assert key.context == ""
-      assert key.base_words == 3
-      assert key.char_limit == 0
-      assert key.custom_attributes == ""
-      assert key.modified_at == "2021-03-09 15:45:25 (Etc/UTC)"
-      assert key.modified_at_timestamp == 1_615_304_725
-      assert key.translations_modified_at == "2021-03-09 15:45:34 (Etc/UTC)"
-      assert key.translations_modified_at_timestamp == 1_615_304_734
-    end
+    response = %{
+      project_id: @project_id,
+      key: %{
+        key_id: key_id,
+        created_at: "2021-03-02 17:00:01 (Etc/UTC)",
+        created_at_timestamp: 1_614_704_401,
+        key_name: %{
+          ios: "headline",
+          android: "headline",
+          web: "headline",
+          other: "headline"
+        },
+        filenames: %{
+          ios: "",
+          android: "",
+          web: "",
+          other: ""
+        },
+        description: "",
+        platforms: ["web"],
+        tags: ["Home", "Personal", "Storyblok", "teaser"],
+        comments: [],
+        screenshots: [],
+        translations: [
+          %{
+            translation_id: 566_314_684,
+            key_id: key_id,
+            language_iso: "en",
+            translation: "Join our community!",
+            modified_by: 20_181,
+            modified_by_email: "user@example.com",
+            modified_at: "2021-03-02 17:00:01 (Etc/UTC)",
+            modified_at_timestamp: 1_614_704_401,
+            is_reviewed: false,
+            reviewed_by: 0,
+            is_unverified: false,
+            is_fuzzy: false,
+            words: 3,
+            custom_translation_statuses: [],
+            task_id: nil
+          }
+        ],
+        is_plural: false,
+        plural_name: "",
+        is_hidden: false,
+        is_archived: false,
+        context: "",
+        base_words: 3,
+        char_limit: 0,
+        custom_attributes: "",
+        modified_at: "2021-03-09 15:45:25 (Etc/UTC)",
+        modified_at_timestamp: 1_615_304_725,
+        translations_modified_at: "2021-03-09 15:45:34 (Etc/UTC)",
+        translations_modified_at_timestamp: 1_615_304_734
+      }
+    }
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys/#{key_id}")
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %KeyModel{} = key} = Keys.find(@project_id, key_id)
+
+    assert key.key_id == key_id
+    assert key.created_at == "2021-03-02 17:00:01 (Etc/UTC)"
+    assert key.created_at_timestamp == 1_614_704_401
+    assert key.key_name.android == "headline"
+    assert key.filenames.web == ""
+    assert key.description == ""
+    assert key.platforms == ["web"]
+    assert List.first(key.tags) == "Home"
+    assert key.comments == []
+    assert key.screenshots == []
+    assert List.first(key.translations).translation == "Join our community!"
+    refute key.is_plural
+    assert key.plural_name == ""
+    refute key.is_hidden
+    refute key.is_archived
+    assert key.context == ""
+    assert key.base_words == 3
+    assert key.char_limit == 0
+    assert key.custom_attributes == ""
+    assert key.modified_at == "2021-03-09 15:45:25 (Etc/UTC)"
+    assert key.modified_at_timestamp == 1_615_304_725
+    assert key.translations_modified_at == "2021-03-09 15:45:34 (Etc/UTC)"
+    assert key.translations_modified_at_timestamp == 1_615_304_734
   end
 
   test "finds a key with params" do
-    use_cassette "keys_find_params" do
-      key_id = 79_039_609
-      {:ok, %KeyModel{} = key} = Keys.find(@project_id, key_id, disable_references: "1")
+    key_id = 79_039_609
 
-      assert key.key_id == key_id
-    end
+    response = %{
+      "project_id" => @project_id,
+      "key" => %{
+        "key_id" => key_id,
+        "created_at" => "2021-03-02 17:00:01 (Etc/UTC)",
+        "created_at_timestamp" => 1_614_704_401
+      }
+    }
+
+    params = [disable_references: "1"]
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys/#{key_id}")
+
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %KeyModel{} = key} = Keys.find(@project_id, key_id, params)
+
+    assert key.key_id == key_id
   end
 
   test "creates a key" do
-    use_cassette "keys_create" do
-      data = %{
-        keys: [
-          %{
-            key_name: %{
-              web: "elixir",
-              android: "elixir",
-              ios: "elixir_ios",
-              other: "el_other"
+    data = %{
+      keys: [
+        %{
+          key_name: %{
+            web: "elixir",
+            android: "elixir",
+            ios: "elixir_ios",
+            other: "el_other"
+          },
+          description: "Via API",
+          platforms: ["web", "android"],
+          translations: [
+            %{
+              language_iso: "en",
+              translation: "Hi from Elixir"
             },
-            description: "Via API",
-            platforms: ["web", "android"],
-            translations: [
-              %{
-                language_iso: "en",
-                translation: "Hi from Elixir"
-              },
-              %{
-                language_iso: "fr",
-                translation: "test"
-              }
-            ]
-          }
-        ]
-      }
+            %{
+              language_iso: "fr",
+              translation: "test"
+            }
+          ]
+        }
+      ]
+    }
 
-      {:ok, %KeysCollection{} = keys} = Keys.create(@project_id, data)
+    response = %{
+      project_id: @project_id,
+      keys: [
+        %{
+          key_id: 1000,
+          created_at: "2021-03-02 17:00:01 (Etc/UTC)",
+          created_at_timestamp: 1_614_704_401,
+          key_name: %{
+            ios: "elixir_ios",
+            android: "elixir",
+            web: "elixir",
+            other: "el_other"
+          },
+          description: "Via API",
+          platforms: ["web", "android"],
+          translations: [
+            %{
+              translation_id: 123,
+              key_id: 1000,
+              language_iso: "en",
+              translation: "Hi from Elixir"
+            },
+            %{
+              translation_id: 345,
+              key_id: 1000,
+              language_iso: "fr",
+              translation: "test"
+            }
+          ]
+        }
+      ]
+    }
 
-      key = hd(keys.items)
-      assert key.key_name.android == "elixir"
-      assert key.description == "Via API"
-      assert List.first(key.translations).translation == "Hi from Elixir"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys", "POST")
+
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %KeysCollection{} = keys} = Keys.create(@project_id, data)
+
+    key = hd(keys.items)
+    assert key.key_name.android == "elixir"
+    assert key.description == "Via API"
+    assert List.first(key.translations).translation == "Hi from Elixir"
   end
 
   test "creates a key with error" do
-    use_cassette "keys_create_error" do
-      data = %{
-        keys: [
-          %{
-            key_name: %{
-              web: "elixir",
-              android: "elixir",
-              ios: "elixir_ios",
-              other: "el_other"
-            },
-            platforms: ["web", "android"],
-            translations: [
-              %{
-                language_iso: "en",
-                translation: "Hi from Elixir"
-              }
-            ]
+    data = %{
+      keys: [
+        %{
+          key_name: %{
+            web: "elixir",
+            android: "elixir",
+            ios: "elixir_ios",
+            other: "el_other"
           },
-          %{
-            key_name: %{
-              web: "existing",
-              android: "existing",
-              ios: "existing",
-              other: "existing"
-            },
-            platforms: ["web"],
-            translations: [
-              %{
-                language_iso: "en",
-                translation: "test"
-              }
-            ]
+          platforms: ["web", "android"],
+          translations: [
+            %{
+              language_iso: "en",
+              translation: "Hi from Elixir"
+            }
+          ]
+        },
+        %{
+          key_name: %{
+            web: "existing",
+            android: "existing",
+            ios: "existing",
+            other: "existing"
+          },
+          platforms: ["web"],
+          translations: [
+            %{
+              language_iso: "en",
+              translation: "test"
+            }
+          ]
+        }
+      ]
+    }
+
+    response = %{
+      project_id: @project_id,
+      keys: [
+        %{
+          key_id: 1000,
+          created_at: "2021-03-02 17:00:01 (Etc/UTC)",
+          created_at_timestamp: 1_614_704_401,
+          key_name: %{
+            ios: "elixir_ios",
+            android: "elixir",
+            web: "elixir",
+            other: "el_other"
+          },
+          description: "Via API",
+          platforms: ["web", "android"],
+          translations: [
+            %{
+              translation_id: 123,
+              key_id: 1000,
+              language_iso: "en",
+              translation: "Hi from Elixir"
+            }
+          ]
+        }
+      ],
+      errors: [
+        %{
+          message: "This key name is already taken",
+          code: 400,
+          key_name: %{
+            ios: "existing",
+            android: "existing",
+            web: "existing",
+            other: "existing"
           }
-        ]
-      }
+        }
+      ]
+    }
 
-      {:ok, %KeysCollection{} = keys} = Keys.create(@project_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys", "POST")
 
-      key = keys.items |> List.first()
-      assert key.key_name.android == "elixir"
-      assert List.first(key.translations).translation == "Hi from Elixir"
+      req |> assert_json_body(data)
 
-      assert hd(keys.errors).message == "This key name is already taken"
-    end
+      response
+      |> ok()
+    end)
+
+    {:ok, %KeysCollection{} = keys} = Keys.create(@project_id, data)
+
+    key = keys.items |> List.first()
+    assert key.key_name.android == "elixir"
+    assert List.first(key.translations).translation == "Hi from Elixir"
+
+    assert hd(keys.errors).message == "This key name is already taken"
   end
 
   test "updates a key" do
-    use_cassette "keys_update" do
-      key_id = 80_125_772
+    key_id = 80_125_772
 
-      data = %{
+    data = %{
+      description: "Updated via SDK",
+      tags: ["sample"]
+    }
+
+    response = %{
+      project_id: @project_id,
+      key: %{
+        key_id: key_id,
         description: "Updated via SDK",
-        tags: ["sample"]
-      }
-
-      {:ok, %KeyModel{} = key} = Keys.update(@project_id, key_id, data)
-
-      assert key.key_id == key_id
-      assert key.description == "Updated via SDK"
-      assert key.tags == ["sample"]
-    end
-  end
-
-  test "updates keys in bulk" do
-    use_cassette "keys_update_bulk" do
-      key_id = 80_125_772
-      key_id2 = 79_039_609
-
-      data = %{
-        keys: [
+        platforms: ["web"],
+        tags: ["sample"],
+        translations: [
           %{
+            translation_id: 566_314_684,
             key_id: key_id,
-            description: "Bulk updated via SDK",
-            tags: ["sample"]
-          },
-          %{
-            key_id: key_id2,
-            platforms: ["web", "android"]
+            language_iso: "en",
+            translation: "Join our community!"
           }
         ]
       }
+    }
 
-      {:ok, %KeysCollection{} = keys} = Keys.update_bulk(@project_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys/#{key_id}", "PUT")
 
-      assert Enum.count(keys.items) == 2
-      [key1 | [key2 | []]] = keys.items
-      assert Enum.sort(key1.platforms) == ["android", "web"]
+      req |> assert_json_body(data)
 
-      assert key2.description == "Bulk updated via SDK"
-    end
+      response
+      |> ok()
+    end)
+
+    {:ok, %KeyModel{} = key} = Keys.update(@project_id, key_id, data)
+
+    assert key.key_id == key_id
+    assert key.description == "Updated via SDK"
+    assert key.tags == ["sample"]
+  end
+
+  test "updates keys in bulk" do
+    key_id = 80_125_772
+    key_id2 = 79_039_609
+
+    data = %{
+      keys: [
+        %{
+          key_id: key_id,
+          description: "Bulk updated via SDK",
+          tags: ["sample"]
+        },
+        %{
+          key_id: key_id2,
+          platforms: ["web", "android"]
+        }
+      ]
+    }
+
+    response = %{
+      project_id: @project_id,
+      keys: [
+        %{
+          key_id: key_id,
+          description: "Bulk updated via SDK",
+          platforms: ["web"],
+          tags: ["sample"],
+          translations: [
+            %{
+              translation_id: 566_314_684,
+              key_id: key_id,
+              language_iso: "en",
+              translation: "Join our community!"
+            }
+          ]
+        },
+        %{
+          key_id: key_id2,
+          description: "",
+          platforms: ["web", "android"],
+          translations: [
+            %{
+              translation_id: 566_314_685,
+              key_id: key_id2,
+              language_iso: "en",
+              translation: "sample"
+            }
+          ]
+        }
+      ]
+    }
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys", "PUT")
+
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %KeysCollection{} = keys} = Keys.update_bulk(@project_id, data)
+
+    assert Enum.count(keys.items) == 2
+    [key1 | [key2 | []]] = keys.items
+
+    assert key1.description == "Bulk updated via SDK"
+    assert Enum.sort(key2.platforms) == ["android", "web"]
   end
 
   test "deletes a key" do
-    use_cassette "keys_delete" do
-      key_id = 79_039_610
+    key_id = 79_039_610
 
-      {:ok, %{} = resp} = Keys.delete(@project_id, key_id)
+    response = %{
+      project_id: @project_id,
+      key_removed: true,
+      keys_locked: 0
+    }
 
-      assert resp.key_removed
-      assert resp.project_id == @project_id
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys/#{key_id}", "DELETE")
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %{} = resp} = Keys.delete(@project_id, key_id)
+
+    assert resp.key_removed
+    assert resp.project_id == @project_id
   end
 
   test "deletes keys in bulk" do
-    use_cassette "keys_delete_bulk" do
-      key_id = 80_125_772
-      key_id2 = 79_039_609
+    data = %{
+      keys: [
+        80_125_772,
+        79_039_609
+      ]
+    }
 
-      data = %{
-        keys: [
-          key_id,
-          key_id2
-        ]
-      }
+    response = %{
+      project_id: @project_id,
+      keys_removed: true,
+      keys_locked: 0
+    }
 
-      {:ok, %{} = resp} = Keys.delete_bulk(@project_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/keys", "DELETE")
 
-      assert resp.keys_removed
-      assert resp.project_id == @project_id
-    end
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %{} = resp} = Keys.delete_bulk(@project_id, data)
+
+    assert resp.keys_removed
+    assert resp.project_id == @project_id
   end
 end
