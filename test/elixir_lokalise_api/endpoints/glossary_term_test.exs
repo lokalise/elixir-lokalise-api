@@ -1,124 +1,264 @@
 defmodule ElixirLokaliseApi.GlossaryTermsTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: true
+
   alias ElixirLokaliseApi.GlossaryTerms
   alias ElixirLokaliseApi.Collection.GlossaryTerms, as: GlossaryTermsCollection
   alias ElixirLokaliseApi.Model.GlossaryTerm, as: GlossaryTermModel
 
-  setup_all do
-    HTTPoison.start()
-  end
-
   doctest GlossaryTerms
 
   @project_id "6504960967ab53d45e0ed7.15877499"
+  @languages [
+    {1, "lv", "Latvian"},
+    {2, "en", "English"},
+    {3, "fr_CA", "French (Canada)"}
+  ]
 
   test "lists glossary terms with cursor" do
-    use_cassette "glossary_terms_cursor" do
-      {:ok, %GlossaryTermsCollection{} = glossary_terms} =
-        GlossaryTerms.all(@project_id,
-          limit: 2,
-          cursor: "5319746"
-        )
+    terms_response = %{
+      data: [
+        build_fake_term(1, "sample term"),
+        build_fake_term(2, "HTML", case_sensitive: true)
+      ],
+      meta: %{
+        count: 2,
+        limit: 2,
+        cursor: 100,
+        hasMore: true,
+        nextCursor: 200
+      }
+    }
 
-      assert Enum.count(glossary_terms.items) == 2
-      assert glossary_terms.next_cursor == 5_489_104
+    params = [limit: 2, cursor: 100]
 
-      glossary_term = glossary_terms.items |> List.first()
-      assert glossary_term.term == "sample term"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/glossary-terms")
+
+      req
+      |> assert_get_params(params)
+
+      terms_response
+      |> ok([{"x-pagination-next-cursor", "200"}])
+    end)
+
+    {:ok, %GlossaryTermsCollection{} = glossary_terms} =
+      GlossaryTerms.all(@project_id, params)
+
+    assert Enum.count(glossary_terms.items) == 2
+    assert glossary_terms.next_cursor == 200
+
+    glossary_term = glossary_terms.items |> List.first()
+    assert glossary_term.term == "sample term"
   end
 
   test "finds a glossary term" do
-    use_cassette "glossary_term_find" do
-      term_id = 5_319_746
-      {:ok, %GlossaryTermModel{} = glossary_term} = GlossaryTerms.find(@project_id, term_id)
+    term_id = 5_319_746
 
-      assert glossary_term.id == term_id
-      assert glossary_term.projectId == @project_id
-      assert glossary_term.term == "router"
-      assert glossary_term.description == "A commonly used network device"
-      refute glossary_term.caseSensitive
-      assert glossary_term.translatable
-      refute glossary_term.forbidden
+    term_response = %{
+      data:
+        build_fake_term(term_id, "router",
+          description: "A commonly used network device",
+          translatable: true,
+          updated_at: "2024-01-02 00:00:00 (Etc/UTC)"
+        )
+    }
 
-      translation = hd(glossary_term.translations)
-      assert translation[:langName] == "Russian"
-      assert Enum.empty?(glossary_term.tags)
-      assert glossary_term.createdAt == "2025-03-31 15:01:00 (Etc/UTC)"
-      assert glossary_term.updatedAt == "2025-04-22 14:48:03 (Etc/UTC)"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/glossary-terms/#{term_id}")
+
+      term_response
+      |> ok()
+    end)
+
+    {:ok, %GlossaryTermModel{} = glossary_term} = GlossaryTerms.find(@project_id, term_id)
+
+    assert glossary_term.id == term_id
+    assert glossary_term.projectId == @project_id
+    assert glossary_term.term == "router"
+    assert glossary_term.description == "A commonly used network device"
+    refute glossary_term.caseSensitive
+    assert glossary_term.translatable
+    refute glossary_term.forbidden
+
+    translation = hd(glossary_term.translations)
+    assert translation[:langName] == "Latvian"
+    assert Enum.empty?(glossary_term.tags)
+    assert glossary_term.createdAt == "2024-01-01 00:00:00 (Etc/UTC)"
+    assert glossary_term.updatedAt == "2024-01-02 00:00:00 (Etc/UTC)"
   end
 
   test "creates a glossary term" do
-    use_cassette "glossary_terms_create" do
-      data = %{
-        terms: [
-          %{
-            term: "elixir",
-            description: "language",
-            caseSensitive: false,
-            translatable: false,
-            forbidden: false
-          }
-        ]
-      }
+    data = %{
+      terms: [
+        %{
+          term: "elixir",
+          description: "language",
+          caseSensitive: false,
+          translatable: false,
+          forbidden: false
+        }
+      ]
+    }
 
-      {:ok, %GlossaryTermsCollection{} = glossary_terms} = GlossaryTerms.create(@project_id, data)
+    term =
+      build_fake_term(1, "elixir", description: "language")
 
-      glossary_term = hd(glossary_terms.items)
+    terms_response = %{
+      data: [term],
+      meta: %{
+        count: 1,
+        created: 1,
+        limit: 500
+      },
+      errors: []
+    }
 
-      assert glossary_term.term == "elixir"
-      assert glossary_term.description == "language"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/glossary-terms", "POST")
+
+      req |> assert_json_body(data)
+
+      terms_response
+      |> ok()
+    end)
+
+    {:ok, %GlossaryTermsCollection{} = glossary_terms} = GlossaryTerms.create(@project_id, data)
+
+    glossary_term = hd(glossary_terms.items)
+
+    assert glossary_term.term == "elixir"
+    assert glossary_term.description == "language"
   end
 
   test "updates glossary terms" do
-    use_cassette "glossary_terms_update" do
-      term_id = 5_520_368
-      term_id2 = 5_511_072
+    term_id = 5_520_368
+    term_id2 = 5_511_072
 
-      data = %{
-        terms: [
-          %{
-            id: term_id,
-            description: "elixir updated",
-            tags: ["sample"]
-          },
-          %{
-            id: term_id2,
-            caseSensitive: true
-          }
-        ]
-      }
+    data = %{
+      terms: [
+        %{
+          id: term_id,
+          description: "elixir updated",
+          tags: ["sample"]
+        },
+        %{
+          id: term_id2,
+          caseSensitive: true
+        }
+      ]
+    }
 
-      {:ok, %GlossaryTermsCollection{} = glossary_terms} =
-        GlossaryTerms.update_bulk(@project_id, data)
+    terms_response = %{
+      data: [
+        build_fake_term(term_id, "test",
+          description: "test",
+          case_sensitive: true,
+          translatable: true,
+          forbidden: true
+        ),
+        build_fake_term(term_id2, "elixir",
+          description: "elixir updated",
+          tags: ["sample"],
+          updated_at: "2024-01-02 00:00:00 (Etc/UTC)"
+        )
+      ],
+      meta: %{
+        count: 2,
+        updated: 1,
+        limit: 500
+      },
+      errors: []
+    }
 
-      assert Enum.count(glossary_terms.items) == 2
-      [term1 | [term2 | []]] = glossary_terms.items
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/glossary-terms", "PUT")
 
-      assert term2.tags == ["sample"]
+      req |> assert_json_body(data)
 
-      assert term1.caseSensitive
-    end
+      terms_response
+      |> ok()
+    end)
+
+    {:ok, %GlossaryTermsCollection{} = glossary_terms} =
+      GlossaryTerms.update_bulk(@project_id, data)
+
+    assert Enum.count(glossary_terms.items) == 2
+    [term1 | [term2 | []]] = glossary_terms.items
+
+    assert term2.tags == ["sample"]
+
+    assert term1.caseSensitive
   end
 
   test "deletes glossary terms in bulk" do
-    use_cassette "glossary_terms_delete" do
-      term_id = 5_520_368
-      term_id2 = 5_511_072
+    term_id = 5_520_368
+    term_id2 = 5_511_072
 
-      data = %{
-        terms: [
-          term_id,
-          term_id2
-        ]
+    data = %{
+      terms: [
+        term_id,
+        term_id2
+      ]
+    }
+
+    delete_response = %{
+      data: %{
+        deleted: %{
+          count: 2,
+          ids: [term_id, term_id2]
+        }
       }
+    }
 
-      {:ok, %{} = resp} = GlossaryTerms.delete_bulk(@project_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/glossary-terms", "DELETE")
 
-      assert resp[:data][:deleted][:count] == 2
-    end
+      req |> assert_json_body(data)
+
+      delete_response
+      |> ok()
+    end)
+
+    {:ok, %{} = resp} = GlossaryTerms.delete_bulk(@project_id, data)
+
+    assert resp[:data][:deleted][:count] == 2
+  end
+
+  defp build_translations(languages) do
+    Enum.map(languages, fn {id, iso, name} ->
+      %{
+        langId: id,
+        langName: name,
+        langIso: iso,
+        translation: "",
+        description: ""
+      }
+    end)
+  end
+
+  defp build_fake_term(id, term_name, opts \\ []) do
+    %{
+      id: id,
+      term: term_name,
+      description: Keyword.get(opts, :description, "Description for #{term_name}"),
+      caseSensitive: Keyword.get(opts, :case_sensitive, false),
+      translatable: Keyword.get(opts, :translatable, false),
+      forbidden: Keyword.get(opts, :forbidden, false),
+      translations: build_translations(@languages),
+      tags: Keyword.get(opts, :tags, []),
+      projectId: @project_id,
+      createdAt: Keyword.get(opts, :created_at, "2024-01-01 00:00:00 (Etc/UTC)"),
+      updatedAt: Keyword.get(opts, :updated_at, nil)
+    }
   end
 end

@@ -1,178 +1,367 @@
 defmodule ElixirLokaliseApi.TeamUserGroupsTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: true
+
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.TeamUserGroups
   alias ElixirLokaliseApi.Model.TeamUserGroup, as: TeamUserGroupModel
   alias ElixirLokaliseApi.Collection.TeamUserGroups, as: TeamUserGroupsCollection
 
-  setup_all do
-    HTTPoison.start()
-  end
-
   doctest TeamUserGroups
 
   @team_id 176_692
   @group_id 3991
+  @user_id 20_181
   @project_id "803826145ba90b42d5d860.46800099"
 
   test "lists all team user groups" do
-    use_cassette "team_user_groups_all" do
-      {:ok, %TeamUserGroupsCollection{} = groups} = TeamUserGroups.all(@team_id)
-      assert groups.team_id == @team_id
-      assert Enum.count(groups.items) == 7
+    groups =
+      for i <- 1..5 do
+        %{
+          group_id: 1000 + i,
+          name: "Group #{i}",
+          team_id: @team_id,
+          members: [30_000 + i]
+        }
+      end
 
-      group = hd(groups.items)
-      assert group.group_id == 2639
-    end
+    response = %{
+      team_id: @team_id,
+      user_groups: groups
+    }
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups")
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupsCollection{} = groups} = TeamUserGroups.all(@team_id)
+    assert groups.team_id == @team_id
+    assert Enum.count(groups.items) == 5
+
+    group = hd(groups.items)
+    assert group.group_id == 1001
   end
 
   test "lists paginated team user groups" do
-    use_cassette "team_user_groups_all_paginated" do
-      {:ok, %TeamUserGroupsCollection{} = groups} =
-        TeamUserGroups.all(@team_id, page: 3, limit: 2)
+    groups =
+      for i <- 1..3 do
+        %{
+          group_id: 1000 + i,
+          name: "Group #{i}",
+          team_id: @team_id,
+          projects: [],
+          members: [30_000 + i]
+        }
+      end
 
-      assert groups.team_id == @team_id
+    response = %{
+      team_id: @team_id,
+      user_groups: groups
+    }
 
-      assert Enum.count(groups.items) == 2
-      assert groups.total_count == 7
-      assert groups.page_count == 4
-      assert groups.per_page_limit == 2
-      assert groups.current_page == 3
+    params = [page: 3, limit: 2]
 
-      refute groups |> Pagination.first_page?()
-      refute groups |> Pagination.last_page?()
-      assert groups |> Pagination.next_page?()
-      assert groups |> Pagination.prev_page?()
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups")
 
-      group = hd(groups.items)
-      assert group.group_id == 3274
-    end
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok([
+        {"x-pagination-total-count", "6"},
+        {"x-pagination-page-count", "3"},
+        {"x-pagination-limit", "2"},
+        {"x-pagination-page", "3"}
+      ])
+    end)
+
+    {:ok, %TeamUserGroupsCollection{} = groups} =
+      TeamUserGroups.all(@team_id, params)
+
+    assert groups.team_id == @team_id
+
+    assert Enum.count(groups.items) == 3
+    assert groups.total_count == 6
+    assert groups.page_count == 3
+    assert groups.per_page_limit == 2
+    assert groups.current_page == 3
+
+    refute groups |> Pagination.first_page?()
+    assert groups |> Pagination.last_page?()
+    refute groups |> Pagination.next_page?()
+    assert groups |> Pagination.prev_page?()
+
+    group = hd(groups.items)
+    assert group.group_id == 1001
   end
 
   test "finds a team user group" do
-    use_cassette "team_user_group_find" do
-      group_id = 3274
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.find(@team_id, group_id)
+    response = %{
+      group_id: @group_id,
+      name: "My group",
+      permissions: %{
+        is_admin: false,
+        is_reviewer: false,
+        admin_rights: ["download", "keys"],
+        languages: [
+          %{
+            lang_id: 640,
+            lang_iso: "en",
+            lang_name: "English",
+            is_writable: true
+          }
+        ]
+      },
+      created_at: "2020-11-04 16:29:16 (Etc/UTC)",
+      created_at_timestamp: 1_604_507_356,
+      team_id: @team_id,
+      projects: [],
+      members: [30_000],
+      role_id: 5
+    }
 
-      assert group.group_id == group_id
-      assert group.name == "Russian contributors"
-      refute group.permissions.is_admin
-      assert group.created_at == "2020-11-04 16:29:16 (Etc/UTC)"
-      assert group.created_at_timestamp == 1_604_507_356
-      assert group.team_id == @team_id
-      assert group.projects == []
-      assert group.members == [35554]
-      assert group.role_id == 5
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}")
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.find(@team_id, @group_id)
+
+    assert group.group_id == @group_id
+    assert group.name == "My group"
+    refute group.permissions.is_admin
+    assert group.created_at == "2020-11-04 16:29:16 (Etc/UTC)"
+    assert group.created_at_timestamp == 1_604_507_356
+    assert group.team_id == @team_id
+    assert group.projects == []
+    assert group.members == [30_000]
+    assert group.role_id == 5
   end
 
   test "creates a team user group" do
-    use_cassette "team_user_group_create" do
-      data = %{
-        name: "ExGroup",
-        is_reviewer: true,
-        is_admin: false,
-        languages: %{
-          reference: [],
-          contributable: [640]
-        }
+    data = %{
+      name: "ExGroup",
+      is_reviewer: true,
+      is_admin: false,
+      languages: %{
+        reference: [],
+        contributable: [640]
       }
+    }
 
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.create(@team_id, data)
+    response = %{
+      group_id: 1234,
+      name: "ExGroup"
+    }
 
-      assert group.name == "ExGroup"
-      refute group.permissions.is_admin
-      assert group.permissions.is_reviewer
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups", "POST")
+
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.create(@team_id, data)
+
+    assert group.name == "ExGroup"
   end
 
   test "updates a team user group" do
-    use_cassette "team_user_group_update" do
-      data = %{
-        name: "ExGroup Updated",
-        is_reviewer: true,
-        is_admin: false,
-        languages: %{
-          reference: [],
-          contributable: [640]
-        }
+    data = %{
+      name: "ExGroup Updated",
+      is_reviewer: true,
+      is_admin: false,
+      languages: %{
+        reference: [],
+        contributable: [640]
       }
+    }
 
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.update(@team_id, @group_id, data)
+    response = %{
+      group_id: @group_id,
+      name: "ExGroup Updated",
+      permissions: %{
+        is_admin: false,
+        is_reviewer: true
+      }
+    }
 
-      assert group.name == "ExGroup Updated"
-      refute group.permissions.is_admin
-      assert group.permissions.is_reviewer
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}", "PUT")
+
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.update(@team_id, @group_id, data)
+
+    assert group.name == "ExGroup Updated"
+    refute group.permissions.is_admin
+    assert group.permissions.is_reviewer
   end
 
   test "deletes a team user group" do
-    use_cassette "team_user_group_delete" do
-      group_id = 3274
-      {:ok, %{} = resp} = TeamUserGroups.delete(@team_id, group_id)
+    response = %{
+      team_id: @team_id,
+      group_deleted: true
+    }
 
-      assert resp.team_id == @team_id
-      assert resp.group_deleted
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}", "DELETE")
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %{} = resp} = TeamUserGroups.delete(@team_id, @group_id)
+
+    assert resp.team_id == @team_id
+    assert resp.group_deleted
   end
 
   test "adds projects to a team user group" do
-    use_cassette "team_user_group_add_project" do
-      data = %{
-        projects: [@project_id]
+    data = %{
+      projects: [@project_id]
+    }
+
+    response = %{
+      team_id: @team_id,
+      group: %{
+        group_id: @group_id,
+        projects: [@project_id],
+        members: []
       }
+    }
 
-      {:ok, %TeamUserGroupModel{} = group} =
-        TeamUserGroups.add_projects(@team_id, @group_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}/projects/add", "PUT")
 
-      assert group.group_id == @group_id
-      assert group.projects == [@project_id]
-    end
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} =
+      TeamUserGroups.add_projects(@team_id, @group_id, data)
+
+    assert group.group_id == @group_id
+    assert group.projects == [@project_id]
   end
 
   test "removes projects from a team user group" do
-    use_cassette "team_user_group_remove_project" do
-      data = %{
-        projects: [@project_id]
+    data = %{
+      projects: [@project_id]
+    }
+
+    response = %{
+      team_id: @team_id,
+      group: %{
+        group_id: @group_id,
+        projects: [],
+        members: []
       }
+    }
 
-      {:ok, %TeamUserGroupModel{} = group} =
-        TeamUserGroups.remove_projects(@team_id, @group_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}/projects/remove", "PUT")
 
-      assert group.group_id == @group_id
-      assert group.projects == []
-    end
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} =
+      TeamUserGroups.remove_projects(@team_id, @group_id, data)
+
+    assert group.group_id == @group_id
+    assert group.projects == []
   end
 
   test "adds members to a team user group" do
-    use_cassette "team_user_group_add_members" do
-      user_id = 20181
+    data = %{
+      users: [@user_id]
+    }
 
-      data = %{
-        users: [user_id]
+    response = %{
+      team_id: @team_id,
+      group: %{
+        group_id: @group_id,
+        members: [@user_id]
       }
+    }
 
-      {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.add_members(@team_id, @group_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}/members/add", "PUT")
 
-      assert group.group_id == @group_id
-      assert group.members == [user_id]
-    end
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} = TeamUserGroups.add_members(@team_id, @group_id, data)
+
+    assert group.group_id == @group_id
+    assert group.members == [@user_id]
   end
 
   test "removes members to a team user group" do
-    use_cassette "team_user_group_remove_members" do
-      user_id = 20181
+    data = %{
+      users: [@user_id]
+    }
 
-      data = %{
-        users: [user_id]
+    response = %{
+      team_id: @team_id,
+      group: %{
+        group_id: @group_id,
+        members: []
       }
+    }
 
-      {:ok, %TeamUserGroupModel{} = group} =
-        TeamUserGroups.remove_members(@team_id, @group_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/groups/#{@group_id}/members/remove", "PUT")
 
-      assert group.group_id == @group_id
-      assert group.members == []
-    end
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TeamUserGroupModel{} = group} =
+      TeamUserGroups.remove_members(@team_id, @group_id, data)
+
+    assert group.group_id == @group_id
+    assert group.members == []
   end
 end

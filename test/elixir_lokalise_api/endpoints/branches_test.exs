@@ -1,133 +1,303 @@
 defmodule ElixirLokaliseApi.BranchesTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: true
+
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Branches
   alias ElixirLokaliseApi.Model.Branch, as: BranchModel
   alias ElixirLokaliseApi.Collection.Branches, as: BranchesCollection
 
-  setup_all do
-    HTTPoison.start()
-  end
-
   doctest Branches
 
   test "lists all branches" do
-    use_cassette "branches_all" do
-      project_id = "771432525f9836bbd50459.22958598"
-      {:ok, %BranchesCollection{} = branches} = Branches.all(project_id)
+    project_id = "771432525f9836bbd50459.22958598"
 
-      assert Enum.count(branches.items) == 3
-      assert branches.total_count == 2
-      assert branches.page_count == 1
-      assert branches.per_page_limit == 100
-      assert branches.current_page == 1
-      assert branches.project_id == project_id
+    branches_gen =
+      for i <- 1..3 do
+        %{
+          branch_id: 100_000 + i,
+          name: "branch_#{i}",
+          created_at: "2024-01-01 00:00:00 (Etc/UTC)",
+          created_at_timestamp: 1_700_000_000 + i,
+          created_by: 1_000 + i,
+          created_by_email: "user#{i}@example.com"
+        }
+      end
 
-      branch = branches.items |> List.first()
-      assert branch.name == "develop"
-    end
+    branches_resp = %{
+      project_id: project_id,
+      branch: "master",
+      branches: branches_gen
+    }
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches")
+
+      branches_resp
+      |> ok([
+        {"x-pagination-total-count", "3"},
+        {"x-pagination-page-count", "1"},
+        {"x-pagination-limit", "100"},
+        {"x-pagination-page", "1"}
+      ])
+    end)
+
+    {:ok, %BranchesCollection{} = branches} = Branches.all(project_id)
+
+    assert Enum.count(branches.items) == 3
+    assert branches.total_count == 3
+    assert branches.page_count == 1
+    assert branches.per_page_limit == 100
+    assert branches.current_page == 1
+    assert branches.project_id == project_id
+
+    branch = branches.items |> List.first()
+    assert branch.name == "branch_1"
   end
 
   test "lists paginated branches" do
-    use_cassette "branches_all_paginated" do
-      project_id = "771432525f9836bbd50459.22958598"
-      {:ok, %BranchesCollection{} = branches} = Branches.all(project_id, page: 2, limit: 1)
+    project_id = "771432525f9836bbd50459.22958598"
 
-      assert branches.total_count == 2
-      assert branches.page_count == 2
-      assert branches.per_page_limit == 1
-      assert branches.current_page == 2
+    branches_resp = %{
+      project_id: project_id,
+      branch: "master",
+      branches: [
+        %{
+          branch_id: 100_000,
+          name: "branch_1",
+          created_at: "2024-01-01 00:00:00 (Etc/UTC)",
+          created_at_timestamp: 1_700_000_000,
+          created_by: 1_000,
+          created_by_email: "user#{1}@example.com"
+        }
+      ]
+    }
 
-      refute branches |> Pagination.first_page?()
-      assert branches |> Pagination.last_page?()
-      refute branches |> Pagination.next_page?()
-      assert branches |> Pagination.prev_page?()
+    params = [
+      page: 2,
+      limit: 1
+    ]
 
-      branch = hd(branches.items)
-      assert branch.name == "master"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches")
+
+      req
+      |> assert_get_params(params)
+
+      branches_resp
+      |> ok([
+        {"x-pagination-total-count", "2"},
+        {"x-pagination-page-count", "2"},
+        {"x-pagination-limit", "1"},
+        {"x-pagination-page", "2"}
+      ])
+    end)
+
+    {:ok, %BranchesCollection{} = branches} = Branches.all(project_id, params)
+
+    assert branches.total_count == 2
+    assert branches.page_count == 2
+    assert branches.per_page_limit == 1
+    assert branches.current_page == 2
+
+    refute branches |> Pagination.first_page?()
+    assert branches |> Pagination.last_page?()
+    refute branches |> Pagination.next_page?()
+    assert branches |> Pagination.prev_page?()
+
+    branch = hd(branches.items)
+    assert branch.name == "branch_1"
   end
 
   test "finds a branch" do
-    use_cassette "branch_find" do
-      project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 110_704
+    project_id = "771432525f9836bbd50459.22958598"
+    branch_id = 110_704
 
-      {:ok, %BranchModel{} = branch} = Branches.find(project_id, branch_id)
+    branch_resp = %{
+      project_id: project_id,
+      branch: %{
+        branch_id: branch_id,
+        name: "branch_1",
+        created_at: "2024-01-01 00:00:00 (Etc/UTC)",
+        created_at_timestamp: 1_700_000_000,
+        created_by: 1_000,
+        created_by_email: "user1@example.com"
+      }
+    }
 
-      assert branch.branch_id == branch_id
-      assert branch.name == "develop"
-      assert branch.created_at == "2021-03-06 17:03:20 (Etc/UTC)"
-      assert branch.created_at_timestamp == 1_615_050_200
-      assert branch.created_by == 20181
-      assert branch.created_by_email == "bodrovis@protonmail.com"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches/#{branch_id}")
+
+      branch_resp
+      |> ok()
+    end)
+
+    {:ok, %BranchModel{} = branch} = Branches.find(project_id, branch_id)
+
+    assert branch.branch_id == branch_id
+    assert branch.name == "branch_1"
+    assert branch.created_at == "2024-01-01 00:00:00 (Etc/UTC)"
+    assert branch.created_at_timestamp == 1_700_000_000
+    assert branch.created_by == 1_000
+    assert branch.created_by_email == "user1@example.com"
   end
 
   test "creates a branch" do
-    use_cassette "branch_create" do
-      project_id = "771432525f9836bbd50459.22958598"
-      data = %{name: "Elixir"}
+    project_id = "771432525f9836bbd50459.22958598"
+    data = %{name: "Elixir"}
 
-      {:ok, %BranchModel{} = branch} = Branches.create(project_id, data)
+    branch_resp = %{
+      project_id: project_id,
+      branch: %{
+        branch_id: 123,
+        name: data.name,
+        created_at: "2024-01-01 00:00:00 (Etc/UTC)",
+        created_at_timestamp: 1_700_000_000
+      }
+    }
 
-      assert branch.name == "Elixir"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches", "POST")
+
+      req |> assert_json_body(data)
+
+      branch_resp |> ok()
+    end)
+
+    {:ok, %BranchModel{} = branch} = Branches.create(project_id, data)
+
+    assert branch.name == "Elixir"
   end
 
   test "updates a branch" do
-    use_cassette "branch_update" do
-      project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 110_712
-      data = %{name: "Elixir-update"}
+    project_id = "771432525f9836bbd50459.22958598"
+    branch_id = 110_712
+    data = %{name: "Elixir-update"}
 
-      {:ok, %BranchModel{} = branch} = Branches.update(project_id, branch_id, data)
+    branch_resp = %{
+      project_id: project_id,
+      branch: %{
+        branch_id: branch_id,
+        name: data.name,
+        created_at: "2024-01-01 00:00:00 (Etc/UTC)",
+        created_at_timestamp: 1_700_000_000
+      }
+    }
 
-      assert branch.name == "Elixir-update"
-      assert branch.branch_id == branch_id
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches/#{branch_id}", "PUT")
+
+      req |> assert_json_body(data)
+
+      branch_resp |> ok()
+    end)
+
+    {:ok, %BranchModel{} = branch} = Branches.update(project_id, branch_id, data)
+
+    assert branch.name == "Elixir-update"
+    assert branch.branch_id == branch_id
   end
 
   test "merges a branch with master" do
-    use_cassette "branch_merge_default" do
-      project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 110_712
+    project_id = "771432525f9836bbd50459.22958598"
+    branch_id = 110_712
 
-      {:ok, %{} = resp} = Branches.merge(project_id, branch_id)
+    merge_resp = %{
+      project_id: project_id,
+      branch_merged: true,
+      branch: %{
+        branch_id: branch_id,
+        name: "Elixir-update"
+      },
+      target_branch: %{
+        branch_id: 2,
+        name: "master"
+      }
+    }
 
-      assert resp.branch_merged
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches/#{branch_id}/merge", "POST")
 
-      assert resp.branch.name == "Elixir-update"
-      assert resp.target_branch.name == "master"
-    end
+      merge_resp |> ok()
+    end)
+
+    {:ok, %{} = resp} = Branches.merge(project_id, branch_id)
+
+    assert resp.branch_merged
+
+    assert resp.branch.name == "Elixir-update"
+    assert resp.target_branch.name == "master"
   end
 
   test "merges a branch with target" do
-    use_cassette "branch_merge_target" do
-      project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 86328
-      target_branch_id = 110_704
-      data = %{force_conflict_resolve_using: "target", target_branch_id: target_branch_id}
+    project_id = "771432525f9836bbd50459.22958598"
+    branch_id = 86_328
+    target_branch_id = 110_704
 
-      {:ok, %{} = resp} = Branches.merge(project_id, branch_id, data)
+    merge_resp = %{
+      project_id: project_id,
+      branch_merged: true,
+      branch: %{
+        branch_id: branch_id,
+        name: "master"
+      },
+      target_branch: %{
+        branch_id: target_branch_id,
+        name: "develop"
+      }
+    }
 
-      assert resp.branch_merged
+    data = %{force_conflict_resolve_using: "target", target_branch_id: target_branch_id}
 
-      assert resp.branch.name == "master"
-      assert resp.target_branch.name == "develop"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{project_id}/branches/#{branch_id}/merge", "POST")
+
+      req |> assert_json_body(data)
+
+      merge_resp |> ok()
+    end)
+
+    {:ok, %{} = resp} = Branches.merge(project_id, branch_id, data)
+
+    assert resp.branch_merged
+
+    assert resp.branch.name == "master"
+    assert resp.target_branch.name == "develop"
   end
 
   test "deletes a branch" do
-    use_cassette "branch_delete" do
-      project_id = "771432525f9836bbd50459.22958598"
-      branch_id = 86328
+    project_id = "771432525f9836bbd50459.22958598"
+    branch_id = 86_328
 
-      {:ok, %{} = resp} = Branches.delete(project_id, branch_id)
+    delete_resp = %{
+      project_id: project_id,
+      branch: "master",
+      branch_deleted: true
+    }
 
-      assert resp.branch_deleted
-      assert resp.project_id == project_id
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req |> assert_path_method("/api2/projects/#{project_id}/branches/#{branch_id}", "DELETE")
+
+      delete_resp |> ok()
+    end)
+
+    {:ok, %{} = resp} = Branches.delete(project_id, branch_id)
+
+    assert resp.branch_deleted
+    assert resp.project_id == project_id
   end
 end

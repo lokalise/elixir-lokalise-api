@@ -1,16 +1,10 @@
 defmodule ElixirLokaliseApi.OAuth2.AuthTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: false
 
   alias ElixirLokaliseApi.OAuth2.Auth
-  alias ElixirLokaliseApi.Config
   alias ElixirLokaliseApi.Model.OAuth2.Token, as: TokenModel
   alias ElixirLokaliseApi.Projects
   alias ElixirLokaliseApi.Collection.Projects, as: ProjectsCollection
-
-  setup_all do
-    HTTPoison.start()
-  end
 
   doctest Auth
 
@@ -18,7 +12,7 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
     uri = Auth.auth(["read_projects"])
 
     assert String.contains?(uri, "scope=read_projects")
-    assert String.contains?(uri, "client_id=#{Config.oauth2_client_id()}")
+    assert String.contains?(uri, "client_id=fakeoauth2clientid")
     assert String.contains?(uri, "https://app.lokalise.com/oauth2/auth")
   end
 
@@ -26,7 +20,7 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
     uri = Auth.auth(["read_projects", "write_projects", "write_tasks"])
 
     assert String.contains?(uri, "scope=read_projects+write_projects+write_tasks")
-    assert String.contains?(uri, "client_id=#{Config.oauth2_client_id()}")
+    assert String.contains?(uri, "client_id=fakeoauth2clientid")
   end
 
   test "auth allows to pass redirect uri" do
@@ -52,36 +46,86 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
   end
 
   test "requests token" do
-    use_cassette "oauth2_token" do
-      {:ok, %TokenModel{} = result} = Auth.token(System.get_env("OAUTH2_CODE"))
+    response = %{
+      access_token: "fake_access_token_abcdef123456",
+      refresh_token: "fake_refresh_token_123456",
+      expires_in: 3600,
+      token_type: "Bearer"
+    }
 
-      assert result.access_token == "e43a0fac0e025da1dbbf7201a08c28691f399a1d"
-      assert result.refresh_token == "123"
-      assert result.expires_in == 3600
-      assert result.token_type == "Bearer"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      assert(req.method == "POST")
+      assert(req.host == "app.lokalise.com")
+      assert(req.path == "/oauth2/token")
+
+      response |> ok()
+    end)
+
+    {:ok, %TokenModel{} = result} = Auth.token("OAuth2Code")
+
+    assert result.access_token == "fake_access_token_abcdef123456"
+    assert result.refresh_token == "fake_refresh_token_123456"
+    assert result.expires_in == 3600
+    assert result.token_type == "Bearer"
   end
 
   test "allows to perform request with an access token" do
-    :oauth2_token |> ElixirLokaliseApi.Config.put_env(System.get_env("OAUTH2_ACCESS_TOKEN"))
+    :oauth2_token |> ElixirLokaliseApi.Config.put_env("OAuth2Token")
 
-    use_cassette "oauth2_projects" do
-      {:ok, %ProjectsCollection{} = projects} = Projects.all(page: 3, limit: 2)
-      project = projects.items |> hd
-      assert project.name == "Automations"
-    end
+    projects =
+      Enum.map(1..2, fn i ->
+        %{
+          project_id: "pid#{i}",
+          name: if(i == 1, do: "First proj", else: "Project #{i}")
+        }
+      end)
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects")
+
+      %{
+        projects: projects
+      }
+      |> ok([
+        {"x-pagination-total-count", "40"},
+        {"x-pagination-page-count", "20"},
+        {"x-pagination-limit", "2"},
+        {"x-pagination-page", "3"}
+      ])
+    end)
+
+    {:ok, %ProjectsCollection{} = projects} = Projects.all(page: 3, limit: 2)
+    project = projects.items |> hd
+    assert project.name == "First proj"
 
     :oauth2_token |> ElixirLokaliseApi.Config.put_env(nil)
   end
 
   test "refreshes token" do
-    use_cassette "oauth2_refresh" do
-      {:ok, %TokenModel{} = result} = Auth.refresh(System.get_env("OAUTH2_REFRESH_TOKEN"))
+    response = %{
+      access_token: "fake_access_token_1234567890",
+      expires_in: 3600,
+      scope: "write_tasks read_projects",
+      token_type: "Bearer"
+    }
 
-      assert result.access_token != nil
-      assert result.expires_in == 3600
-      assert result.token_type == "Bearer"
-      assert result.scope == "write_tasks read_projects"
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      assert(req.method == "POST")
+      assert(req.host == "app.lokalise.com")
+      assert(req.path == "/oauth2/token")
+
+      response |> ok()
+    end)
+
+    {:ok, %TokenModel{} = result} = Auth.refresh("OAuth2RefreshToken")
+
+    assert result.access_token == "fake_access_token_1234567890"
+    assert result.expires_in == 3600
+    assert result.token_type == "Bearer"
+    assert result.scope == "write_tasks read_projects"
   end
 end

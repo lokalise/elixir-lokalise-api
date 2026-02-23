@@ -1,32 +1,57 @@
 defmodule ElixirLokaliseApi.PermissionTemplatesTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: true
+
   alias ElixirLokaliseApi.PermissionTemplates
   alias ElixirLokaliseApi.Collection.PermissionTemplates, as: PermissionTemplatesCollection
-
-  setup_all do
-    HTTPoison.start()
-  end
 
   doctest PermissionTemplates
 
   @team_id 176_692
 
-  test "lists all team user groups" do
-    use_cassette "permission_templates_all" do
-      {:ok, %PermissionTemplatesCollection{} = templates} = PermissionTemplates.all(@team_id)
+  test "lists all team permission template roles" do
+    response = %{
+      roles: [
+        %{
+          id: 1,
+          role: "Manager",
+          permissions: [
+            "activity",
+            "branches_main_modify"
+          ],
+          description: "Manage project settings, contributors and tasks",
+          tag: "Full access",
+          tagColor: "green",
+          tagInfo: nil,
+          doesEnableAllReadOnlyLanguages: true
+        },
+        %{
+          id: 2,
+          role: "Fake"
+        }
+      ]
+    }
 
-      assert Enum.count(templates.items) == 5
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/teams/#{@team_id}/roles")
 
-      template = hd(templates.items)
-      assert template.id == 1
-      assert template.role == "Manager"
-      assert hd(template.permissions) == "activity"
-      assert template.description == "Manage project settings, contributors and tasks"
-      assert template.tag == "Full access"
-      assert template.tagColor == "green"
-      assert template.tagInfo == nil
-      assert template.doesEnableAllReadOnlyLanguages == true
-    end
+      response
+      |> ok()
+    end)
+
+    {:ok, %PermissionTemplatesCollection{} = templates} = PermissionTemplates.all(@team_id)
+
+    assert Enum.count(templates.items) == 2
+
+    template = hd(templates.items)
+    assert template.id == 1
+    assert template.role == "Manager"
+    assert hd(template.permissions) == "activity"
+    assert template.description == "Manage project settings, contributors and tasks"
+    assert template.tag == "Full access"
+    assert template.tagColor == "green"
+    assert template.tagInfo == nil
+    assert template.doesEnableAllReadOnlyLanguages == true
   end
 end

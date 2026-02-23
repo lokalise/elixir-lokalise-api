@@ -1,116 +1,244 @@
 defmodule ElixirLokaliseApi.TranslationsTest do
-  use ExUnit.Case, async: true
-  use ExVCR.Mock, adapter: ExVCR.Adapter.Hackney
+  use ElixirLokaliseApi.Case, async: true
+
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Translations
   alias ElixirLokaliseApi.Collection.Translations, as: TranslationsCollection
   alias ElixirLokaliseApi.Model.Translation, as: TranslationModel
 
-  setup_all do
-    HTTPoison.start()
-  end
-
   doctest Translations
 
   @project_id "287061316050d93a27ada8.24068671"
-  @project_id2 "2273827860c1e2473eb195.11207948"
+  @translation_id 580_728_816
 
   test "lists all translations" do
-    use_cassette "translations_all" do
-      {:ok, %TranslationsCollection{} = translations} = Translations.all(@project_id)
+    response = %{
+      project_id: @project_id,
+      translations: [
+        %{
+          translation_id: @translation_id,
+          key_id: 81_096_689
+        }
+      ]
+    }
 
-      assert Enum.count(translations.items) == 6
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/translations")
 
-      translation = hd(translations.items)
-      assert translation.translation_id == 580_728_816
-    end
+      response
+      |> ok()
+    end)
+
+    {:ok, %TranslationsCollection{} = translations} = Translations.all(@project_id)
+
+    assert Enum.count(translations.items) == 1
+
+    translation = hd(translations.items)
+    assert translation.translation_id == @translation_id
   end
 
   test "lists paginated translations" do
-    use_cassette "translations_all_paginated" do
-      {:ok, %TranslationsCollection{} = translations} =
-        Translations.all(@project_id, filter_is_reviewed: 0, page: 2, limit: 1)
+    response = %{
+      project_id: @project_id,
+      translations: [
+        %{
+          translation_id: @translation_id,
+          key_id: 81_096_689
+        }
+      ]
+    }
 
-      assert Enum.count(translations.items) == 1
-      assert translations.total_count == 6
-      assert translations.page_count == 6
-      assert translations.per_page_limit == 1
-      assert translations.current_page == 2
+    params = [filter_is_reviewed: 0, page: 2, limit: 1]
 
-      refute translations |> Pagination.first_page?()
-      refute translations |> Pagination.last_page?()
-      assert translations |> Pagination.next_page?()
-      assert translations |> Pagination.prev_page?()
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/translations")
 
-      translation = hd(translations.items)
-      assert translation.translation_id == 580_728_817
-    end
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok([
+        {"x-pagination-total-count", "3"},
+        {"x-pagination-page-count", "3"},
+        {"x-pagination-limit", "1"},
+        {"x-pagination-page", "2"}
+      ])
+    end)
+
+    {:ok, %TranslationsCollection{} = translations} =
+      Translations.all(@project_id, params)
+
+    assert Enum.count(translations.items) == 1
+    assert translations.total_count == 3
+    assert translations.page_count == 3
+    assert translations.per_page_limit == 1
+    assert translations.current_page == 2
+
+    refute translations |> Pagination.first_page?()
+    refute translations |> Pagination.last_page?()
+    assert translations |> Pagination.next_page?()
+    assert translations |> Pagination.prev_page?()
+
+    translation = hd(translations.items)
+    assert translation.translation_id == @translation_id
   end
 
   test "lists paginated with cursor translations" do
-    use_cassette "translations_all_paginated_cursor" do
-      {:ok, %TranslationsCollection{} = translations} =
-        Translations.all(@project_id2,
-          limit: 2,
-          pagination: "cursor",
-          cursor: "eyIxIjozMDU0Mzg5ODQ0fQ=="
-        )
+    response = %{
+      project_id: @project_id,
+      translations: [
+        %{
+          translation_id: @translation_id,
+          key_id: 81_096_689
+        }
+      ]
+    }
 
-      assert Enum.count(translations.items) == 2
-      assert translations.per_page_limit == 2
-      assert translations.next_cursor == "eyIxIjozMDU0Mzg5ODQ2fQ=="
-    end
+    params = [limit: 2, pagination: "cursor", cursor: "eyIxIjozMDU0Mzg5ODQ0fQ=="]
+
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/translations")
+
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok([
+        {"x-pagination-next-cursor", "200"},
+        {"x-pagination-limit", "1"}
+      ])
+    end)
+
+    {:ok, %TranslationsCollection{} = translations} =
+      Translations.all(
+        @project_id,
+        params
+      )
+
+    assert Enum.count(translations.items) == 1
+    assert translations.per_page_limit == 1
+    assert translations.next_cursor == 200
   end
 
   test "finds a translation" do
-    use_cassette "translation_find" do
-      translation_id = 580_728_816
-      {:ok, %TranslationModel{} = translation} = Translations.find(@project_id, translation_id)
+    response = %{
+      project_id: @project_id,
+      translation: %{
+        translation_id: @translation_id,
+        key_id: 81_096_689,
+        language_iso: "en",
+        translation: "your e-mail",
+        modified_by: 20_181,
+        modified_by_email: "user@example.com",
+        modified_at: "2021-03-16 16:25:40 (Etc/UTC)",
+        modified_at_timestamp: 1_615_911_940,
+        is_reviewed: false,
+        reviewed_by: 0,
+        is_unverified: false,
+        is_fuzzy: false,
+        words: 2,
+        custom_translation_statuses: [],
+        task_id: nil
+      }
+    }
 
-      assert translation.translation_id == translation_id
-      assert translation.key_id == 81_096_689
-      assert translation.language_iso == "ru"
-      assert translation.modified_at == "2021-03-16 16:25:40 (Etc/UTC)"
-      assert translation.modified_at_timestamp == 1_615_911_940
-      assert translation.modified_by == 20181
-      assert translation.modified_by_email == "bodrovis@protonmail.com"
-      assert String.ends_with?(translation.translation, "e-mail")
-      refute translation.is_unverified
-      refute translation.is_reviewed
-      assert translation.reviewed_by == 0
-      assert translation.words == 2
-      assert translation.custom_translation_statuses == []
-      refute translation.task_id
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/translations/#{@translation_id}")
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TranslationModel{} = translation} = Translations.find(@project_id, @translation_id)
+
+    assert translation.translation_id == @translation_id
+    assert translation.key_id == 81_096_689
+    assert translation.language_iso == "en"
+    assert translation.modified_at == "2021-03-16 16:25:40 (Etc/UTC)"
+    assert translation.modified_at_timestamp == 1_615_911_940
+    assert translation.modified_by == 20_181
+    assert translation.modified_by_email == "user@example.com"
+    assert String.ends_with?(translation.translation, "e-mail")
+    refute translation.is_unverified
+    refute translation.is_reviewed
+    assert translation.reviewed_by == 0
+    assert translation.words == 2
+    assert translation.custom_translation_statuses == []
+    refute translation.task_id
   end
 
   test "finds a translation with params" do
-    use_cassette "translation_find_params" do
-      translation_id = 580_728_816
+    response = %{
+      project_id: @project_id,
+      translation: %{
+        translation_id: @translation_id,
+        key_id: 81_096_689
+      }
+    }
 
-      {:ok, %TranslationModel{} = translation} =
-        Translations.find(@project_id, translation_id, disable_references: 1)
+    params = [disable_references: 1]
 
-      assert translation.translation_id == translation_id
-      assert translation.key_id == 81_096_689
-    end
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method("/api2/projects/#{@project_id}/translations/#{@translation_id}")
+
+      req
+      |> assert_get_params(params)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TranslationModel{} = translation} =
+      Translations.find(@project_id, @translation_id, params)
+
+    assert translation.translation_id == @translation_id
+    assert translation.key_id == 81_096_689
   end
 
   test "updates a translation" do
-    use_cassette "translation_update" do
-      translation_id = 580_728_816
+    data = %{
+      translation: "Updated!",
+      is_reviewed: true
+    }
 
-      data = %{
-        translation: "Updated!",
-        is_reviewed: true
+    response = %{
+      project_id: @project_id,
+      translation: %{
+        translation_id: @translation_id,
+        key_id: 81_096_689,
+        language_iso: "en",
+        translation: "Updated!"
       }
+    }
 
-      {:ok, %TranslationModel{} = translation} =
-        Translations.update(@project_id, translation_id, data)
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch_name, _opts ->
+      req
+      |> assert_path_method(
+        "/api2/projects/#{@project_id}/translations/#{@translation_id}",
+        "PUT"
+      )
 
-      assert translation.translation_id == translation_id
-      assert translation.translation == "Updated!"
-      assert translation.is_reviewed
-    end
+      req |> assert_json_body(data)
+
+      response
+      |> ok()
+    end)
+
+    {:ok, %TranslationModel{} = translation} =
+      Translations.update(@project_id, @translation_id, data)
+
+    assert translation.translation_id == @translation_id
+    assert translation.translation == "Updated!"
   end
 end
