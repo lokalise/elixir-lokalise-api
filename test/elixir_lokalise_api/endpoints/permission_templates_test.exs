@@ -8,7 +8,7 @@ defmodule ElixirLokaliseApi.PermissionTemplatesTest do
 
   @team_id 176_692
 
-  test "lists all team user groups" do
+  test "lists all team permission template roles" do
     response = %{
       roles: [
         %{
