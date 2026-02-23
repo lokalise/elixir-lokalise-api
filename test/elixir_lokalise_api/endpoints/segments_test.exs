@@ -22,7 +22,7 @@ defmodule ElixirLokaliseApi.SegmentsTest do
         segment_number: segment_number,
         language_iso: @lang_iso,
         value: "This is just a simple text.",
-        modified_by: 20181,
+        modified_by: 20_181,
         modified_by_email: "user@example.com",
         modified_at: "2021-11-22 16:46:50 (Etc/UTC)",
         modified_at_timestamp: 1_637_599_610,
@@ -63,7 +63,7 @@ defmodule ElixirLokaliseApi.SegmentsTest do
     assert segment.language_iso == @lang_iso
     assert segment.modified_at == "2021-11-22 16:46:50 (Etc/UTC)"
     assert segment.modified_at_timestamp == 1_637_599_610
-    assert segment.modified_by == 20181
+    assert segment.modified_by == 20_181
     assert segment.modified_by_email == "user@example.com"
     assert segment.value == "This is just a simple text."
     refute segment.is_fuzzy

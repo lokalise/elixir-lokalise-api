@@ -17,12 +17,12 @@
 
 ## Running tests
 
-1. Copypaste `.env.sample` file as `.env` (for nix systems) or `.env.bat.sample` as `.env.bat` (for Windows). Put your API token inside and run `source .env` or `.env.bat` from your terminal. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded VCR cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
-3. Run `mix coveralls.html`. Observe test results and code coverage.
+1. Run `mix test` or `mix coveralls.html`.
+2. Observe test results and/or code coverage.
 
 ## Previewing the docs locally
 
 1. Clone the repo.
 2. `cd docs`
-3. `bundle exec jekyll serve --baseurl='' --config _config.dev.yml`.
+3. `bundle exec jekyll serve --config _config.dev.yml`.
 4. Navigate to `http://localhost:4000` and observe the docs.

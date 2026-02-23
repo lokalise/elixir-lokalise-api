@@ -117,7 +117,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
       snapshot: %{
         snapshot_id: 516_515,
         title: "Elixir snap",
-        created_by: 20181,
+        created_by: 20_181,
         created_by_email: "user@example.com",
         created_at: "2021-03-17 14:15:00 (Etc/UTC)",
         created_at_timestamp: 1_615_990_500
@@ -150,7 +150,7 @@ defmodule ElixirLokaliseApi.SnapshotsTest do
       description: "Description Phoenix",
       created_at: "2021-03-17 14:21:06 (Etc/UTC)",
       created_at_timestamp: 1_615_990_866,
-      created_by: 20181,
+      created_by: 20_181,
       created_by_email: "user@example.com",
       team_id: 176_692,
       base_language_id: 640,

@@ -115,7 +115,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
         comment_id: comment_id,
         key_id: @key_id,
         comment: "Comment 1",
-        added_by: 20181,
+        added_by: 20_181,
         added_by_email: "user@example.com",
         added_at: "2021-03-08 15:09:46 (Etc/UTC)",
         added_at_timestamp: 1_615_216_186
@@ -138,7 +138,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
     assert comment.comment == "Comment 1"
     assert comment.comment_id == comment_id
     assert comment.key_id == @key_id
-    assert comment.added_by == 20181
+    assert comment.added_by == 20_181
     assert comment.added_by_email == "user@example.com"
     assert comment.added_at == "2021-03-08 15:09:46 (Etc/UTC)"
     assert comment.added_at_timestamp == 1_615_216_186

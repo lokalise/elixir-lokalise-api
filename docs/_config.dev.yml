@@ -2,8 +2,8 @@ title: Lokalise APIv2 Elixir SDK
 email: bodrovis@protonmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Elixir interface for the Lokalise APIv2.
-baseurl: "/elixir-lokalise-api" # the subpath of your site, e.g. /blog
-url: "https://lokalise.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: lokalise
 github_username:  lokalise
 

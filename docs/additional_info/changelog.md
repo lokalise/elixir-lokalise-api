@@ -2,6 +2,11 @@
 ---
 # Changelog
 
+## Unreleased
+
+* **Potential breaking change**. We now use [Finch](https://hexdocs.pm/finch/Finch.html) to send HTTP requests instead of `HTTPoison`. Therefore, if you're customizing request options for this SDK via `:request_options` in the `config.exs`, make sure these are supported by Finch.
+* Fully updated tests
+
 ## 3.6.1 (16-May-2025)
 
 * Add a warning for big projects suggesting to use [async file downloads](https://developers.lokalise.com/reference/download-files-async) endpoint

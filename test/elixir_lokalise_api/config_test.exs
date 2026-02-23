@@ -24,15 +24,22 @@ defmodule ElixirLokaliseApi.ConfigTest do
   end
 
   test "from_env returns nil for non-existent keys" do
-    refute Config.oauth2_token()
+    assert Config.from_env(:nonexistent_config_key) == nil
   end
 
   test "put_env allows to set values dynamically" do
-    token = "123abc"
-    :oauth2_token |> Config.put_env(token)
-    assert Config.oauth2_token() == token
+    old = Config.oauth2_token()
 
-    :oauth2_token |> Config.put_env(nil)
-    refute Config.oauth2_token()
+    try do
+      token = "123abc"
+
+      Config.put_env(:oauth2_token, token)
+      assert Config.oauth2_token() == token
+
+      Config.put_env(:oauth2_token, nil)
+      assert Config.oauth2_token() == nil
+    after
+      Config.put_env(:oauth2_token, old)
+    end
   end
 end

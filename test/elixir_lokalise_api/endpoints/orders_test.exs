@@ -129,7 +129,7 @@ defmodule ElixirLokaliseApi.OrdersTest do
     assert order.status == "completed"
     assert order.created_at == "2020-01-22 12:04:15 (Etc/UTC)"
     assert order.created_at_timestamp == 1_579_694_655
-    assert order.created_by == 20181
+    assert order.created_by == 20_181
     assert order.created_by_email == "user@example.com"
     assert order.source_language_iso == "en"
     assert order.target_language_isos == ["lv"]

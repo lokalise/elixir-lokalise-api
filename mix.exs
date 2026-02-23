@@ -25,11 +25,7 @@ defmodule ElixirLokaliseApi.MixProject do
 
   def cli do
     [
-      preferred_cli_env: [
-        vcr: :test,
-        "vcr.delete": :test,
-        "vcr.check": :test,
-        "vcr.show": :test,
+      preferred_envs: [
         coveralls: :test,
         "coveralls.detail": :test,
         "coveralls.post": :test,
@@ -49,11 +45,9 @@ defmodule ElixirLokaliseApi.MixProject do
     [
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.1", only: :dev, runtime: false},
-      {:httpoison, "~> 2.0"},
       {:finch, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:ex_doc, "~> 0.37", only: [:dev, :test]},
-      {:exvcr, "~> 0.17", only: :test},
       {:excoveralls, "~> 0.18.1", only: :test},
       {:mox, "~> 1.0", only: :test}
     ]

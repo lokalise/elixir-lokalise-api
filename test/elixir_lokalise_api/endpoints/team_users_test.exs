@@ -9,7 +9,7 @@ defmodule ElixirLokaliseApi.TeamUsersTest do
   doctest TeamUsers
 
   @team_id 218_347
-  @user_id 20181
+  @user_id 20_181
 
   test "lists all team users" do
     users =

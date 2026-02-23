@@ -109,7 +109,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
       description: "Lokalise onboarding course",
       created_at: "2020-10-27 15:03:23 (Etc/UTC)",
       created_at_timestamp: 1_603_811_003,
-      created_by: 20181,
+      created_by: 20_181,
       created_by_email: "bodrovis@protonmail.com",
       team_id: 176_692,
       base_language_id: 640,
@@ -134,7 +134,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
     assert project.description == "Lokalise onboarding course"
     assert project.created_at == "2020-10-27 15:03:23 (Etc/UTC)"
     assert project.created_at_timestamp == 1_603_811_003
-    assert project.created_by == 20181
+    assert project.created_by == 20_181
     assert project.created_by_email == "bodrovis@protonmail.com"
     assert project.team_id == 176_692
     assert project.base_language_id == 640
@@ -153,7 +153,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
         project_type: "localization_files",
         created_at: "2020-10-27 15:03:23 (Etc/UTC)",
         created_at_timestamp: 1_603_811_003,
-        created_by: 20181,
+        created_by: 20_181,
         team_id: 176_692,
         base_language_id: 640,
         base_language_iso: "en"

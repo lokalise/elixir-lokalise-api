@@ -11,7 +11,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
   test "lists all branches" do
     project_id = "771432525f9836bbd50459.22958598"
 
-    branches =
+    branches_gen =
       for i <- 1..3 do
         %{
           branch_id: 100_000 + i,
@@ -26,7 +26,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
     branches_resp = %{
       project_id: project_id,
       branch: "master",
-      branches: branches
+      branches: branches_gen
     }
 
     ElixirLokaliseApi.HTTPClientMock
@@ -242,7 +242,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
 
   test "merges a branch with target" do
     project_id = "771432525f9836bbd50459.22958598"
-    branch_id = 86328
+    branch_id = 86_328
     target_branch_id = 110_704
 
     merge_resp = %{
@@ -280,7 +280,7 @@ defmodule ElixirLokaliseApi.BranchesTest do
 
   test "deletes a branch" do
     project_id = "771432525f9836bbd50459.22958598"
-    branch_id = 86328
+    branch_id = 86_328
 
     delete_resp = %{
       project_id: project_id,

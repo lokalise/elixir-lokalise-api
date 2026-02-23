@@ -116,7 +116,7 @@ defmodule ElixirLokaliseApi.QueuedProcessesTest do
         type: "file-import",
         status: "finished",
         message: "",
-        created_by: 20181,
+        created_by: 20_181,
         created_by_email: "user@example.com",
         created_at: "2021-03-15 18:53:41 (Etc/UTC)",
         created_at_timestamp: 1_615_834_421,
@@ -153,7 +153,7 @@ defmodule ElixirLokaliseApi.QueuedProcessesTest do
     assert process.process_id == process_id
     assert process.status == "finished"
     assert process.message == ""
-    assert process.created_by == 20181
+    assert process.created_by == 20_181
     assert process.created_by_email == "user@example.com"
     assert process.created_at == "2021-03-15 18:53:41 (Etc/UTC)"
     assert process.created_at_timestamp == 1_615_834_421

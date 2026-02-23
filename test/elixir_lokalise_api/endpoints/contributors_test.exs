@@ -9,9 +9,10 @@ defmodule ElixirLokaliseApi.ContributorsTest do
   doctest Contributors
 
   @project_id "217830385f9c0fdbd589f0.91420183"
+  @user_id 72_008
 
   test "lists all contributors" do
-    contributors =
+    contributors_gen =
       for i <- 1..3 do
         %{
           user_id: 20_000 + i,
@@ -22,7 +23,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
 
     response = %{
       project_id: @project_id,
-      contributors: contributors
+      contributors: contributors_gen
     }
 
     ElixirLokaliseApi.HTTPClientMock
@@ -94,12 +95,10 @@ defmodule ElixirLokaliseApi.ContributorsTest do
   end
 
   test "finds a contributor" do
-    user_id = 72008
-
     contributor_response = %{
       project_id: @project_id,
       contributor: %{
-        user_id: user_id,
+        user_id: @user_id,
         email: "user@example.com",
         fullname: "Test User",
         created_at: "2024-01-01 00:00:00 (Etc/UTC)",
@@ -128,15 +127,15 @@ defmodule ElixirLokaliseApi.ContributorsTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method("/api2/projects/#{@project_id}/contributors/#{user_id}")
+      |> assert_path_method("/api2/projects/#{@project_id}/contributors/#{@user_id}")
 
       contributor_response
       |> ok()
     end)
 
-    {:ok, %ContributorModel{} = contributor} = Contributors.find(@project_id, 72008)
+    {:ok, %ContributorModel{} = contributor} = Contributors.find(@project_id, @user_id)
 
-    assert contributor.user_id == user_id
+    assert contributor.user_id == @user_id
     assert contributor.email == "user@example.com"
     assert contributor.fullname == "Test User"
     assert contributor.created_at == "2024-01-01 00:00:00 (Etc/UTC)"
@@ -230,8 +229,6 @@ defmodule ElixirLokaliseApi.ContributorsTest do
   end
 
   test "updates a contributor" do
-    user_id = 123
-
     data = %{
       is_reviewer: true
     }
@@ -239,7 +236,7 @@ defmodule ElixirLokaliseApi.ContributorsTest do
     contributor_response = %{
       project_id: @project_id,
       contributor: %{
-        user_id: user_id,
+        user_id: @user_id,
         email: "elixir_test@example.com",
         fullname: "Elixir Rocks",
         is_reviewer: true
@@ -249,22 +246,20 @@ defmodule ElixirLokaliseApi.ContributorsTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method("/api2/projects/#{@project_id}/contributors/#{user_id}", "PUT")
+      |> assert_path_method("/api2/projects/#{@project_id}/contributors/#{@user_id}", "PUT")
 
       req |> assert_json_body(data)
 
       contributor_response |> ok()
     end)
 
-    {:ok, %ContributorModel{} = contributor} = Contributors.update(@project_id, user_id, data)
+    {:ok, %ContributorModel{} = contributor} = Contributors.update(@project_id, @user_id, data)
 
-    assert contributor.user_id == user_id
+    assert contributor.user_id == @user_id
     assert contributor.is_reviewer
   end
 
   test "deletes a contributor" do
-    user_id = 97280
-
     resp = %{
       project_id: @project_id,
       contributor_deleted: true
@@ -273,12 +268,12 @@ defmodule ElixirLokaliseApi.ContributorsTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method("/api2/projects/#{@project_id}/contributors/#{user_id}", "DELETE")
+      |> assert_path_method("/api2/projects/#{@project_id}/contributors/#{@user_id}", "DELETE")
 
       resp |> ok()
     end)
 
-    {:ok, %{} = resp} = Contributors.delete(@project_id, user_id)
+    {:ok, %{} = resp} = Contributors.delete(@project_id, @user_id)
 
     assert resp.contributor_deleted
     assert resp.project_id == @project_id

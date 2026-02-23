@@ -10,7 +10,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
 
   @team_id 176_692
   @group_id 3991
-  @user_id 20181
+  @user_id 20_181
   @project_id "803826145ba90b42d5d860.46800099"
 
   test "lists all team user groups" do
@@ -20,7 +20,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
           group_id: 1000 + i,
           name: "Group #{i}",
           team_id: @team_id,
-          members: [30000 + i]
+          members: [30_000 + i]
         }
       end
 
@@ -54,7 +54,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
           name: "Group #{i}",
           team_id: @team_id,
           projects: [],
-          members: [30000 + i]
+          members: [30_000 + i]
         }
       end
 
@@ -123,7 +123,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
       created_at_timestamp: 1_604_507_356,
       team_id: @team_id,
       projects: [],
-      members: [30000],
+      members: [30_000],
       role_id: 5
     }
 
@@ -145,7 +145,7 @@ defmodule ElixirLokaliseApi.TeamUserGroupsTest do
     assert group.created_at_timestamp == 1_604_507_356
     assert group.team_id == @team_id
     assert group.projects == []
-    assert group.members == [30000]
+    assert group.members == [30_000]
     assert group.role_id == 5
   end
 

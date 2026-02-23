@@ -14,7 +14,7 @@ defmodule ElixirLokaliseApi.FilesTest do
   @project_id "803826145ba90b42d5d860.46800099"
 
   test "lists all files" do
-    files =
+    files_gen =
       [
         "%LANG_ISO%.yml",
         "file_1.json",
@@ -34,7 +34,7 @@ defmodule ElixirLokaliseApi.FilesTest do
     files_response = %{
       project_id: @project_id,
       branch: "master",
-      files: files
+      files: files_gen
     }
 
     ElixirLokaliseApi.HTTPClientMock
@@ -67,7 +67,7 @@ defmodule ElixirLokaliseApi.FilesTest do
   end
 
   test "lists all files with branch" do
-    files =
+    files_gen =
       [
         "%LANG_ISO%.yml",
         "file_1.json"
@@ -85,7 +85,7 @@ defmodule ElixirLokaliseApi.FilesTest do
     files_response = %{
       project_id: @project_id,
       branch: branch_name,
-      files: files
+      files: files_gen
     }
 
     ElixirLokaliseApi.HTTPClientMock
@@ -108,7 +108,7 @@ defmodule ElixirLokaliseApi.FilesTest do
   end
 
   test "lists paginated files" do
-    files =
+    files_gen =
       [
         "%LANG_ISO%.yml",
         "file_1.json",
@@ -125,7 +125,7 @@ defmodule ElixirLokaliseApi.FilesTest do
     files_response = %{
       project_id: @project_id,
       branch: "master",
-      files: files
+      files: files_gen
     }
 
     params = [page: 2, limit: 3]

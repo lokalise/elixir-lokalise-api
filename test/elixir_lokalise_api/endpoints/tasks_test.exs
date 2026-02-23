@@ -9,6 +9,7 @@ defmodule ElixirLokaliseApi.TasksTest do
   doctest Tasks
 
   @project_id "803826145ba90b42d5d860.46800099"
+  @task_id 18_493
 
   test "lists all tasks" do
     sample_tasks =
@@ -97,12 +98,10 @@ defmodule ElixirLokaliseApi.TasksTest do
   end
 
   test "finds a task" do
-    task_id = 18493
-
     response = %{
       project_id: @project_id,
       task: %{
-        task_id: task_id,
+        task_id: @task_id,
         title: "test",
         can_be_parent: false,
         task_type: "translation",
@@ -117,15 +116,15 @@ defmodule ElixirLokaliseApi.TasksTest do
         words_count: 145,
         created_at: "2019-07-11 15:56:27 (Etc/UTC)",
         created_at_timestamp: 1_562_860_587,
-        created_by: 20181,
+        created_by: 20_181,
         created_by_email: "user@example.com",
         source_language_iso: "en",
         languages: [
           %{
             language_iso: "sq",
             users: [
-              %{user_id: 20181, email: "user@example.com", fullname: "Ilya B"},
-              %{user_id: 34052, email: "user2@example.com", fullname: "Translator Demo"}
+              %{user_id: 20_181, email: "user@example.com", fullname: "Ilya B"},
+              %{user_id: 34_052, email: "user2@example.com", fullname: "Translator Demo"}
             ],
             groups: [],
             keys: [],
@@ -151,7 +150,7 @@ defmodule ElixirLokaliseApi.TasksTest do
         auto_close_task: true,
         completed_at: "2019-10-01 11:09:09 (Etc/UTC)",
         completed_at_timestamp: 1_569_928_149,
-        completed_by: 20181,
+        completed_by: 20_181,
         completed_by_email: "user@example.com",
         do_lock_translations: false,
         custom_translation_status_ids: []
@@ -161,15 +160,15 @@ defmodule ElixirLokaliseApi.TasksTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method("/api2/projects/#{@project_id}/tasks/#{task_id}")
+      |> assert_path_method("/api2/projects/#{@project_id}/tasks/#{@task_id}")
 
       response
       |> ok()
     end)
 
-    {:ok, %TaskModel{} = task} = Tasks.find(@project_id, task_id)
+    {:ok, %TaskModel{} = task} = Tasks.find(@project_id, @task_id)
 
-    assert task.task_id == task_id
+    assert task.task_id == @task_id
     assert task.title == "test"
     assert task.description == ""
     assert task.status == "completed"
@@ -180,7 +179,7 @@ defmodule ElixirLokaliseApi.TasksTest do
     assert task.words_count == 145
     assert task.created_at == "2019-07-11 15:56:27 (Etc/UTC)"
     assert task.created_at_timestamp == 1_562_860_587
-    assert task.created_by == 20181
+    assert task.created_by == 20_181
     assert task.created_by_email == "user@example.com"
     refute task.can_be_parent
     assert task.task_type == "translation"
@@ -194,7 +193,7 @@ defmodule ElixirLokaliseApi.TasksTest do
     assert task.auto_close_items
     assert task.completed_at == "2019-10-01 11:09:09 (Etc/UTC)"
     assert task.completed_at_timestamp == 1_569_928_149
-    assert task.completed_by == 20181
+    assert task.completed_by == 20_181
     assert task.completed_by_email == "user@example.com"
     assert task.custom_translation_status_ids == []
   end
@@ -206,7 +205,7 @@ defmodule ElixirLokaliseApi.TasksTest do
       languages: [
         %{
           language_iso: "sq",
-          users: [20181]
+          users: [20_181]
         }
       ]
     }
@@ -242,12 +241,10 @@ defmodule ElixirLokaliseApi.TasksTest do
       description: "sample"
     }
 
-    task_id = 272_547
-
     response = %{
       project_id: @project_id,
       task: %{
-        task_id: task_id,
+        task_id: @task_id,
         title: "Elixir updated",
         description: "sample",
         status: "completed"
@@ -257,7 +254,7 @@ defmodule ElixirLokaliseApi.TasksTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method("/api2/projects/#{@project_id}/tasks/#{task_id}", "PUT")
+      |> assert_path_method("/api2/projects/#{@project_id}/tasks/#{@task_id}", "PUT")
 
       req |> assert_json_body(data)
 
@@ -265,16 +262,14 @@ defmodule ElixirLokaliseApi.TasksTest do
       |> ok()
     end)
 
-    {:ok, %TaskModel{} = task} = Tasks.update(@project_id, task_id, data)
+    {:ok, %TaskModel{} = task} = Tasks.update(@project_id, @task_id, data)
 
-    assert task.task_id == task_id
+    assert task.task_id == @task_id
     assert task.title == "Elixir updated"
     assert task.description == "sample"
   end
 
   test "deletes a task" do
-    task_id = 18493
-
     response = %{
       project_id: @project_id,
       task_deleted: true
@@ -283,13 +278,13 @@ defmodule ElixirLokaliseApi.TasksTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method("/api2/projects/#{@project_id}/tasks/#{task_id}", "DELETE")
+      |> assert_path_method("/api2/projects/#{@project_id}/tasks/#{@task_id}", "DELETE")
 
       response
       |> ok()
     end)
 
-    {:ok, %{} = resp} = Tasks.delete(@project_id, task_id)
+    {:ok, %{} = resp} = Tasks.delete(@project_id, @task_id)
 
     assert resp.task_deleted
     assert resp.project_id == @project_id

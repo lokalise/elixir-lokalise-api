@@ -55,6 +55,19 @@ defmodule ElixirLokaliseApi.Request do
     end
   end
 
+  @doc false
+  def maybe_add_json_content_type(headers, body)
+      when is_binary(body) and byte_size(body) > 0 do
+    if Enum.any?(headers, fn {k, _} -> String.downcase(k) == "content-type" end) do
+      headers
+    else
+      [{"content-type", "application/json"} | headers]
+    end
+  end
+
+  @doc false
+  def maybe_add_json_content_type(headers, _body), do: headers
+
   defp http_client do
     Application.fetch_env!(:elixir_lokalise_api, :http_client)
   end
@@ -102,17 +115,6 @@ defmodule ElixirLokaliseApi.Request do
       {"user-agent", "elixir-lokalise-api package/#{Config.version()}"}
     ]
   end
-
-  defp maybe_add_json_content_type(headers, body)
-       when is_binary(body) and byte_size(body) > 0 do
-    if Enum.any?(headers, fn {k, _} -> String.downcase(k) == "content-type" end) do
-      headers
-    else
-      [{"content-type", "application/json"} | headers]
-    end
-  end
-
-  defp maybe_add_json_content_type(headers, _body), do: headers
 
   defp prepare_opts(opts), do: Keyword.merge(@defaults, opts)
 end
