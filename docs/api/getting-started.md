@@ -9,7 +9,7 @@ Add package to the `mix.exs` file:
 ```elixir
 def deps do
   [
-    {:elixir_lokalise_api}
+    {:elixir_lokalise_api, "~> 4.0"}
   ]
 end
 ```

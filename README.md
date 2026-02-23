@@ -17,7 +17,7 @@ Add a new dependency to `mix.exs`:
 ```elixir
 def deps do
   [
-    {:elixir_lokalise_api, "~> 3.3"}
+    {:elixir_lokalise_api, "~> 4.0"}
   ]
 end
 ```
