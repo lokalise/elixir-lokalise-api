@@ -27,8 +27,15 @@ defmodule ElixirLokaliseApi.TestHTTP do
   end
 
   def assert_json_body(req, expected) do
-    decoded = req.body |> Jason.decode!(keys: :atoms)
-    assert(decoded == expected)
+    case req.body do
+      "" ->
+        assert expected == ""
+        assert req.body == ""
+
+      body ->
+        decoded = Jason.decode!(body, keys: :atoms)
+        assert decoded == expected
+    end
   end
 
   def assert_path_method(req, path, method \\ "GET") do
