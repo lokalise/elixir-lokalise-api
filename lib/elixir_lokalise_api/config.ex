@@ -32,6 +32,13 @@ defmodule ElixirLokaliseApi.Config do
   """
   def oauth2_client_secret, do: from_env(:oauth2_client_secret)
 
+  @doc """
+  Returns the HTTP client module used to perform requests.
+
+  Defaults to `ElixirLokaliseApi.HTTPClient.FinchImpl` if not configured.
+  """
+  def http_client, do: from_env(:http_client, ElixirLokaliseApi.HTTPClient.FinchImpl)
+
   def request_options, do: from_env(:request_options, Keyword.new())
 
   @doc """

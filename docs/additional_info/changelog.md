@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 4.1.0 (01-Mar-2026)
+
+* Fixed serious bug when the HTTP client cannot be found
+
 ## 4.0.0 (23-Feb-2026)
 
 * **Potential breaking change**. We now use [Finch](https://hexdocs.pm/finch/Finch.html) to send HTTP requests instead of `HTTPoison`. Therefore, if you're customizing request options for this SDK via `:request_options` in the `config.exs`, make sure these are supported by Finch.

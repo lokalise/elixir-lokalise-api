@@ -34,7 +34,8 @@ defmodule ElixirLokaliseApi.Request do
 
     request = Finch.build(verb, url, headers, body)
 
-    with {:ok, response} <- http_client().request(request, @finch, Config.request_options()),
+    with {:ok, response} <-
+           Config.http_client().request(request, @finch, Config.request_options()),
          {:ok, parsed} <- Processor.parse(response, module, opts[:type]) do
       {:ok, parsed}
     else
@@ -67,10 +68,6 @@ defmodule ElixirLokaliseApi.Request do
 
   @doc false
   def maybe_add_json_content_type(headers, _body), do: headers
-
-  defp http_client do
-    Application.fetch_env!(:elixir_lokalise_api, :http_client)
-  end
 
   # -------------------------
   # Query params
