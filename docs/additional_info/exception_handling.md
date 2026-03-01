@@ -14,39 +14,6 @@ All API errors are returned in a 2-tuple form:
 
 The shape of reason depends on the type of failure.
 
-### API errors (HTTP 4xx/5xx)
-
-Returned when the Lokalise API responds with an error:
-
-```elixir
-{:error, {%{"error" => message}, status_code}}
-```
-
-Example:
-
-```elixir
-{:error, {%{"error" => "Unauthorized"}, 401}}
-```
-
-### Transport / network errors
-
-Returned when the request fails before reaching the API (Finch/Mint errors):
-
-```elixir
-{:error, :timeout}
-{:error, :nxdomain}
-{:error, :closed}
-{:error, "TLS handshake failure"}
-```
-
-### Generic catch-all
-
-Any unexpected error shape is returned as:
-
-```elixir
-{:error, other}
-```
-
 ### Sample handling pattern
 
 ```elixir
@@ -54,12 +21,11 @@ case ElixirLokaliseApi.Projects.find(project_id) do
   {:ok, data} ->
     IO.inspect(data)
 
-  # API error with body and status
-  {:error, {err_map, status}} ->
+  {:error, error_tuple} when is_tuple(error_tuple) ->
+    {err_map, status} = error_tuple
     IO.inspect(err_map)
     IO.inspect(status)
 
-  # Transport-level error (atom or string)
   {:error, reason} ->
     IO.inspect(reason)
 end
