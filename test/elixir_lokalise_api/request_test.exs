@@ -85,7 +85,6 @@ defmodule ElixirLokaliseApi.RequestTest do
 
     result = Request.maybe_add_json_content_type(headers, body)
 
-    # ничего не добавили, список остался тем же
     assert result == headers
   end
 
@@ -98,7 +97,6 @@ defmodule ElixirLokaliseApi.RequestTest do
 
     result = Request.maybe_add_json_content_type(headers, body)
 
-    # новый хедер должен быть добавлен
     assert [{"content-type", "application/json"} | headers] == result
   end
 

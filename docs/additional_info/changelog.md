@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 4.1.1 (01-Mar-2026)
+
+* Better error handling for missing token
+
 ## 4.1.0 (01-Mar-2026)
 
 * Fixed serious bug when the HTTP client cannot be found

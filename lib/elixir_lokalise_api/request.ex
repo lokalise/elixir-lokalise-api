@@ -102,7 +102,14 @@ defmodule ElixirLokaliseApi.Request do
         [{"authorization", "Bearer #{token}"} | base]
 
       _ ->
-        [{"x-api-token", Config.api_token()} | base]
+        api_token = Config.api_token()
+
+        if is_binary(api_token) and byte_size(api_token) > 0 do
+          [{"x-api-token", api_token} | base]
+        else
+          raise ArgumentError,
+                "Missing Lokalise API token: configure :api_token or :oauth2_token in :elixir_lokalise_api"
+        end
     end
   end
 
