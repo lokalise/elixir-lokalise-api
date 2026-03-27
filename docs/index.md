@@ -13,6 +13,8 @@ def deps do
 end
 ```
 
+> If you're looking for an easy solution to exchange translation files between your Elixir project and Lokalise, try [ex_lokalise_transfer](https://github.com/bodrovis/ex_lokalise_transfer).
+
 Obtain Lokalise API token in your personal profile and put it into `config.exs`:
 
 ```elixir

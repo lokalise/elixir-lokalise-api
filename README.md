@@ -10,6 +10,8 @@
 
 Official Elixir interface for Lokalise APIv2.
 
+> If you're looking for an easy solution to exchange translation files between your Elixir project and Lokalise, try [ex_lokalise_transfer](https://github.com/bodrovis/ex_lokalise_transfer).
+
 ## Quickstart
 
 Add a new dependency to `mix.exs`:
