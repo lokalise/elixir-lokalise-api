@@ -3,11 +3,11 @@ defmodule ElixirLokaliseApi.FilesTest do
 
   import ExUnit.CaptureIO
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.Files
-  alias ElixirLokaliseApi.QueuedProcesses
   alias ElixirLokaliseApi.Collection.Files, as: FilesCollection
+  alias ElixirLokaliseApi.Files
   alias ElixirLokaliseApi.Model.QueuedProcess, as: ProcessModel
+  alias ElixirLokaliseApi.Pagination
+  alias ElixirLokaliseApi.QueuedProcesses
 
   doctest Files
 

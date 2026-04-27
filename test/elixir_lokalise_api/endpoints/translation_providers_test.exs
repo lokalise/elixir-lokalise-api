@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.TranslationProvidersTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.TranslationProviders, as: TranslationProvidersCollection
+  alias ElixirLokaliseApi.Model.TranslationProvider, as: TranslationProviderModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.TranslationProviders
-  alias ElixirLokaliseApi.Model.TranslationProvider, as: TranslationProviderModel
-  alias ElixirLokaliseApi.Collection.TranslationProviders, as: TranslationProvidersCollection
 
   doctest TranslationProviders
 

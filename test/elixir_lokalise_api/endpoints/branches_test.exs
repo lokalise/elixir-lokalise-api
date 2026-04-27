@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.BranchesTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Branches
-  alias ElixirLokaliseApi.Model.Branch, as: BranchModel
   alias ElixirLokaliseApi.Collection.Branches, as: BranchesCollection
+  alias ElixirLokaliseApi.Model.Branch, as: BranchModel
+  alias ElixirLokaliseApi.Pagination
 
   doctest Branches
 

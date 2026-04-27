@@ -1,8 +1,8 @@
 defmodule ElixirLokaliseApi.PermissionTemplatesTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.PermissionTemplates
   alias ElixirLokaliseApi.Collection.PermissionTemplates, as: PermissionTemplatesCollection
+  alias ElixirLokaliseApi.PermissionTemplates
 
   doctest PermissionTemplates
 

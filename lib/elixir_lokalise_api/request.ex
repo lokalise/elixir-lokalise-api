@@ -57,8 +57,7 @@ defmodule ElixirLokaliseApi.Request do
   end
 
   @doc false
-  def maybe_add_json_content_type(headers, body)
-      when is_binary(body) and byte_size(body) > 0 do
+  def maybe_add_json_content_type(headers, body) when is_binary(body) and byte_size(body) > 0 do
     if Enum.any?(headers, fn {k, _} -> String.downcase(k) == "content-type" end) do
       headers
     else

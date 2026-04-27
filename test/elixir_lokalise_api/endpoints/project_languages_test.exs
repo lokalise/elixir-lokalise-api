@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.ProjectLanguagesTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Languages, as: LanguagesCollection
+  alias ElixirLokaliseApi.Model.Language, as: LanguageModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.ProjectLanguages
-  alias ElixirLokaliseApi.Model.Language, as: LanguageModel
-  alias ElixirLokaliseApi.Collection.Languages, as: LanguagesCollection
 
   doctest ProjectLanguages
 
@@ -44,7 +44,7 @@ defmodule ElixirLokaliseApi.ProjectLanguagesTest do
       ProjectLanguages.all(@project_id)
 
     assert Enum.count(languages.items) == 2
-    language = languages.items |> hd
+    language = languages.items |> hd()
     assert language.lang_iso == "en"
   end
 
@@ -103,7 +103,7 @@ defmodule ElixirLokaliseApi.ProjectLanguagesTest do
     refute languages |> Pagination.next_page?()
     assert languages |> Pagination.prev_page?()
 
-    language = languages.items |> hd
+    language = languages.items |> hd()
     assert language.lang_iso == "en"
   end
 
@@ -187,7 +187,7 @@ defmodule ElixirLokaliseApi.ProjectLanguagesTest do
     {:ok, %LanguagesCollection{} = languages} = ProjectLanguages.create(@project_id, data)
 
     assert Enum.count(languages.items) == 1
-    lang = languages.items |> hd
+    lang = languages.items |> hd()
 
     assert lang.lang_iso == "nl"
     assert lang.lang_name == "Dutch"

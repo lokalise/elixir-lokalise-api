@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.TranslationStatusesTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.TranslationStatuses
   alias ElixirLokaliseApi.Collection.TranslationStatuses, as: TranslationStatusesCollection
   alias ElixirLokaliseApi.Model.TranslationStatus, as: TranslationStatusModel
+  alias ElixirLokaliseApi.Pagination
+  alias ElixirLokaliseApi.TranslationStatuses
 
   doctest TranslationStatuses
 
@@ -117,9 +117,7 @@ defmodule ElixirLokaliseApi.TranslationStatusesTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method(
-        "/api2/projects/#{@project_id}/custom_translation_statuses/#{@status_id}"
-      )
+      |> assert_path_method("/api2/projects/#{@project_id}/custom_translation_statuses/#{@status_id}")
 
       response
       |> ok()

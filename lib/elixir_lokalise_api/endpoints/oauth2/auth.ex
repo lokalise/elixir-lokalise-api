@@ -3,15 +3,17 @@ defmodule ElixirLokaliseApi.OAuth2.Auth do
   OAuth 2 authentication endpoint.
   """
 
+  use ElixirLokaliseApi.DynamicResource
+
+  alias ElixirLokaliseApi.Config
+  alias ElixirLokaliseApi.Model.OAuth2.Token
+
   @endpoint "token"
-  @model ElixirLokaliseApi.Model.OAuth2.Token
+  @model Token
   @collection nil
   @data_key nil
   @parent_key nil
   @singular_data_key nil
-
-  alias ElixirLokaliseApi.Config
-  use ElixirLokaliseApi.DynamicResource
 
   @doc """
   Generates an authentication URL to obtain

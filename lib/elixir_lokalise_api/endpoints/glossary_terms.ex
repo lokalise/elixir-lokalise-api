@@ -2,14 +2,6 @@ defmodule ElixirLokaliseApi.GlossaryTerms do
   @moduledoc """
   GlossaryTerms endpoint.
   """
-  @model ElixirLokaliseApi.Model.GlossaryTerm
-  @collection ElixirLokaliseApi.Collection.GlossaryTerms
-  @endpoint "projects/{!:project_id}/glossary-terms/{:term_id}"
-  @data_key :data
-  @singular_data_key :data
-  @parent_key :project_id
-  @item_key :term_id
-
   use ElixirLokaliseApi.DynamicResource,
     import: [
       :item_reader,
@@ -18,6 +10,17 @@ defmodule ElixirLokaliseApi.GlossaryTerms do
       :update2_bulk,
       :delete2_bulk
     ]
+
+  alias ElixirLokaliseApi.Collection.GlossaryTerms
+  alias ElixirLokaliseApi.Model.GlossaryTerm
+
+  @model GlossaryTerm
+  @collection GlossaryTerms
+  @endpoint "projects/{!:project_id}/glossary-terms/{:term_id}"
+  @data_key :data
+  @singular_data_key :data
+  @parent_key :project_id
+  @item_key :term_id
 
   def find(parent_id, item_id) do
     make_request(:get,

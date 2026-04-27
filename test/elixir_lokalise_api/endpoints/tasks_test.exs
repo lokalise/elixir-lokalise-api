@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.TasksTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Tasks, as: TasksCollection
+  alias ElixirLokaliseApi.Model.Task, as: TaskModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Tasks
-  alias ElixirLokaliseApi.Model.Task, as: TaskModel
-  alias ElixirLokaliseApi.Collection.Tasks, as: TasksCollection
 
   doctest Tasks
 

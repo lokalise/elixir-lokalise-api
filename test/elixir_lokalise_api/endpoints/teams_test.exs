@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.TeamsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.Teams
   alias ElixirLokaliseApi.Collection.Teams, as: TeamsCollection
   alias ElixirLokaliseApi.Model.Team, as: TeamModel
+  alias ElixirLokaliseApi.Pagination
+  alias ElixirLokaliseApi.Teams
 
   doctest Teams
 

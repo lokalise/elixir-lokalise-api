@@ -5,8 +5,9 @@ Mox.defmock(ElixirLokaliseApi.HTTPClientMock,
 )
 
 defmodule ElixirLokaliseApi.TestHTTP do
-  require ExUnit.Assertions
   import ExUnit.Assertions
+
+  require ExUnit.Assertions
 
   def ok(body, headers \\ []) do
     {:ok,
@@ -49,7 +50,7 @@ defmodule ElixirLokaliseApi.TestHTTP do
 
     expected =
       expected_params
-      |> Enum.into(%{}, fn {k, v} ->
+      |> Map.new(fn {k, v} ->
         {to_string(k), to_string(v)}
       end)
 
@@ -75,8 +76,8 @@ defmodule ElixirLokaliseApi.Case do
     quote do
       use ExUnit.Case, unquote(opts)
 
-      import Mox
       import ElixirLokaliseApi.TestHTTP
+      import Mox
 
       setup :set_mox_from_context
       setup :verify_on_exit!

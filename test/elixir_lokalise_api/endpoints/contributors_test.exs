@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.ContributorsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
+  alias ElixirLokaliseApi.Collection.Contributors, as: ContributorsCollection
   alias ElixirLokaliseApi.Contributors
   alias ElixirLokaliseApi.Model.Contributor, as: ContributorModel
-  alias ElixirLokaliseApi.Collection.Contributors, as: ContributorsCollection
+  alias ElixirLokaliseApi.Pagination
 
   doctest Contributors
 

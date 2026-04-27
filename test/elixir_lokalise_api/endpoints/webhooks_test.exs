@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.WebhooksTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.Webhooks
   alias ElixirLokaliseApi.Collection.Webhooks, as: WebhooksCollection
   alias ElixirLokaliseApi.Model.Webhook, as: WebhookModel
+  alias ElixirLokaliseApi.Pagination
+  alias ElixirLokaliseApi.Webhooks
 
   doctest Webhooks
 

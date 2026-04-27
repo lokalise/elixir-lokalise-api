@@ -5,6 +5,8 @@ defmodule ElixirLokaliseApi.Config do
   values from environment variables at runtime.
   """
 
+  alias ElixirLokaliseApi.HTTPClient.FinchImpl
+
   @doc """
   Returns Lokalise APIv2 token. Set it inside your `mix.exs`:
       config :elixir_lokalise_api, api_token: "YOUR_API_TOKEN"
@@ -37,7 +39,7 @@ defmodule ElixirLokaliseApi.Config do
 
   Defaults to `ElixirLokaliseApi.HTTPClient.FinchImpl` if not configured.
   """
-  def http_client, do: from_env(:http_client, ElixirLokaliseApi.HTTPClient.FinchImpl)
+  def http_client, do: from_env(:http_client, FinchImpl)
 
   def request_options, do: from_env(:request_options, Keyword.new())
 

@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.OrdersTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.Orders
-  alias ElixirLokaliseApi.Model.Order, as: OrderModel
   alias ElixirLokaliseApi.Collection.Orders, as: OrdersCollection
+  alias ElixirLokaliseApi.Model.Order, as: OrderModel
+  alias ElixirLokaliseApi.Orders
+  alias ElixirLokaliseApi.Pagination
 
   doctest Orders
 

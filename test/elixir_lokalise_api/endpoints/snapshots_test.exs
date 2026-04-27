@@ -1,11 +1,11 @@
 defmodule ElixirLokaliseApi.SnapshotsTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Snapshots, as: SnapshotsCollection
+  alias ElixirLokaliseApi.Model.Project, as: ProjectModel
+  alias ElixirLokaliseApi.Model.Snapshot, as: SnapshotModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Snapshots
-  alias ElixirLokaliseApi.Collection.Snapshots, as: SnapshotsCollection
-  alias ElixirLokaliseApi.Model.Snapshot, as: SnapshotModel
-  alias ElixirLokaliseApi.Model.Project, as: ProjectModel
 
   doctest Snapshots
 

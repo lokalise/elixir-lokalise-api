@@ -1,9 +1,9 @@
 defmodule ElixirLokaliseApi.SystemLanguagesTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Languages, as: LanguagesCollection
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.SystemLanguages
-  alias ElixirLokaliseApi.Collection.Languages, as: LanguagesCollection
 
   doctest SystemLanguages
 

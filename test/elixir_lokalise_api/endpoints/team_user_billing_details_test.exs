@@ -1,8 +1,8 @@
 defmodule ElixirLokaliseApi.TeamUserBillingDetailsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.TeamUserBillingDetails
   alias ElixirLokaliseApi.Model.TeamUserBillingDetails, as: DetailsModel
+  alias ElixirLokaliseApi.TeamUserBillingDetails
 
   doctest TeamUserBillingDetails
 

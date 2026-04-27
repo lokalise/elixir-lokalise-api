@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.ProjectsTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Projects, as: ProjectsCollection
+  alias ElixirLokaliseApi.Model.Project, as: ProjectModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Projects
-  alias ElixirLokaliseApi.Model.Project, as: ProjectModel
-  alias ElixirLokaliseApi.Collection.Projects, as: ProjectsCollection
 
   doctest Projects
 
@@ -185,7 +185,7 @@ defmodule ElixirLokaliseApi.ProjectsTest do
 
       req |> assert_json_body(project_data)
 
-      Map.merge(project_data, %{project_id: project_id}) |> ok()
+      Map.put(project_data, :project_id, project_id) |> ok()
     end)
 
     {:ok, %ProjectModel{} = project} = Projects.update(project_id, project_data)

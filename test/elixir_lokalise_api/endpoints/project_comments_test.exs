@@ -1,9 +1,9 @@
 defmodule ElixirLokaliseApi.ProjectCommentsTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Comments, as: CommentCollection
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.ProjectComments
-  alias ElixirLokaliseApi.Collection.Comments, as: CommentCollection
 
   doctest ProjectComments
 

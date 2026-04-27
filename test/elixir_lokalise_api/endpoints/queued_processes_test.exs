@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.QueuedProcessesTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.QueuedProcesses, as: QueuedProcessesCollection
+  alias ElixirLokaliseApi.Model.QueuedProcess, as: QueuedProcessModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.QueuedProcesses
-  alias ElixirLokaliseApi.Model.QueuedProcess, as: QueuedProcessModel
-  alias ElixirLokaliseApi.Collection.QueuedProcesses, as: QueuedProcessesCollection
 
   doctest QueuedProcesses
 
@@ -158,7 +158,7 @@ defmodule ElixirLokaliseApi.QueuedProcessesTest do
     assert process.created_at == "2021-03-15 18:53:41 (Etc/UTC)"
     assert process.created_at_timestamp == 1_615_834_421
 
-    file_info = process.details.files |> hd
+    file_info = process.details.files |> hd()
     assert file_info.status == "finished"
   end
 end

@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.KeyCommentsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.KeyComments
   alias ElixirLokaliseApi.Collection.Comments, as: CommentCollection
+  alias ElixirLokaliseApi.KeyComments
   alias ElixirLokaliseApi.Model.Comment, as: CommentModel
+  alias ElixirLokaliseApi.Pagination
 
   doctest KeyComments
 
@@ -125,9 +125,7 @@ defmodule ElixirLokaliseApi.KeyCommentsTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method(
-        "/api2/projects/#{@project_id}/keys/#{@key_id}/comments/#{comment_id}"
-      )
+      |> assert_path_method("/api2/projects/#{@project_id}/keys/#{@key_id}/comments/#{comment_id}")
 
       response
       |> ok()

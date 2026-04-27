@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.PaymentCardsTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.PaymentCards, as: PaymentCardsCollection
+  alias ElixirLokaliseApi.Model.PaymentCard, as: PaymentCardModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.PaymentCards
-  alias ElixirLokaliseApi.Model.PaymentCard, as: PaymentCardModel
-  alias ElixirLokaliseApi.Collection.PaymentCards, as: PaymentCardsCollection
 
   doctest PaymentCards
 

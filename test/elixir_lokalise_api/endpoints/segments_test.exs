@@ -1,9 +1,9 @@
 defmodule ElixirLokaliseApi.SegmentsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Segments
-  alias ElixirLokaliseApi.Model.Segment, as: SegmentModel
   alias ElixirLokaliseApi.Collection.Segments, as: SegmentsCollection
+  alias ElixirLokaliseApi.Model.Segment, as: SegmentModel
+  alias ElixirLokaliseApi.Segments
 
   doctest Segments
 
@@ -45,9 +45,7 @@ defmodule ElixirLokaliseApi.SegmentsTest do
     ElixirLokaliseApi.HTTPClientMock
     |> expect(:request, fn req, _finch_name, _opts ->
       req
-      |> assert_path_method(
-        "/api2/projects/#{@project_id}/keys/#{@key_id}/segments/#{@lang_iso}/#{segment_number}"
-      )
+      |> assert_path_method("/api2/projects/#{@project_id}/keys/#{@key_id}/segments/#{@lang_iso}/#{segment_number}")
 
       req
       |> assert_get_params(params)
@@ -71,7 +69,7 @@ defmodule ElixirLokaliseApi.SegmentsTest do
     assert segment.reviewed_by == 0
     assert segment.words == 6
 
-    status = segment.custom_translation_statuses |> hd
+    status = segment.custom_translation_statuses |> hd()
     assert status.title == "context"
   end
 

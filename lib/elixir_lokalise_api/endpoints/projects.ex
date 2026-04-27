@@ -2,14 +2,17 @@ defmodule ElixirLokaliseApi.Projects do
   @moduledoc """
   Projects endpoint.
   """
-  @model ElixirLokaliseApi.Model.Project
-  @collection ElixirLokaliseApi.Collection.Projects
+  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update2]
+
+  alias ElixirLokaliseApi.Collection.Projects
+  alias ElixirLokaliseApi.Model.Project
+
+  @model Project
+  @collection Projects
   @endpoint "projects/{:project_id}/{:_postfix}"
   @data_key :projects
   @singular_data_key nil
   @parent_key :project_id
-
-  use ElixirLokaliseApi.DynamicResource, import: [:find, :all, :create, :delete, :update2]
 
   @doc """
   Empties a given project by removing all translation keys and values.

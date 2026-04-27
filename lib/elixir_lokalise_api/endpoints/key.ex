@@ -2,14 +2,6 @@ defmodule ElixirLokaliseApi.Keys do
   @moduledoc """
   Keys endpoint.
   """
-  @model ElixirLokaliseApi.Model.Key
-  @collection ElixirLokaliseApi.Collection.Keys
-  @endpoint "projects/{!:project_id}/keys/{:key_id}"
-  @data_key :keys
-  @singular_data_key :key
-  @parent_key :project_id
-  @item_key :key_id
-
   use ElixirLokaliseApi.DynamicResource,
     import: [
       :item_reader,
@@ -21,4 +13,15 @@ defmodule ElixirLokaliseApi.Keys do
       :update2_bulk,
       :delete2_bulk
     ]
+
+  alias ElixirLokaliseApi.Collection.Keys
+  alias ElixirLokaliseApi.Model.Key
+
+  @model Key
+  @collection Keys
+  @endpoint "projects/{!:project_id}/keys/{:key_id}"
+  @data_key :keys
+  @singular_data_key :key
+  @parent_key :project_id
+  @item_key :key_id
 end

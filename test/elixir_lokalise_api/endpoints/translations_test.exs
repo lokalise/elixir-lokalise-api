@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.TranslationsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.Translations
   alias ElixirLokaliseApi.Collection.Translations, as: TranslationsCollection
   alias ElixirLokaliseApi.Model.Translation, as: TranslationModel
+  alias ElixirLokaliseApi.Pagination
+  alias ElixirLokaliseApi.Translations
 
   doctest Translations
 

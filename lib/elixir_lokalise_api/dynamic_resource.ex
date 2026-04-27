@@ -18,7 +18,21 @@ defmodule ElixirLokaliseApi.DynamicResource do
     # coveralls-ignore-stop
 
     quote bind_quoted: [import_functions: import_functions] do
+      @dynamic_resource_import_functions import_functions
+      @before_compile ElixirLokaliseApi.DynamicResource
+    end
+  end
+
+  defmacro __before_compile__(env) do
+    import_functions =
+      Module.get_attribute(env.module, :dynamic_resource_import_functions) || []
+
+    quote bind_quoted: [import_functions: import_functions] do
       alias ElixirLokaliseApi.Request
+
+      # -------------------------
+      # Core attributes accessors
+      # -------------------------
 
       @doc false
       def model, do: @model
@@ -38,11 +52,15 @@ defmodule ElixirLokaliseApi.DynamicResource do
       @doc false
       def endpoint, do: @endpoint
 
-      defp make_params(main, other \\ []),
-        do: [url_params: apply(__MODULE__, :url_params, main)] ++ other
+      # -------------------------
+      # URL params
+      # -------------------------
+
+      defp make_params(main, other \\ []), do: [url_params: apply(__MODULE__, :url_params, main)] ++ other
 
       @doc false
       def url_params, do: []
+
       @doc false
       def url_params(p_id), do: [{parent_key(), p_id}]
 
@@ -75,9 +93,12 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def child_key, do: @child_key
 
         @doc false
-        def url_params(p_id, i_id, s_id, c_id),
-          do: url_params(p_id, i_id, s_id) ++ [{child_key(), c_id}]
+        def url_params(p_id, i_id, s_id, c_id), do: url_params(p_id, i_id, s_id) ++ [{child_key(), c_id}]
       end
+
+      # -------------------------
+      # READ
+      # -------------------------
 
       if :find in import_functions do
         @doc """
@@ -90,8 +111,7 @@ defmodule ElixirLokaliseApi.DynamicResource do
         @doc """
         Finds an item under the given endpoint.
         """
-        def find(parent_id, item_id, params \\ []),
-          do: do_get([parent_id, item_id], query_params: params)
+        def find(parent_id, item_id, params \\ []), do: do_get([parent_id, item_id], query_params: params)
       end
 
       if :find3 in import_functions do
@@ -127,8 +147,7 @@ defmodule ElixirLokaliseApi.DynamicResource do
         @doc """
         Finds a collection of items under the given endpoint.
         """
-        def all(parent_id, item_id, params \\ []),
-          do: do_get([parent_id, item_id], query_params: params)
+        def all(parent_id, item_id, params \\ []), do: do_get([parent_id, item_id], query_params: params)
       end
 
       if :all4 in import_functions do
@@ -138,6 +157,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def all(parent_id, item_id, subitem_id, params \\ []),
           do: do_get([parent_id, item_id, subitem_id], query_params: params)
       end
+
+      # -------------------------
+      # CREATE
+      # -------------------------
 
       if :create in import_functions do
         @doc """
@@ -159,6 +182,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
         """
         def create(parent_id, item_id, data), do: do_create([parent_id, item_id], data: data)
       end
+
+      # -------------------------
+      # UPDATE
+      # -------------------------
 
       if :update2 in import_functions do
         @doc """
@@ -185,8 +212,7 @@ defmodule ElixirLokaliseApi.DynamicResource do
         @doc """
         Updates an item under the given endpoint.
         """
-        def update(parent_id, item_id, subitem_key, data),
-          do: do_update([parent_id, item_id, subitem_key], data: data)
+        def update(parent_id, item_id, subitem_key, data), do: do_update([parent_id, item_id, subitem_key], data: data)
       end
 
       if :update5 in import_functions do
@@ -196,6 +222,10 @@ defmodule ElixirLokaliseApi.DynamicResource do
         def update(parent_id, item_id, subitem_key, child_key, data),
           do: do_update([parent_id, item_id, subitem_key, child_key], data: data)
       end
+
+      # -------------------------
+      # DELETE
+      # -------------------------
 
       if :delete in import_functions do
         @doc """
@@ -222,9 +252,12 @@ defmodule ElixirLokaliseApi.DynamicResource do
         @doc """
         Deletes an item under the given endpoint.
         """
-        def delete(parent_id, item_id, subitem_id),
-          do: do_delete([parent_id, item_id, subitem_id])
+        def delete(parent_id, item_id, subitem_id), do: do_delete([parent_id, item_id, subitem_id])
       end
+
+      # -------------------------
+      # INTERNAL REQUEST HELPERS
+      # -------------------------
 
       defp do_get(params, other_params \\ []), do: make_request(:get, params, other_params)
 
@@ -232,8 +265,7 @@ defmodule ElixirLokaliseApi.DynamicResource do
 
       defp do_update(params, other_params \\ []), do: make_request(:put, params, other_params)
 
-      defp do_delete(params, other_params \\ []),
-        do: make_request(:delete, params, other_params ++ [type: :raw])
+      defp do_delete(params, other_params \\ []), do: make_request(:delete, params, other_params ++ [type: :raw])
 
       defp make_request(verb, params), do: Request.do_request(verb, __MODULE__, params)
 

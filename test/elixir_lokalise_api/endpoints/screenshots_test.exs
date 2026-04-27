@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.ScreenshotsTest do
   use ElixirLokaliseApi.Case, async: true
 
+  alias ElixirLokaliseApi.Collection.Screenshots, as: ScreenshotsCollection
+  alias ElixirLokaliseApi.Model.Screenshot, as: ScreenshotModel
   alias ElixirLokaliseApi.Pagination
   alias ElixirLokaliseApi.Screenshots
-  alias ElixirLokaliseApi.Model.Screenshot, as: ScreenshotModel
-  alias ElixirLokaliseApi.Collection.Screenshots, as: ScreenshotsCollection
 
   doctest Screenshots
 
@@ -113,8 +113,7 @@ defmodule ElixirLokaliseApi.ScreenshotsTest do
     data = %{
       screenshots: [
         %{
-          data:
-            "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+X2NDNwAAAABJRU5ErkJggg==",
+          data: "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIW2P4//8/AwAI/AL+X2NDNwAAAABJRU5ErkJggg==",
           title: "Shot 1"
         }
       ]

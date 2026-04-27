@@ -2,15 +2,18 @@ defmodule ElixirLokaliseApi.KeyComments do
   @moduledoc """
   Key comments endpoint.
   """
-  @model ElixirLokaliseApi.Model.Comment
-  @collection ElixirLokaliseApi.Collection.Comments
+  use ElixirLokaliseApi.DynamicResource,
+    import: [:item_reader, :subitem_reader, :find3, :all3, :create3, :delete3]
+
+  alias ElixirLokaliseApi.Collection.Comments
+  alias ElixirLokaliseApi.Model.Comment
+
+  @model Comment
+  @collection Comments
   @endpoint "projects/{!:project_id}/keys/{!:key_id}/comments/{:comment_id}"
   @data_key :comments
   @singular_data_key :comment
   @parent_key :project_id
   @item_key :key_id
   @subitem_key :comment_id
-
-  use ElixirLokaliseApi.DynamicResource,
-    import: [:item_reader, :subitem_reader, :find3, :all3, :create3, :delete3]
 end

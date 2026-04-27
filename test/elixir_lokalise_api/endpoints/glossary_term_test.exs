@@ -1,8 +1,8 @@
 defmodule ElixirLokaliseApi.GlossaryTermsTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.GlossaryTerms
   alias ElixirLokaliseApi.Collection.GlossaryTerms, as: GlossaryTermsCollection
+  alias ElixirLokaliseApi.GlossaryTerms
   alias ElixirLokaliseApi.Model.GlossaryTerm, as: GlossaryTermModel
 
   doctest GlossaryTerms
@@ -258,7 +258,7 @@ defmodule ElixirLokaliseApi.GlossaryTermsTest do
       tags: Keyword.get(opts, :tags, []),
       projectId: @project_id,
       createdAt: Keyword.get(opts, :created_at, "2024-01-01 00:00:00 (Etc/UTC)"),
-      updatedAt: Keyword.get(opts, :updated_at, nil)
+      updatedAt: Keyword.get(opts, :updated_at)
     }
   end
 end

@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.OAuth2.AuthTest do
   use ElixirLokaliseApi.Case, async: false
 
-  alias ElixirLokaliseApi.OAuth2.Auth
-  alias ElixirLokaliseApi.Model.OAuth2.Token, as: TokenModel
-  alias ElixirLokaliseApi.Projects
   alias ElixirLokaliseApi.Collection.Projects, as: ProjectsCollection
+  alias ElixirLokaliseApi.Model.OAuth2.Token, as: TokenModel
+  alias ElixirLokaliseApi.OAuth2.Auth
+  alias ElixirLokaliseApi.Projects
 
   doctest Auth
 
@@ -98,7 +98,7 @@ defmodule ElixirLokaliseApi.OAuth2.AuthTest do
     end)
 
     {:ok, %ProjectsCollection{} = projects} = Projects.all(page: 3, limit: 2)
-    project = projects.items |> hd
+    project = projects.items |> hd()
     assert project.name == "First proj"
 
     :oauth2_token |> ElixirLokaliseApi.Config.put_env(nil)

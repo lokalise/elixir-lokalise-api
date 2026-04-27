@@ -2,16 +2,19 @@ defmodule ElixirLokaliseApi.Webhooks do
   @moduledoc """
   Webhooks endpoint.
   """
-  @model ElixirLokaliseApi.Model.Webhook
-  @collection ElixirLokaliseApi.Collection.Webhooks
+  use ElixirLokaliseApi.DynamicResource,
+    import: [:item_reader, :find2, :all2, :create2, :update3, :delete2]
+
+  alias ElixirLokaliseApi.Collection.Webhooks
+  alias ElixirLokaliseApi.Model.Webhook
+
+  @model Webhook
+  @collection Webhooks
   @endpoint "projects/{!:project_id}/webhooks/{:webhook_id}/{:_postfix}"
   @data_key :webhooks
   @singular_data_key :webhook
   @parent_key :project_id
   @item_key :webhook_id
-
-  use ElixirLokaliseApi.DynamicResource,
-    import: [:item_reader, :find2, :all2, :create2, :update3, :delete2]
 
   @doc """
   Regenerates secret key for a webhook.

@@ -3,17 +3,20 @@ defmodule ElixirLokaliseApi.Files do
   Files endpoint.
   """
 
+  use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :foreign_model, :all2, :delete2]
+
+  alias ElixirLokaliseApi.Collection.Files
+  alias ElixirLokaliseApi.Model.QueuedProcess
+
   @model ElixirLokaliseApi.Model.File
-  @collection ElixirLokaliseApi.Collection.Files
+  @collection Files
   @endpoint "projects/{!:project_id}/files/{:file_id}/{:_postfix}"
   @data_key :files
   @singular_data_key nil
   @parent_key :project_id
-  @foreign_model ElixirLokaliseApi.Model.QueuedProcess
+  @foreign_model QueuedProcess
   @foreign_data_key :process
   @item_key :file_id
-
-  use ElixirLokaliseApi.DynamicResource, import: [:item_reader, :foreign_model, :all2, :delete2]
 
   @spec download(any, any) :: {:error, atom | binary | {map, integer}} | {:ok, map}
   @doc """

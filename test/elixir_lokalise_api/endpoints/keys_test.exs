@@ -1,10 +1,10 @@
 defmodule ElixirLokaliseApi.KeysTest do
   use ElixirLokaliseApi.Case, async: true
 
-  alias ElixirLokaliseApi.Pagination
-  alias ElixirLokaliseApi.Keys
   alias ElixirLokaliseApi.Collection.Keys, as: KeysCollection
+  alias ElixirLokaliseApi.Keys
   alias ElixirLokaliseApi.Model.Key, as: KeyModel
+  alias ElixirLokaliseApi.Pagination
 
   doctest Keys
 
