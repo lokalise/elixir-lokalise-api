@@ -13,7 +13,7 @@
       path: branching
 - title: Audit logs
   path: audit-logs
-  sub_path:
+  sub_paths:
     - title: List audit logs
       path: list-audit-logs
 - title: Branches
