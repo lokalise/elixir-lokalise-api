@@ -7,6 +7,11 @@ defmodule ElixirLokaliseApi.RequestTest do
     def endpoint, do: "/dummy"
   end
 
+  defmodule DummyV1Endpoint do
+    def endpoint, do: "/dummy"
+    def request_for, do: :api_v1
+  end
+
   defmodule DummyEndpointWithQuery do
     def endpoint, do: "/dummy?foo=bar"
   end
@@ -122,5 +127,38 @@ defmodule ElixirLokaliseApi.RequestTest do
     result = Request.maybe_add_json_content_type(headers, body)
 
     assert result == headers
+  end
+
+  test "do_request uses endpoint request target" do
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch, _opts ->
+      assert req.path == "/v1/dummy"
+
+      assert {"x-api-token", _token} =
+               Enum.find(req.headers, fn {key, _value} ->
+                 String.downcase(key) == "x-api-token"
+               end)
+
+      {:error, %Finch.Error{reason: :timeout}}
+    end)
+
+    assert {:error, :timeout} =
+             Request.do_request(:get, DummyV1Endpoint, [])
+  end
+
+  test "explicit request target overrides endpoint request target" do
+    ElixirLokaliseApi.HTTPClientMock
+    |> expect(:request, fn req, _finch, _opts ->
+      assert req.path == "/api2/dummy"
+
+      {:error, %Finch.Error{reason: :timeout}}
+    end)
+
+    assert {:error, :timeout} =
+             Request.do_request(
+               :get,
+               DummyV1Endpoint,
+               for: :api
+             )
   end
 end

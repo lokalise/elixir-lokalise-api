@@ -2,6 +2,52 @@
 ---
 # Changelog
 
+## 4.2.0 (27-Jul-2026)
+
+* Added support for Lokalise API v1 endpoints
+* Added the Audit Logs endpoint through `ElixirLokaliseApi.V1.AuditLogs`
+* Added a separate `:base_url_api_v1` configuration option for API v1 requests
+* Added cursor pagination support for API v1 collections
+* Added `ElixirLokaliseApi.CursorPagination` helpers for checking and retrieving the next cursor
+* Updated URL generation to prevent duplicate slashes when joining base URLs and endpoint paths
+
+Audit logs can be fetched as follows:
+
+```elixir
+alias ElixirLokaliseApi.CursorPagination
+alias ElixirLokaliseApi.V1.AuditLogs
+
+{:ok, audit_logs} = AuditLogs.all(limit: 2)
+
+audit_log = List.first(audit_logs.items)
+
+audit_log.class_uid # => 6003
+audit_log.class_name # => "API Activity"
+audit_log.metadata.event_code # => "project.deleted"
+
+audit_logs.has_more # => true
+audit_logs.next_cursor # => "eyJpZCI6..."
+```
+
+Use the returned cursor to fetch the next collection:
+
+```elixir
+{:ok, next_audit_logs} =
+  AuditLogs.all(
+    limit: 2,
+    cursor: CursorPagination.next_cursor(audit_logs)
+  )
+```
+
+API v1 endpoints use a separate base URL configuration:
+
+```elixir
+config :elixir_lokalise_api,
+  base_url_api_v1: "https://api.lokalise.com/v1/"
+```
+
+The default API v1 base URL is already configured, so this option is only required when overriding it.
+
 ## 4.1.1 (01-Mar-2026)
 
 * Better error handling for missing token

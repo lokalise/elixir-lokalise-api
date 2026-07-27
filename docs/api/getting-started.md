@@ -118,14 +118,65 @@ projects |> Pagination.prev_page() # => What is the number of the previous page?
 
 ### Cursor pagination
 
-The [List Keys](https://developers.lokalise.com/reference/list-all-keys) and [List Translations](https://developers.lokalise.com/reference/list-all-translations) endpoints support cursor pagination, which is recommended for its faster performance compared to traditional "offset" pagination. By default, "offset" pagination is used, so you must explicitly set `pagination` to `"cursor"` to use cursor pagination:
+The client supports two cursor pagination formats.
+
+#### APIv2 cursor pagination
+
+The [List Keys](https://developers.lokalise.com/reference/list-all-keys) and [List Translations](https://developers.lokalise.com/reference/list-all-translations) endpoints support cursor pagination, which is recommended for its faster performance compared to traditional offset pagination.
+
+Offset pagination is used by default, so you must explicitly set `pagination` to `"cursor"`:
 
 ```elixir
-{:ok, %KeysCollection{} = keys} = Keys.all(@project_id, limit: 2, pagination: "cursor", cursor: "eyIxIjozNzk3ODEzODh9")
+{:ok, %KeysCollection{} = keys} =
+  Keys.all(
+    @project_id,
+    limit: 2,
+    pagination: "cursor",
+    cursor: "eyIxIjozNzk3ODEzODh9"
+  )
 
 keys.per_page_limit # => 2
 keys.next_cursor # => "eyIxIjo0NTc4NDUxMDd9"
 ```
+
+For these APIv2 endpoints, pagination information is returned in HTTP response headers and added to the resulting collection.
+
+#### API v1 cursor pagination
+
+API v1 endpoints, such as [List Audit Logs](https://developers.lokalise.com/reference/list-audit-logs), use a different cursor pagination format.
+
+You do not need to set `pagination: "cursor"`. The pagination information is returned directly in the response body as `has_more` and `next_cursor`:
+
+```elixir
+alias ElixirLokaliseApi.CursorPagination
+alias ElixirLokaliseApi.V1.AuditLogs
+
+{:ok, audit_logs} = AuditLogs.all(limit: 2)
+
+audit_logs.has_more # => true
+audit_logs.next_cursor # => "eyJpZCI6..."
+```
+
+You can use `CursorPagination` helpers to inspect the collection:
+
+```elixir
+CursorPagination.has_more?(audit_logs) # => true
+CursorPagination.next_cursor?(audit_logs) # => true
+CursorPagination.last_page?(audit_logs) # => false
+CursorPagination.next_cursor(audit_logs) # => "eyJpZCI6..."
+```
+
+Pass the returned cursor to fetch the next collection:
+
+```elixir
+{:ok, next_audit_logs} =
+  AuditLogs.all(
+    limit: 2,
+    cursor: CursorPagination.next_cursor(audit_logs)
+  )
+```
+
+API v1 endpoints use the separately configurable `:base_url_api_v1` base URL. APIv2 endpoints continue to use `:base_url_api`.
 
 ## Branching
 

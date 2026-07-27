@@ -58,7 +58,16 @@ defmodule ElixirLokaliseApi.UrlGenerator do
     end
   end
 
-  defp full_url(path, url_for), do: Config.base_url(url_for) <> path
+  defp full_url(path, url_for) do
+    base_url =
+      url_for
+      |> Config.base_url()
+      |> String.trim_trailing("/")
+
+    path = String.trim_leading(path, "/")
+
+    "#{base_url}/#{path}"
+  end
 
   defp clean(url), do: url |> String.replace_trailing("/", "")
 

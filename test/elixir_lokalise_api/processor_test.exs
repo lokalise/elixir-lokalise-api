@@ -14,6 +14,7 @@ defmodule ElixirLokaliseApi.ProcessorTest do
       :page_count,
       :per_page_limit,
       :current_page,
+      :has_more,
       :next_cursor
     ]
   end
@@ -28,7 +29,7 @@ defmodule ElixirLokaliseApi.ProcessorTest do
     def parent_key, do: nil
   end
 
-  test "pagination_for keeps non-numeric pagination header values as strings" do
+  test "parses pagination data from headers and response body" do
     headers = [
       {"X-Pagination-Total-Count", "abc"},
       {"x-pagination-page-count", "10"}
@@ -36,7 +37,9 @@ defmodule ElixirLokaliseApi.ProcessorTest do
 
     body =
       Jason.encode!(%{
-        items: [%{id: 1}]
+        items: [%{id: 1}],
+        has_more: true,
+        next_cursor: "next-cursor-value"
       })
 
     resp = %Finch.Response{
@@ -45,9 +48,15 @@ defmodule ElixirLokaliseApi.ProcessorTest do
       body: body
     }
 
-    {:ok, %DummyCollection{} = col} = Processor.parse(resp, DummyModule, nil)
+    {:ok, %DummyCollection{} = collection} =
+      Processor.parse(resp, DummyModule, nil)
 
-    assert col.total_count == "abc"
-    assert col.page_count == 10
+    assert [%DummyModel{id: 1}] = collection.items
+
+    assert collection.total_count == "abc"
+    assert collection.page_count == 10
+
+    assert collection.has_more
+    assert collection.next_cursor == "next-cursor-value"
   end
 end

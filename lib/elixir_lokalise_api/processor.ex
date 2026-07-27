@@ -95,6 +95,7 @@ defmodule ElixirLokaliseApi.Processor do
       |> add_data_by_key(:language_iso, raw_json)
       |> add_data_by_key(:errors, raw_json)
       |> pagination_for(resp_headers)
+      |> cursor_pagination_for(raw_json)
 
     module.collection() |> struct(struct_data)
   end
@@ -125,6 +126,12 @@ defmodule ElixirLokaliseApi.Processor do
           acc |> Map.put(formatted_header, parsed_value)
       end
     end)
+  end
+
+  defp cursor_pagination_for(struct_data, raw_json) do
+    struct_data
+    |> add_data_by_key(:has_more, raw_json)
+    |> add_data_by_key(:next_cursor, raw_json)
   end
 
   defp get_header(headers, key) do

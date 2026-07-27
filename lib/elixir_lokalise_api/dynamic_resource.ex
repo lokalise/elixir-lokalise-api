@@ -15,20 +15,19 @@ defmodule ElixirLokaliseApi.DynamicResource do
   defmacro __using__(options) do
     # coveralls-ignore-start
     import_functions = options[:import] || []
-    # coveralls-ignore-stop
 
     quote bind_quoted: [import_functions: import_functions] do
       @dynamic_resource_import_functions import_functions
       @before_compile ElixirLokaliseApi.DynamicResource
     end
+
+    # coveralls-ignore-stop
   end
 
   defmacro __before_compile__(env) do
     # coveralls-ignore-start
     import_functions =
       Module.get_attribute(env.module, :dynamic_resource_import_functions) || []
-
-    # coveralls-ignore-stop
 
     quote bind_quoted: [import_functions: import_functions] do
       alias ElixirLokaliseApi.Request
@@ -275,5 +274,7 @@ defmodule ElixirLokaliseApi.DynamicResource do
       defp make_request(verb, params, other_params),
         do: Request.do_request(verb, __MODULE__, make_params(params, other_params))
     end
+
+    # coveralls-ignore-stop
   end
 end
