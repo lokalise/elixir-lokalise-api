@@ -20,5 +20,6 @@ You can also override the default host URLs:
 
 ```elixir
 config :elixir_lokalise_api, base_url_api: "YOUR_API_BASE_URL"
+config :elixir_lokalise_api, base_url_api_v1: "YOUR_API_BASE_URL_v1"
 config :elixir_lokalise_api, base_url_oauth2: "YOUR_OAUTH2_BASE_URL"
 ```

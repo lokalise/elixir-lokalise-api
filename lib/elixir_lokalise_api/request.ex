@@ -22,7 +22,7 @@ defmodule ElixirLokaliseApi.Request do
   @spec do_request(method(), module(), Keyword.t()) ::
           {:ok, struct() | map()} | {:error, atom() | String.t() | {map(), non_neg_integer()}}
   def do_request(verb, module, opts) do
-    opts = prepare_opts(opts)
+    opts = prepare_opts(module, opts)
 
     url =
       module
@@ -93,7 +93,7 @@ defmodule ElixirLokaliseApi.Request do
     |> URI.to_string()
   end
 
-  defp build_headers(:api) do
+  defp build_headers(api) when api in [:api, :api_v1] do
     base = build_headers(:base)
 
     case Config.oauth2_token() do
@@ -119,5 +119,16 @@ defmodule ElixirLokaliseApi.Request do
     ]
   end
 
-  defp prepare_opts(opts), do: Keyword.merge(@defaults, opts)
+  defp prepare_opts(module, opts) do
+    request_target =
+      if function_exported?(module, :request_for, 0) do
+        module.request_for()
+      else
+        @defaults[:for]
+      end
+
+    @defaults
+    |> Keyword.put(:for, request_target)
+    |> Keyword.merge(opts)
+  end
 end
