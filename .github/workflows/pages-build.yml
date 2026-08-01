@@ -21,7 +21,7 @@ jobs:
       run:
         working-directory: docs
     steps:
-      - uses: actions/checkout@v7.0.0
+      - uses: actions/checkout@v7.0.1
 
       - uses: ruby/setup-ruby@v1.321.0
         with:
